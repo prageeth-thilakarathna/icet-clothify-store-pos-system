@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox prefHeight="274.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.user.FormController">
+   <children>
+      <ScrollPane focusTraversable="false" prefHeight="302.0" prefWidth="615.0" style="-fx-border-color: #f4f4f4;">
+         <content>
+            <VBox prefHeight="230.0" prefWidth="592.0">
+               <children>
+                  <HBox prefHeight="25.0" prefWidth="609.0">
+                     <children>
+                        <Label text="E-mail" textFill="#2f3548">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="10.0" text="Password" textFill="#2f3548">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="242.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="BASELINE_LEFT" prefHeight="32.0" prefWidth="609.0">
+                     <children>
+                        <TextField focusTraversable="false" layoutX="30.0" layoutY="10.0" prefWidth="264.0" style="-fx-border-radius: 10px; -fx-border-color: #353c52; -fx-background-radius: 10px; -fx-background-color: #d9d9d9;">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <PasswordField focusTraversable="false" prefWidth="200.0" style="-fx-border-radius: 10px; -fx-border-color: #353c52; -fx-background-radius: 10px; -fx-background-color: #d9d9d9;">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </PasswordField>
+                        <CheckBox focusTraversable="false" mnemonicParsing="false" text="Show" textFill="#2f3548">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </CheckBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="19.0" prefWidth="609.0">
+                     <children>
+                        <Label prefHeight="19.0" prefWidth="274.0" text="* Error message" textFill="#bd1116">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="314.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="30.0" prefHeight="25.0" prefWidth="609.0">
+                     <children>
+                        <Label text="User Role" textFill="#2f3548">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="10.0" text="Status" textFill="#2f3548">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="222.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="32.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox focusTraversable="false" prefHeight="32.0" prefWidth="264.0" promptText="Select a User Role" style="-fx-border-radius: 10px; -fx-border-color: #353c52; -fx-background-radius: 10px; -fx-background-color: #d9d9d9;" visibleRowCount="3">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                        <ComboBox focusTraversable="false" layoutX="30.0" layoutY="10.0" prefHeight="32.0" prefWidth="264.0" promptText="Select a Status" style="-fx-border-radius: 10px; -fx-border-color: #353c52; -fx-background-radius: 10px; -fx-background-color: #d9d9d9;" visibleRowCount="3">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ComboBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="32.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="Register" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="30.0" layoutY="10.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #353c52; -fx-background-radius: 10px;" text="Modify" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="115.0" layoutY="10.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #ea3e43; -fx-background-radius: 10px;" text="Delete" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

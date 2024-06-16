@@ -1,0 +1,11 @@
+.tblView {
+    -fx-background-color: #d9d9d9;
+    -fx-border-color: #353c52;
+}
+
+.col {
+    -fx-background-color: #b4b4b3;
+    -fx-font: 14 System;
+    -fx-font-weight: 700;
+    -fx-border-color: #353c52;
+}
