@@ -1,3 +1,18 @@
 
-_
-java:S2094"BRemove this empty class, write its code or make it an "interface".(ƒΉΊÿ8Γ‚€Ώ2
+w
+java:S3740"/Provide the parametrized type for this generic.( ‹ςΐόÿÿÿÿ8ωμ«‚2J$87a2d58c-f82d-48db-896d-ce30424c401f
+r
+java:S3740"/Provide the parametrized type for this generic.(ξ©ί8ωμ«‚2J$08f85813-d893-4a31-b420-b7460b9a76a4
+Ι
+java:S1186%"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(φ½®ωÿÿÿÿ8ωμ«‚2J$3069c98d-3225-44b0-9e55-ff877705af80
+Ι
+java:S1186)"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ζΈΖ­ϊÿÿÿÿ8ωμ«‚2J$949dabe4-3f24-4cc9-ba10-022167c63d14
+Ι
+java:S1186-"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒ‚ήϋÿÿÿÿ8ωμ«‚2J$eff1aa8b-80cd-45d1-868c-e8104fcdb383
+Ι
+java:S11861"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ψ°…Μψÿÿÿÿ8ωμ«‚2J$2b976a29-47de-4f02-af7b-4999717d2532
+Ι
+java:S11864"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Γ°ώοϋÿÿÿÿ8ωμ«‚2J$4eaf1c29-b574-475a-a9de-d9d0474b8bf1
+~	java:S125""<This block of commented-out lines of code should be removed.(Χ‘Ο›8’ωμ«‚2J$feead0e7-4483-463f-9bab-53441981470c
+ƒ	java:S125@"<This block of commented-out lines of code should be removed.(Ò£ϊόÿÿÿÿ8’ωμ«‚2J$45d30fb6-a687-42d3-8fe8-025520618006
+m	java:S106C"+Replace this use of System.out by a logger.(ΓÿΜύ8’ωμ«‚2J$5245b902-1747-4170-b18c-8b44aee86b2f

@@ -17,7 +17,7 @@
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="1169.0" style="-fx-background-color: #353c52;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="2024-06-03" textFill="WHITE">
+            <Label fx:id="dspDate" text="2024-06-03" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -30,7 +30,7 @@
                   <Insets right="30.0" />
                </HBox.margin>
             </Separator>
-            <Label text="10:20:48" textFill="WHITE">
+            <Label fx:id="dspTime" text="10:20:48" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
