@@ -1,0 +1,29 @@
+
+‰
+java:S1192r"FDefine a constant instead of duplicating this literal "admin" 3 times.(Ð—ïÞ8ð½™Ø‚2J$2c457cd1-1915-4e2f-a647-858e61afe66c
+É
+java:S11868"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(öŒ½®ùÿÿÿÿ8…¾™Ø‚2J$a139fd63-028a-4e36-a830-775c4dd20a94
+É
+java:S1186<"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(æ¸Æ­úÿÿÿÿ8…¾™Ø‚2J$0eee517f-ca06-4d3b-aca7-653738deb8f6
+É
+java:S1186@"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ºç¯¢ÿÿÿÿÿ8…¾™Ø‚2J$2ee899f7-1f2e-4858-ab9a-a3ba4f3150ba
+Ä
+java:S1186e"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(™õ¼è8…¾™Ø‚2J$1ae45948-c086-4a8e-8fb8-d26da5b4e2db
+Ä
+java:S1186i"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ðÙ»Ü8…¾™Ø‚2J$cb94244d-d5c7-43b2-9372-a75886abed3c
+|
+java:S1854r"9Remove this useless assignment to local variable "admin".(Ð—ïÞ8œ¾™Ø‚2J$7f9f670c-8967-441e-8414-aa5689482eaf
+m
+java:S1481r"*Remove this unused "admin" local variable.(Ð—ïÞ8Ÿ¾™Ø‚2J$ea4c86ca-0f69-4333-a92e-a153dfb0704d
+
+java:S1854"8Remove this useless assignment to local variable "user".(Õíªøÿÿÿÿÿ8¢¾™Ø‚2J$dda995f0-8805-49d1-ba89-4437b005ea52
+r
+java:S1481")Remove this unused "user" local variable.(Õíªøÿÿÿÿÿ8£¾™Ø‚2J$20f61b90-8a66-4413-a8c6-4f2404a7b371
+
+java:S1854•"8Remove this useless assignment to local variable "user".(Úáýÿÿÿÿ8§¾™Ø‚2J$8d650aef-510f-4dd9-a8f1-4901852494b2
+r
+java:S1481•")Remove this unused "user" local variable.(Úáýÿÿÿÿ8¨¾™Ø‚2J$78070566-622c-4fde-ae26-87973daee4e7
+R
+java:S1128"5Remove this unused import 'javafx.scene.layout.HBox'.(äê…ž8¢Ø™Ø‚2
+B
+java:S1128"%Remove this unused import 'java.awt'.(ï´µ©8¢Ø™Ø‚2

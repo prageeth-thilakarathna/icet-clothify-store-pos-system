@@ -7,4 +7,6 @@ public interface UserRoleDao extends SuperDao {
     void save(UserRoleEntity userRoleEntity);
 
     UserRoleEntity get(Integer id);
+
+    UserRoleEntity getByName(String name);
 }

@@ -40,4 +40,22 @@ public class UserRoleDaoImpl implements UserRoleDao {
         }
         return userRoleEntity;
     }
+
+    @Override
+    public UserRoleEntity getByName(String name) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        UserRoleEntity userRoleEntity;
+        try{
+            tx = session.beginTransaction();
+            userRoleEntity = session.createQuery("SELECT a FROM UserRoleEntity a WHERE name='"+name+"'", UserRoleEntity.class).getSingleResult();
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return userRoleEntity;
+    }
 }

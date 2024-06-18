@@ -51,3 +51,11 @@ o
 ,src/main/java/edu/icet/pos/util/DaoType.java,d\0\d0faa0ee4ab3cab5f72b388748974473786bba5c
 Y
 )src/main/java/edu/icet/pos/main/Main.java,7\7\77434e78128cc19d2229fbc235c2529c69d9578c
+o
+?src/main/java/edu/icet/pos/controller/auth/LoginController.java,a\5\a5348c33db38a3df73b55380754a481b4451e9d2
+Z
+*src/main/java/edu/icet/pos/model/User.java,b\0\b02605a1b2d10867efb160c0a9b09b2f54157e1a
+w
+Gsrc/main/java/edu/icet/pos/controller/dashboard/NavPanelController.java,b\f\bf01dbccf242494e9ffc8f4eef24fb9409bcbfb6
+u
+Esrc/main/java/edu/icet/pos/controller/dashboard/HeaderController.java,1\e\1e6dd5c6782755655df0064e923ead5f71170bb7

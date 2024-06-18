@@ -16,3 +16,5 @@ java:S11864"€Add a nested comment explaining why this method is empty, throw a
 ~	java:S125""<This block of commented-out lines of code should be removed.(×‘Ï›8’ùì«‚2J$feead0e7-4483-463f-9bab-53441981470c
 ƒ	java:S125@"<This block of commented-out lines of code should be removed.(Ò£úüÿÿÿÿ8’ùì«‚2J$45d30fb6-a687-42d3-8fe8-025520618006
 m	java:S106C"+Replace this use of System.out by a logger.(ÃÿÌý8’ùì«‚2J$5245b902-1747-4170-b18c-8b44aee86b2f
+Q
+java:S1128"4Remove this unused import 'edu.icet.pos.bo.SuperBo'.(®üÕç8ÞÚÆÒ‚2

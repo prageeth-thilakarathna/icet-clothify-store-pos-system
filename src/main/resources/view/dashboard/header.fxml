@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="1169.0" style="-fx-background-color: #353c52;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.HeaderController">
+   <children>
+      <Label fx:id="dspDate" text="2024-06-03" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <HBox.margin>
+            <Insets right="30.0" />
+         </HBox.margin>
+      </Label>
+      <Separator orientation="VERTICAL" prefHeight="200.0">
+         <HBox.margin>
+            <Insets right="30.0" />
+         </HBox.margin>
+      </Separator>
+      <Label fx:id="dspTime" text="10:20:48" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <HBox.margin>
+            <Insets right="30.0" />
+         </HBox.margin>
+      </Label>
+      <Separator orientation="VERTICAL" prefHeight="200.0">
+         <HBox.margin>
+            <Insets right="30.0" />
+         </HBox.margin>
+      </Separator>
+      <ImageView fitHeight="40.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/profile-icon.png" />
+         </image>
+         <HBox.margin>
+            <Insets right="30.0" />
+         </HBox.margin>
+      </ImageView>
+      <Label text="Admin" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <HBox.margin>
+            <Insets right="30.0" />
+         </HBox.margin>
+      </Label>
+   </children>
+</HBox>

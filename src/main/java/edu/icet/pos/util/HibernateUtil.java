@@ -1,5 +1,6 @@
 package edu.icet.pos.util;
 
+import edu.icet.pos.entity.UserEntity;
 import edu.icet.pos.entity.UserRoleEntity;
 import javafx.scene.control.Alert;
 import org.hibernate.Session;
@@ -23,6 +24,7 @@ public class HibernateUtil {
 
             Metadata metadata = new MetadataSources(build)
                     .addAnnotatedClass(UserRoleEntity.class)
+                    .addAnnotatedClass(UserEntity.class)
                     .getMetadataBuilder()
                     .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                     .build();
