@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="TOP_CENTER" prefHeight="596.0" prefWidth="258.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.NavPanelController">
    <children>
       <Label text="Clothify Store" textFill="#2f3548">
@@ -21,11 +20,11 @@
             <Insets bottom="20.0" top="20.0" />
          </VBox.margin>
       </Label>
-      <ScrollPane prefHeight="457.0" prefWidth="258.0" style="-fx-background-color: #d9d9d9;">
+      <ScrollPane fx:id="scrollPane" prefHeight="457.0" prefWidth="258.0" style="-fx-background-color: #d9d9d9;">
          <content>
-            <VBox alignment="TOP_CENTER" prefHeight="455.0" prefWidth="256.0" style="-fx-background-color: #d9d9d9;">
+            <VBox fx:id="navSectionVBox" alignment="TOP_CENTER" prefHeight="455.0" prefWidth="256.0" style="-fx-background-color: #d9d9d9;">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Dashboard" textFill="WHITE">
+                  <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#btnDashboardAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Dashboard" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -43,7 +42,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnUser" alignment="BASELINE_LEFT" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnUserAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       User" textFill="WHITE">
+                  <Button fx:id="btnUser" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnUserAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       User" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -64,7 +63,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Category" textFill="WHITE">
+                  <Button fx:id="btnCategory" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Category" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -82,7 +81,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Supplier" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Supplier" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -100,7 +99,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Product" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Product" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -118,7 +117,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Inventory" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Inventory" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -136,7 +135,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" layoutX="38.0" layoutY="88.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Employee" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="88.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Employee" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -154,7 +153,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" layoutX="38.0" layoutY="127.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Order" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="127.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Order" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

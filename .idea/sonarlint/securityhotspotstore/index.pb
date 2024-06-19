@@ -59,3 +59,5 @@ w
 Gsrc/main/java/edu/icet/pos/controller/dashboard/NavPanelController.java,b\f\bf01dbccf242494e9ffc8f4eef24fb9409bcbfb6
 u
 Esrc/main/java/edu/icet/pos/controller/dashboard/HeaderController.java,1\e\1e6dd5c6782755655df0064e923ead5f71170bb7
+s
+Csrc/main/java/edu/icet/pos/controller/dashboard/HomeController.java,3\f\3fb43d7f5425015bb8a698d1fcc46e35d94433f5

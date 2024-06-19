@@ -7,6 +7,9 @@ import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.model.UserRole;
 import edu.icet.pos.util.DaoType;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+
+import java.util.List;
 
 public class UserRoleBoImpl implements UserRoleBo {
     private final UserRoleDao userRoleDao = DaoFactory.getDao(DaoType.USER_ROLE);
@@ -27,5 +30,11 @@ public class UserRoleBoImpl implements UserRoleBo {
     public UserRole getUserRoleByName(String name) {
         assert userRoleDao != null;
         return new ModelMapper().map(userRoleDao.getByName(name), UserRole.class);
+    }
+
+    @Override
+    public List<UserRole> getAllUserRole() {
+        assert userRoleDao != null;
+        return new ModelMapper().map(userRoleDao.getAll(), new TypeToken<List<UserRole>>() {}.getType());
     }
 }

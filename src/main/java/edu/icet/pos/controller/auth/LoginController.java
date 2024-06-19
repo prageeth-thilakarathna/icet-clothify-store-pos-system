@@ -3,6 +3,8 @@ package edu.icet.pos.controller.auth;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.bo.custom.UserRoleBo;
+import edu.icet.pos.controller.CenterController;
+import edu.icet.pos.controller.dashboard.NavPanelController;
 import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.model.User;
 import edu.icet.pos.model.UserRole;
@@ -23,7 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.modelmapper.ModelMapper;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.Date;
 import java.util.Objects;
@@ -71,6 +72,13 @@ public class LoginController implements Initializable {
             User user = userBo.getUserByEmail(txtEmail.getText());
             if(Objects.equals(user.getPassword(), txtPassword.getText())){
                 borderPane.getChildren().removeAll(borderPane.getChildren());
+                Parent parentHeader = new FXMLLoader(getClass().getResource("/view/dashboard/header.fxml")).load();
+                VBox topVBox = new VBox();
+                topVBox.setPrefWidth(1169);
+                topVBox.setPrefHeight(60);
+                topVBox.getChildren().add(parentHeader);
+                borderPane.setTop(topVBox);
+
                 Parent parentNavPanel = new FXMLLoader(getClass().getResource("/view/dashboard/navPanel.fxml")).load();
                 VBox leftVBox = new VBox();
                 leftVBox.setPrefWidth(258);
@@ -78,12 +86,14 @@ public class LoginController implements Initializable {
                 leftVBox.getChildren().add(parentNavPanel);
                 borderPane.setLeft(leftVBox);
 
-                Parent parentHeader = new FXMLLoader(getClass().getResource("/view/dashboard/header.fxml")).load();
-                VBox topVBox = new VBox();
-                topVBox.setPrefWidth(1169);
-                topVBox.setPrefHeight(60);
-                topVBox.getChildren().add(parentHeader);
-                borderPane.setTop(topVBox);
+                // load home page
+                BorderPane pageBorderPane = CenterController.getInstance().getPageBorderPane();
+                HBox pageTop = CenterController.getInstance().getPageTop();
+                Label pageHeader = CenterController.getInstance().getPageHeader();
+                pageHeader.setText("Dashboard");
+                pageTop.getChildren().add(pageHeader);
+                pageBorderPane.setTop(pageTop);
+                borderPane.setCenter(pageBorderPane);
 
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -92,7 +102,7 @@ public class LoginController implements Initializable {
             }
         } catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
+            alert.setContentText(e.toString());
             alert.show();
         }
     }

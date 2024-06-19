@@ -2,9 +2,12 @@ package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.UserRoleDao;
 import edu.icet.pos.entity.UserRoleEntity;
+import edu.icet.pos.model.UserRole;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 public class UserRoleDaoImpl implements UserRoleDao {
     @Override
@@ -57,5 +60,23 @@ public class UserRoleDaoImpl implements UserRoleDao {
             session.close();
         }
         return userRoleEntity;
+    }
+
+    @Override
+    public List<UserRoleEntity> getAll() {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        List<UserRoleEntity> userRoleEntityList;
+        try {
+            tx = session.beginTransaction();
+            userRoleEntityList = session.createQuery("SELECT a FROM UserRoleEntity a", UserRoleEntity.class).getResultList();
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return userRoleEntityList;
     }
 }
