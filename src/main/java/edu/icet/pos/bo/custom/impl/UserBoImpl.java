@@ -22,4 +22,10 @@ public class UserBoImpl implements UserBo {
         assert userDao != null;
         return new ModelMapper().map(userDao.getByEmail(email), User.class);
     }
+
+    @Override
+    public User getUser(Integer id) {
+        assert userDao != null;
+        return new ModelMapper().map(userDao.get(id), User.class);
+    }
 }

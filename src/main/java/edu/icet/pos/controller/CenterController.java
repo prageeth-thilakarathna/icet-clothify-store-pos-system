@@ -1,12 +1,17 @@
 package edu.icet.pos.controller;
 
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import lombok.Getter;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @Getter
 public class CenterController {
@@ -45,6 +50,28 @@ public class CenterController {
             instance = new CenterController();
         }
         return instance;
+    }
+
+    public String encryptPassword(String password) {
+        try{
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(password.getBytes());
+
+            byte[] bytes = m.digest();
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for(int i=0; i<bytes.length; i++){
+                stringBuilder.append(Integer.toString((bytes[i] & 0xff) + 0*100, 16).substring(1));
+            }
+            return stringBuilder.toString();
+
+        } catch (NoSuchAlgorithmException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+        return null;
     }
 
 

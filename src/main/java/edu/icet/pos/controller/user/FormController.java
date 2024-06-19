@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.bo.custom.UserRoleBo;
+import edu.icet.pos.controller.CenterController;
+import edu.icet.pos.controller.user.custom.UserCustom;
 import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.model.User;
 import edu.icet.pos.model.UserRole;
@@ -13,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import org.modelmapper.ModelMapper;
@@ -25,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class FormController implements Initializable {
+public class FormController extends Node implements UserCustom {
     @FXML
     private Button btnCancel;
     @FXML
@@ -51,6 +54,7 @@ public class FormController implements Initializable {
 
     private UserRoleBo userRoleBo = BoFactory.getBo(BoType.USER_ROLE);
     private UserBo userBo = BoFactory.getBo(BoType.USER);
+    private User searchUser;
 
     @FXML
     private void emailKeyPressed(KeyEvent keyEvent) {
@@ -59,11 +63,12 @@ public class FormController implements Initializable {
     @FXML
     private void emailKeyTyped(KeyEvent keyEvent) {
         validateInputs();
+        validateModify();
     }
 
     @FXML
     private void passwordKeyPressed(KeyEvent keyEvent) {
-        //System.out.println(txtPassword.getText());
+
     }
 
     @FXML
@@ -100,7 +105,7 @@ public class FormController implements Initializable {
         if(!doesUserAlreadyExist()){
             User user = new User();
             user.setEMail(txtEmail.getText());
-            user.setPassword(encryptPassword());
+            user.setPassword(CenterController.getInstance().encryptPassword(txtPassword.getText()));
             user.setRegisterAt(new Date());
             user.setModifyAt(new Date());
             user.setIsActive(Objects.equals(optStatus.getValue(), "Active"));
@@ -147,29 +152,6 @@ public class FormController implements Initializable {
         }
     }
 
-    private String encryptPassword() {
-        try{
-            MessageDigest m = MessageDigest.getInstance("MD5");
-            m.update(txtPassword.getText().getBytes());
-
-            byte[] bytes = m.digest();
-
-            StringBuilder stringBuilder = new StringBuilder();
-
-            for(int i=0; i<bytes.length; i++){
-                stringBuilder.append(Integer.toString((bytes[i] & 0xff) + 0*100, 16).substring(1));
-            }
-
-            return stringBuilder.toString();
-
-        } catch (NoSuchAlgorithmException e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.show();
-        }
-        return null;
-    }
-
     @FXML
     private void btnModifyAction(ActionEvent actionEvent) {
     }
@@ -198,10 +180,13 @@ public class FormController implements Initializable {
         int emailLength = txtEmail.getLength();
         int passwordLength = txtPassword.getLength();
 
-        if(emailLength>4 && passwordLength>=8 && optUserRole.getValue()!=null && optStatus.getValue()!=null){
+        if(emailLength>4 && passwordLength>=8 && optUserRole.getValue()!=null && optStatus.getValue()!=null && searchUser!=null){
             btnRegister.setDisable(false);
         } else {
             btnRegister.setDisable(true);
+            if(searchUser!=null){
+                //validateModify();
+            }
         }
 
         if(emailLength>0 || passwordLength>0 || optUserRole.getValue()!=null || optStatus.getValue()!=null){
@@ -209,8 +194,20 @@ public class FormController implements Initializable {
         } else {
             btnCancel.setDisable(true);
         }
+    }
 
-
+    private void validateModify(){
+        if(!Objects.equals(searchUser.getEMail(), txtEmail.getText())){
+            btnModify.setDisable(false);
+            //System.out.println("search : "+searchUser.getEMail());
+            //System.out.println("txt : "+txtEmail.getText());
+        } else if(searchUser.getUserRole().getName().substring(0, 1).toUpperCase() + searchUser.getUserRole().getName().substring(1)!=optUserRole.getValue()) {
+            //btnModify.setDisable(false);
+        } else if(searchUser.getIsActive()==true ? optStatus.getValue()!="Active":optStatus.getValue()!="Disable"){
+            //btnModify.setDisable(false);
+        } else {
+            btnModify.setDisable(true);
+        }
     }
 
     private ObservableList<String> getUserRole(){
@@ -236,6 +233,17 @@ public class FormController implements Initializable {
     }
 
     @Override
+    public void loadUserToForm(User user) {
+        searchUser = user;
+        btnDelete.setDisable(false);
+        txtEmail.setText(user.getEMail());
+        txtPassword.setDisable(true);
+        passwordCheckBox.setDisable(true);
+        optUserRole.setValue(user.getUserRole().getName().substring(0, 1).toUpperCase() + user.getUserRole().getName().substring(1));
+        optStatus.setValue(user.getIsActive()== true ? "Active":"Disable");
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Tooltip tooltip = new Tooltip("8 characters or more.\nincluding numbers, letters, and symbols.");
         tooltip.setStyle("-fx-font-size: 14px");
@@ -248,6 +256,7 @@ public class FormController implements Initializable {
         btnCancel.setDisable(true);
         btnModify.setDisable(true);
         btnDelete.setDisable(true);
+
 
 
 

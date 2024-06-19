@@ -41,4 +41,22 @@ public class UserDaoImpl implements UserDao {
         }
         return userEntity;
     }
+
+    @Override
+    public UserEntity get(Integer id) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        UserEntity userEntity;
+        try {
+            tx = session.beginTransaction();
+            userEntity = session.get(UserEntity.class, id);
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return userEntity;
+    }
 }

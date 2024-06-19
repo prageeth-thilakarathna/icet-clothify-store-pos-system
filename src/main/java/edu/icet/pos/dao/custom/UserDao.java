@@ -7,4 +7,6 @@ public interface UserDao extends SuperDao {
     void save(UserEntity userEntity);
 
     UserEntity getByEmail(String email);
+
+    UserEntity get(Integer id);
 }

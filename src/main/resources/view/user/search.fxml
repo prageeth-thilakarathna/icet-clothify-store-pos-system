@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -36,7 +37,7 @@
                         </HBox>
                         <HBox alignment="BASELINE_LEFT" prefHeight="32.0" prefWidth="298.0">
                            <children>
-                              <TextField focusTraversable="false" prefWidth="244.0" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
+                              <TextField fx:id="txtUserId" focusTraversable="false" onKeyTyped="#userIdKeyTyped" prefWidth="244.0" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -48,15 +49,18 @@
                         </HBox>
                         <HBox prefHeight="32.0" prefWidth="298.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="Search" textFill="WHITE">
+                              <Button fx:id="btnSearch" focusTraversable="false" mnemonicParsing="false" onAction="#btnSearchAction" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="Search" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="20.0" right="20.0" />
                                  </HBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #353c52; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+                              <Button fx:id="btnCancel" focusTraversable="false" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #353c52; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -66,6 +70,9 @@
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                            <VBox.margin>
@@ -82,7 +89,7 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label layoutX="30.0" layoutY="10.0" text="2024-06-15 10:20:53">
+                              <Label fx:id="dspRegisterAt" layoutX="30.0" layoutY="10.0" prefHeight="20.0" prefWidth="160.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -105,7 +112,7 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label layoutX="30.0" layoutY="10.0" text="2024-06-15 14:43:12">
+                              <Label fx:id="dspModifyAt" layoutX="30.0" layoutY="10.0" prefHeight="20.0" prefWidth="160.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

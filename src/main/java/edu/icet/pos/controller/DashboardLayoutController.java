@@ -1,5 +1,7 @@
 package edu.icet.pos.controller;
 
+import edu.icet.pos.controller.user.FormController;
+import edu.icet.pos.controller.user.UserCenterController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -35,6 +37,8 @@ public class DashboardLayoutController implements Initializable {
     @FXML
     private Button btnUser;
 
+    //private FXMLLoader fxmlLoaderForm;
+
     @FXML
     private void btnUserAction() throws IOException {
 
@@ -63,7 +67,13 @@ public class DashboardLayoutController implements Initializable {
         header.setText("User");
         loadDateAndTime();
         try{
-            Parent parentForm = new FXMLLoader(getClass().getResource("/view/user/form.fxml")).load();
+            //FormController formController = FormController.getInstance();
+            FXMLLoader fxmlLoaderForm = UserCenterController.getInstance().getFxmlLoaderForm();
+            //fxmlLoaderForm = new FXMLLoader(getClass().getResource("/view/user/form.fxml"));
+            //fxmlLoaderForm.setController(formController);
+
+            Parent parentForm = fxmlLoaderForm.load();
+
             centerVBox.getChildren().clear();
             centerVBox.getChildren().add(parentForm);
             btnUser.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
@@ -76,7 +86,7 @@ public class DashboardLayoutController implements Initializable {
             bottomVBox.getChildren().clear();
             bottomVBox.getChildren().add(parentView);
         } catch (IOException e) {
-
+            System.out.println(e.getMessage());
         }
     }
 }
