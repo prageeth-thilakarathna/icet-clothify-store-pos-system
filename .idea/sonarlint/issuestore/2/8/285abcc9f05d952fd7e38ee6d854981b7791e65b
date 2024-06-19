@@ -1,8 +1,12 @@
 
 ´
-java:S1130+"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(‰é§Ùþÿÿÿÿ8ŒºÖƒƒ2J$7bab0c7a-3dd1-4913-92cb-1d137befb9a4
-ƒ	java:S125("<This block of commented-out lines of code should be removed.(ÅõÄ±ÿÿÿÿÿ8ºÖƒƒ2J$147567dd-c387-4303-91e5-e392840e62aa
-~	java:S125-"<This block of commented-out lines of code should be removed.(”“¢ÿ8ŽºÖƒƒ2J$c7948295-18a7-4b6f-83e7-24f5e03921a8
-}	java:S125F"<This block of commented-out lines of code should be removed.(ãÙì8“ºÖƒƒ2J$b12e9240-45ae-4806-8374-e7cdb4f5b1b1
-}	java:S125H"<This block of commented-out lines of code should be removed.(ˆˆ;8ŽÚÞƒƒ2J$c93b6dfe-aad0-4723-8c8a-79a58797f872
-r	java:S106Y"+Replace this use of System.out by a logger.(©þêÜúÿÿÿÿ8œºÖƒƒ2J$b98bcc81-b2c7-4118-8cc5-b68b9f097f3b
+java:S1130-"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(‰é§Ùþÿÿÿÿ8œØÜ‘ƒ2J$f947acfe-41fa-44d8-b29a-8462ecbed187
+ƒ	java:S125*"<This block of commented-out lines of code should be removed.(ÅõÄ±ÿÿÿÿÿ8œØÜ‘ƒ2J$2ea870b1-4390-4a2a-976c-3dcefd8a4817
+~	java:S125/"<This block of commented-out lines of code should be removed.(”“¢ÿ8œØÜ‘ƒ2J$36b220f4-2f79-419f-8f13-b102ee2bae40
+r	java:S106Z"+Replace this use of System.out by a logger.(©þêÜúÿÿÿÿ8»ØÜ‘ƒ2J$c16e2f97-c13b-45d4-bcc9-f23c659c3ac2
+
+java:S1128"HRemove this unused import 'edu.icet.pos.controller.user.FormController'.(•Ä–¡ÿÿÿÿÿ8ï¯ç‘ƒ2J$0cfd6489-3fd4-421c-9fab-a5e9efa70652
+
+java:S1128"JRemove this unused import 'edu.icet.pos.controller.user.SearchController'.(ô±Ù8ï¯ç‘ƒ2J$03874752-d8af-4f02-bc40-5926a193bcd2
+”
+java:S1128"QRemove this unused import 'edu.icet.pos.controller.user.custom.UserSearchCustom'.(ˆ…Ð8ï¯ç‘ƒ2J$f58d85bb-8173-467a-bf17-06322da81937

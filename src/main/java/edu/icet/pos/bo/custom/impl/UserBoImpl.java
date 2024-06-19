@@ -28,4 +28,16 @@ public class UserBoImpl implements UserBo {
         assert userDao != null;
         return new ModelMapper().map(userDao.get(id), User.class);
     }
+
+    @Override
+    public void userUpdate(User user) {
+        assert userDao != null;
+        userDao.update(new ModelMapper().map(user, UserEntity.class));
+    }
+
+    @Override
+    public void userDelete(User user) {
+        assert userDao != null;
+        userDao.delete(new ModelMapper().map(user, UserEntity.class));
+    }
 }

@@ -5,7 +5,8 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.bo.custom.UserRoleBo;
 import edu.icet.pos.controller.CenterController;
-import edu.icet.pos.controller.user.custom.UserCustom;
+import edu.icet.pos.controller.user.custom.UserFormCustom;
+import edu.icet.pos.controller.user.custom.UserSearchCustom;
 import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.model.User;
 import edu.icet.pos.model.UserRole;
@@ -14,21 +15,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import org.modelmapper.ModelMapper;
 
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class FormController extends Node implements UserCustom {
+public class FormController implements UserFormCustom {
     @FXML
     private Button btnCancel;
     @FXML
@@ -52,8 +50,9 @@ public class FormController extends Node implements UserCustom {
     @FXML
     private Button btnRegister;
 
-    private UserRoleBo userRoleBo = BoFactory.getBo(BoType.USER_ROLE);
-    private UserBo userBo = BoFactory.getBo(BoType.USER);
+    private final UserRoleBo userRoleBo = BoFactory.getBo(BoType.USER_ROLE);
+    private final UserBo userBo = BoFactory.getBo(BoType.USER);
+    private final UserSearchCustom userSearchCustom = UserCenterController.getInstance().getFxmlLoaderSearch().getController();
     private User searchUser;
 
     @FXML
@@ -63,7 +62,6 @@ public class FormController extends Node implements UserCustom {
     @FXML
     private void emailKeyTyped(KeyEvent keyEvent) {
         validateInputs();
-        validateModify();
     }
 
     @FXML
@@ -103,15 +101,15 @@ public class FormController extends Node implements UserCustom {
     @FXML
     private void btnRegisterAction(ActionEvent actionEvent) {
         if(!doesUserAlreadyExist()){
-            User user = new User();
-            user.setEMail(txtEmail.getText());
-            user.setPassword(CenterController.getInstance().encryptPassword(txtPassword.getText()));
-            user.setRegisterAt(new Date());
-            user.setModifyAt(new Date());
-            user.setIsActive(Objects.equals(optStatus.getValue(), "Active"));
-            user.setUserRole(new ModelMapper().map(getRole(), UserRoleEntity.class));
-
             try{
+                User user = new User();
+                user.setEMail(txtEmail.getText());
+                user.setPassword(CenterController.getInstance().encryptPassword(txtPassword.getText()));
+                user.setRegisterAt(new Date());
+                user.setModifyAt(new Date());
+                user.setIsActive(Objects.equals(optStatus.getValue(), "Active"));
+                user.setUserRole(new ModelMapper().map(getRole(), UserRoleEntity.class));
+
                 userBo.userRegister(user);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(txtEmail.getText()+" User registration was successful.");
@@ -154,6 +152,33 @@ public class FormController extends Node implements UserCustom {
 
     @FXML
     private void btnModifyAction(ActionEvent actionEvent) {
+        try{
+            User user = new User(
+                    searchUser.getId(),
+                    txtEmail.getText(),
+                    searchUser.getPassword(),
+                    searchUser.getRegisterAt(),
+                    new Date(),
+                    Objects.equals(optStatus.getValue(), "Active"),
+                    new ModelMapper().map(getRole(), UserRoleEntity.class)
+            );
+
+            userBo.userUpdate(user);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(searchUser.getId()+" User modification was successful.");
+            alert.show();
+            searchUser = null;
+            clearForm();
+            txtPassword.setDisable(false);
+            passwordCheckBox.setDisable(false);
+            userSearchCustom.clearSearch();
+
+        } catch (Exception e){
+            System.out.println(e.toString());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
@@ -174,18 +199,22 @@ public class FormController extends Node implements UserCustom {
         optStatus.setValue(null);
         optStatus.setPromptText("   Select a Status");
         passwordCheckBox.setSelected(false);
+        btnRegister.setDisable(true);
+        btnCancel.setDisable(true);
+        btnModify.setDisable(true);
+        btnDelete.setDisable(true);
     }
 
     private void validateInputs(){
         int emailLength = txtEmail.getLength();
         int passwordLength = txtPassword.getLength();
 
-        if(emailLength>4 && passwordLength>=8 && optUserRole.getValue()!=null && optStatus.getValue()!=null && searchUser!=null){
+        if(emailLength>4 && passwordLength>=8 && optUserRole.getValue()!=null && optStatus.getValue()!=null && searchUser==null){
             btnRegister.setDisable(false);
         } else {
             btnRegister.setDisable(true);
             if(searchUser!=null){
-                //validateModify();
+                validateModify();
             }
         }
 
@@ -199,12 +228,10 @@ public class FormController extends Node implements UserCustom {
     private void validateModify(){
         if(!Objects.equals(searchUser.getEMail(), txtEmail.getText())){
             btnModify.setDisable(false);
-            //System.out.println("search : "+searchUser.getEMail());
-            //System.out.println("txt : "+txtEmail.getText());
-        } else if(searchUser.getUserRole().getName().substring(0, 1).toUpperCase() + searchUser.getUserRole().getName().substring(1)!=optUserRole.getValue()) {
-            //btnModify.setDisable(false);
+        } else if(!Objects.equals(searchUser.getUserRole().getName().substring(0, 1).toUpperCase() + searchUser.getUserRole().getName().substring(1), optUserRole.getValue())) {
+            btnModify.setDisable(false);
         } else if(searchUser.getIsActive()==true ? optStatus.getValue()!="Active":optStatus.getValue()!="Disable"){
-            //btnModify.setDisable(false);
+            btnModify.setDisable(false);
         } else {
             btnModify.setDisable(true);
         }
@@ -237,10 +264,23 @@ public class FormController extends Node implements UserCustom {
         searchUser = user;
         btnDelete.setDisable(false);
         txtEmail.setText(user.getEMail());
+        txtPassword.setText("");
+        dspPasswordMessage.setText("");
         txtPassword.setDisable(true);
+        passwordCheckBox.setSelected(false);
         passwordCheckBox.setDisable(true);
         optUserRole.setValue(user.getUserRole().getName().substring(0, 1).toUpperCase() + user.getUserRole().getName().substring(1));
         optStatus.setValue(user.getIsActive()== true ? "Active":"Disable");
+        validateModify();
+
+    }
+
+    @Override
+    public void clearUser() {
+        searchUser = null;
+        clearForm();
+        txtPassword.setDisable(false);
+        passwordCheckBox.setDisable(false);
     }
 
     @Override
@@ -256,8 +296,6 @@ public class FormController extends Node implements UserCustom {
         btnCancel.setDisable(true);
         btnModify.setDisable(true);
         btnDelete.setDisable(true);
-
-
 
 
     }

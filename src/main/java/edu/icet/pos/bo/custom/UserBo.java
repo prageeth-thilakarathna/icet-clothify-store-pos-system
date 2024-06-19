@@ -9,4 +9,8 @@ public interface UserBo extends SuperBo {
     User getUserByEmail(String email);
 
     User getUser(Integer id);
+
+    void userUpdate(User user);
+
+    void userDelete(User user);
 }

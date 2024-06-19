@@ -59,4 +59,36 @@ public class UserDaoImpl implements UserDao {
         }
         return userEntity;
     }
+
+    @Override
+    public void update(UserEntity userEntity) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.merge(userEntity);
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void delete(UserEntity userEntity) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.remove(userEntity);
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
 }

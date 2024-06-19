@@ -9,4 +9,8 @@ public interface UserDao extends SuperDao {
     UserEntity getByEmail(String email);
 
     UserEntity get(Integer id);
+
+    void update(UserEntity userEntity);
+
+    void delete(UserEntity userEntity);
 }

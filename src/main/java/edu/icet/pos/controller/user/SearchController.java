@@ -2,13 +2,12 @@ package edu.icet.pos.controller.user;
 
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
-import edu.icet.pos.controller.CenterController;
-import edu.icet.pos.controller.user.custom.UserCustom;
+import edu.icet.pos.controller.user.custom.UserFormCustom;
+import edu.icet.pos.controller.user.custom.UserSearchCustom;
 import edu.icet.pos.model.User;
 import edu.icet.pos.util.BoType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,7 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
-public class SearchController implements Initializable {
+public class SearchController implements UserSearchCustom {
     @FXML
     private Button btnSearch;
     @FXML
@@ -33,8 +32,9 @@ public class SearchController implements Initializable {
     private TextField txtUserId;
 
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
-    private final UserCustom userCustom = UserCenterController.getInstance().getFxmlLoaderForm().getController();
+    private UserFormCustom userFormCustom;
     private User searchUser;
+
 
     @FXML
     private void btnSearchAction(ActionEvent actionEvent) {
@@ -46,7 +46,8 @@ public class SearchController implements Initializable {
             dspRegisterAt.setText(dateFormat.format(user.getRegisterAt()));
             dspModifyAt.setText(dateFormat.format(user.getModifyAt()));
 
-            userCustom.loadUserToForm(user);
+            userFormCustom = UserCenterController.getInstance().getFxmlLoaderForm().getController();
+            userFormCustom.loadUserToForm(user);
             validateInputs();
 
         } catch (Exception e){
@@ -58,13 +59,18 @@ public class SearchController implements Initializable {
 
     @FXML
     private void btnCancelAction(ActionEvent actionEvent) {
-        btnSearch.setDisable(false);
+        clearForm();
+    }
+
+    private void clearForm(){
+        btnSearch.setDisable(true);
         btnCancel.setDisable(true);
         txtUserId.setDisable(false);
         txtUserId.setText("");
         dspRegisterAt.setText("");
         dspModifyAt.setText("");
         searchUser = null;
+        userFormCustom.clearUser();
     }
 
     @FXML
@@ -85,6 +91,11 @@ public class SearchController implements Initializable {
         } else {
             btnCancel.setDisable(true);
         }
+    }
+
+    @Override
+    public void clearSearch() {
+        clearForm();
     }
 
     @Override

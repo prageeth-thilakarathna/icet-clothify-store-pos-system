@@ -1,7 +1,9 @@
 package edu.icet.pos.controller;
 
 import edu.icet.pos.controller.user.FormController;
+import edu.icet.pos.controller.user.SearchController;
 import edu.icet.pos.controller.user.UserCenterController;
+import edu.icet.pos.controller.user.custom.UserSearchCustom;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -67,20 +69,19 @@ public class DashboardLayoutController implements Initializable {
         header.setText("User");
         loadDateAndTime();
         try{
-            //FormController formController = FormController.getInstance();
-            FXMLLoader fxmlLoaderForm = UserCenterController.getInstance().getFxmlLoaderForm();
-            //fxmlLoaderForm = new FXMLLoader(getClass().getResource("/view/user/form.fxml"));
-            //fxmlLoaderForm.setController(formController);
+            btnUser.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
+            FXMLLoader fxmlLoaderSearch = UserCenterController.getInstance().getFxmlLoaderSearch();
+            Parent parentSearch = fxmlLoaderSearch.load();
 
+            FXMLLoader fxmlLoaderForm = UserCenterController.getInstance().getFxmlLoaderForm();
             Parent parentForm = fxmlLoaderForm.load();
 
             centerVBox.getChildren().clear();
             centerVBox.getChildren().add(parentForm);
-            btnUser.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
 
-            Parent parentSearch = new FXMLLoader(getClass().getResource("/view/user/search.fxml")).load();
             rightVBox.getChildren().clear();
             rightVBox.getChildren().add(parentSearch);
+
 
             Parent parentView = new FXMLLoader(getClass().getResource("/view/user/view.fxml")).load();
             bottomVBox.getChildren().clear();

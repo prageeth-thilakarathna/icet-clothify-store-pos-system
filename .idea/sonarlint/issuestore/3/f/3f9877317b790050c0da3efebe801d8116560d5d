@@ -1,41 +1,32 @@
 
 Š
-java:S1192o"GDefine a constant instead of duplicating this literal "Active" 4 times.(Òì¸ˆ8Ïòˆƒ2J$5c4f535a-e3f6-4a04-855d-fcfe175f33c9
+java:S1192n"GDefine a constant instead of duplicating this literal "Active" 5 times.(Òì¸ˆ8‰îÕƒ2J$237c0ec7-73ab-4222-b701-7693f4ec7e21
 ‘
-java:S1192Î"HDefine a constant instead of duplicating this literal "Disable" 3 times.(ñÔ‚Üûÿÿÿÿ8Ğòˆƒ2J$524741c8-1444-4fe8-a126-0b254e3dfb6f
+java:S1192é"HDefine a constant instead of duplicating this literal "Disable" 3 times.(ñÔ‚Üûÿÿÿÿ8‰îÕƒ2J$9b333135-b069-47ee-818e-e2aa35ccefad
 q
-java:S5411Î"(Use a primitive boolean expression here.(ñÔ‚Üûÿÿÿÿ8Ñòˆƒ2J$aa1b8643-ba18-44aa-a376-81bf1656e259
+java:S5411é"(Use a primitive boolean expression here.(ñÔ‚Üûÿÿÿÿ8‰îÕƒ2J$e15b43b5-4ffe-4537-b615-e4db1cfcc117
 l
-java:S5411ó"(Use a primitive boolean expression here.(Äµ³—8Ñòˆƒ2J$93fb779e-15a0-47fb-a3c9-0b2214cd3199
+java:S5411‘"(Use a primitive boolean expression here.(Äµ³—8‰îÕƒ2J$fc3111a1-afe5-4502-99fb-ada98cb06955
 …
-java:S4973Ì"<Strings and Boxed types should be compared using "equals()".(ÒÈºÔùÿÿÿÿ8Óòˆƒ2J$82d8db84-d143-4e6d-8b50-e5542692b660
+java:S4973é"<Strings and Boxed types should be compared using "equals()".(ñÔ‚Üûÿÿÿÿ8˜îÕƒ2J$54854798-f363-4a60-bd14-5c54ee6541da
 …
-java:S4973Î"<Strings and Boxed types should be compared using "equals()".(ñÔ‚Üûÿÿÿÿ8Óòˆƒ2J$844bcc63-0628-4e97-b2b9-af62d726b999
-…
-java:S4973Î"<Strings and Boxed types should be compared using "equals()".(ñÔ‚Üûÿÿÿÿ8«Ğˆƒ2J$93fc5def-4194-4b7e-9db4-b703441efefd
-
-java:S1186<"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(­†ù8÷¾îˆƒ2
+java:S4973é"<Strings and Boxed types should be compared using "equals()".(ñÔ‚Üûÿÿÿÿ8˜îÕƒ2J$32ef856e-d50e-43b4-a4d7-8c62ec35b419
+Ã
+java:S1186;"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(­†ù8ÇîÕƒ2J$303f8e18-e959-45ec-8967-ca93cc37f98e
 É
-java:S1186F"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(öŒ½®ùÿÿÿÿ8óˆƒ2J$4d4d5850-6009-4572-9a0b-99bfa3a2a69a
-Å
-java:S1186œ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒŠ“Ó8óˆƒ2J$ee4d261b-745d-443b-9f9d-2c42fb6001ea
+java:S1186D"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(öŒ½®ùÿÿÿÿ8ÇîÕƒ2J$b17c55bb-c3db-48e6-86ac-75aad0b7f5ff
 Ê
-java:S1186 "€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÂÀ©Ñøÿÿÿÿ8óˆƒ2J$51f3621a-0dc1-4427-8e4e-41cddab761c5
+java:S1186¹"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÂÀ©Ñøÿÿÿÿ8ÇîÕƒ2J$39935764-35b6-4707-9169-bb73cb77cfdf
 ‚
-java:S1117‡">Rename "searchUser" which hides the field declared at line 57.(÷ƒ‰¨8óˆƒ2J$cc074384-2487-4692-b457-93181e14c82b
-„	java:S125¼"<This block of commented-out lines of code should be removed.(˜×Ä‚ûÿÿÿÿ8©Óëˆƒ2J$4d3f143c-0bb9-4a10-8af9-28add6821f32
+java:S1117…">Rename "searchUser" which hides the field declared at line 56.(÷ƒ‰¨8×îÕƒ2J$11c552e7-c97e-45e3-94f6-57acd1042d6b
+n	java:S106±"+Replace this use of System.out by a logger.(ìÍ¦‡8¨îÖƒ2J$34b0e58d-feaf-4973-b728-8227052e9844
 ‹
-java:S1126À"BReplace this if-then-else statement by a single method invocation.(È÷Şóÿÿÿÿÿ8’óˆƒ2J$0cbf1ba8-dc06-4e6d-bb4b-d4003615e46b
-„	java:S125Ê"<This block of commented-out lines of code should be removed.(ˆòèàúÿÿÿÿ8³¦åˆƒ2J$bcdf60d3-5002-4898-8a42-136a48f197a5
-	java:S125Í"<This block of commented-out lines of code should be removed.(åàü®8Ğğ¤ˆƒ2J$d105428b-4f18-4d15-adb5-9f1e4f7eb4d4
+java:S1126İ"BReplace this if-then-else statement by a single method invocation.(È÷Şóÿÿÿÿÿ8çîÕƒ2J$64aa2b33-592e-4fdb-9a73-3c1f56e46d8c
+‹
+java:S1126é"BReplace this if-then-else statement by a single method invocation.(ñÔ‚Üûÿÿÿÿ8çîÕƒ2J$1c74982e-4f81-42df-983e-f2c889f6e130
 p
-java:S1125Î"'Remove the unnecessary boolean literal.(ñÔ‚Üûÿÿÿÿ8—óˆƒ2J$e5e59c14-9b15-4db4-91ee-9c8a1e9f882e
-	java:S125Ï"<This block of commented-out lines of code should be removed.(åàü®8°“¥ˆƒ2J$d4470992-0fce-41d3-bb9e-61102afcf113
+java:S1125é"'Remove the unnecessary boolean literal.(ñÔ‚Üûÿÿÿÿ8çîÕƒ2J$c6db7829-00da-4010-9b48-51d3b76e5afa
 k
-java:S1125ó"'Remove the unnecessary boolean literal.(Äµ³—8›óˆƒ2J$96b17069-516d-4f2e-9f63-0ea2c55bec59
-y
-java:S1128"6Remove this unused import 'javafx.fxml.Initializable'.(™ÎùÆ8óˆƒ2J$f23b3722-b0a7-4fe5-b121-faa45e5f0be7
-{
-java:S1128"8Remove this unused import 'java.security.MessageDigest'.(Œğ²»8Ÿóˆƒ2J$e1b537c7-326b-4407-bca2-ceda4dcbc420
-‹
-java:S1128"CRemove this unused import 'java.security.NoSuchAlgorithmException'.(ŒòÍ¾şÿÿÿÿ8Ÿóˆƒ2J$3e9514b0-5cb1-441c-bbfb-3684119869b3
+java:S1125‘"'Remove the unnecessary boolean literal.(Äµ³—8çîÕƒ2J$70c896b7-437a-47e5-bab9-fbddb289d3a8
+q
+java:S1128".Remove this unused import 'javafx.scene.Node'.(ÑÖ¬ï8›ÚÆ‘ƒ2J$d66c95f6-bf93-4f52-97a5-ef8d7404dac3
