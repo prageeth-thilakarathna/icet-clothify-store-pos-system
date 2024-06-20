@@ -13,11 +13,8 @@ import edu.icet.pos.model.UserRole;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import org.modelmapper.ModelMapper;
 
 import java.net.URL;
@@ -54,23 +51,16 @@ public class FormController implements UserFormCustom {
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
     private final UserSearchCustom userSearchCustom = UserCenterController.getInstance().getFxmlLoaderSearch().getController();
     private User searchUser;
+    private static final String ACTIVE = "Active";
+    private static final String DISABLE = "Disable";
 
     @FXML
-    private void emailKeyPressed(KeyEvent keyEvent) {
-    }
-
-    @FXML
-    private void emailKeyTyped(KeyEvent keyEvent) {
+    private void emailKeyTyped() {
         validateInputs();
     }
 
     @FXML
-    private void passwordKeyPressed(KeyEvent keyEvent) {
-
-    }
-
-    @FXML
-    private void passwordKeyTyped(KeyEvent keyEvent) {
+    private void passwordKeyTyped() {
         if(passwordCheckBox.isSelected()){
             dspPasswordMessage.setText(txtPassword.getText());
         } else {
@@ -80,7 +70,7 @@ public class FormController implements UserFormCustom {
     }
 
     @FXML
-    private void passwordCheckBoxAction(ActionEvent actionEvent) {
+    private void passwordCheckBoxAction() {
         if(passwordCheckBox.isSelected()){
             dspPasswordMessage.setText(txtPassword.getText());
         } else {
@@ -89,17 +79,17 @@ public class FormController implements UserFormCustom {
     }
 
     @FXML
-    private void optUserRoleAction(ActionEvent actionEvent) {
+    private void optUserRoleAction() {
         validateInputs();
     }
 
     @FXML
-    private void optStatusAction(ActionEvent actionEvent) {
+    private void optStatusAction() {
         validateInputs();
     }
 
     @FXML
-    private void btnRegisterAction(ActionEvent actionEvent) {
+    private void btnRegisterAction() {
         if(!doesUserAlreadyExist()){
             try{
                 User user = new User();
@@ -107,9 +97,10 @@ public class FormController implements UserFormCustom {
                 user.setPassword(CenterController.getInstance().encryptPassword(txtPassword.getText()));
                 user.setRegisterAt(new Date());
                 user.setModifyAt(new Date());
-                user.setIsActive(Objects.equals(optStatus.getValue(), "Active"));
+                user.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
                 user.setUserRole(new ModelMapper().map(getRole(), UserRoleEntity.class));
 
+                assert userBo != null;
                 userBo.userRegister(user);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(txtEmail.getText()+" User registration was successful.");
@@ -130,8 +121,9 @@ public class FormController implements UserFormCustom {
 
     private boolean doesUserAlreadyExist(){
         try{
-            User searchUser = userBo.getUserByEmail(txtEmail.getText());
-            if(Objects.equals(searchUser.getEMail(), txtEmail.getText())){
+            assert userBo != null;
+            User user = userBo.getUserByEmail(txtEmail.getText());
+            if(user!=null){
                 return true;
             }
         } catch (Exception e){
@@ -144,14 +136,16 @@ public class FormController implements UserFormCustom {
 
     private UserRole getRole(){
         if(Objects.equals(optUserRole.getValue(), "User")){
+            assert userRoleBo != null;
             return userRoleBo.getUserRoleByName("user");
         } else {
+            assert userRoleBo != null;
             return userRoleBo.getUserRoleByName("admin");
         }
     }
 
     @FXML
-    private void btnModifyAction(ActionEvent actionEvent) {
+    private void btnModifyAction() {
         try{
             User user = new User(
                     searchUser.getId(),
@@ -159,10 +153,11 @@ public class FormController implements UserFormCustom {
                     searchUser.getPassword(),
                     searchUser.getRegisterAt(),
                     new Date(),
-                    Objects.equals(optStatus.getValue(), "Active"),
+                    Objects.equals(optStatus.getValue(), ACTIVE),
                     new ModelMapper().map(getRole(), UserRoleEntity.class)
             );
 
+            assert userBo != null;
             userBo.userUpdate(user);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(searchUser.getId()+" User modification was successful.");
@@ -174,7 +169,6 @@ public class FormController implements UserFormCustom {
             userSearchCustom.clearSearch();
 
         } catch (Exception e){
-            System.out.println(e.toString());
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -182,11 +176,28 @@ public class FormController implements UserFormCustom {
     }
 
     @FXML
-    private void btnDeleteAction(ActionEvent actionEvent) {
+    private void btnDeleteAction() {
+        try{
+            assert userBo != null;
+            userBo.userDelete(searchUser);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(searchUser.getId()+" User deletion was successful.");
+            alert.show();
+            searchUser = null;
+            clearForm();
+            txtPassword.setDisable(false);
+            passwordCheckBox.setDisable(false);
+            userSearchCustom.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
-    private void btnCancelAction(ActionEvent actionEvent) {
+    private void btnCancelAction() {
         clearForm();
     }
 
@@ -218,11 +229,7 @@ public class FormController implements UserFormCustom {
             }
         }
 
-        if(emailLength>0 || passwordLength>0 || optUserRole.getValue()!=null || optStatus.getValue()!=null){
-            btnCancel.setDisable(false);
-        } else {
-            btnCancel.setDisable(true);
-        }
+        btnCancel.setDisable(emailLength <= 0 && passwordLength <= 0 && optUserRole.getValue() == null && optStatus.getValue() == null);
     }
 
     private void validateModify(){
@@ -230,16 +237,13 @@ public class FormController implements UserFormCustom {
             btnModify.setDisable(false);
         } else if(!Objects.equals(searchUser.getUserRole().getName().substring(0, 1).toUpperCase() + searchUser.getUserRole().getName().substring(1), optUserRole.getValue())) {
             btnModify.setDisable(false);
-        } else if(searchUser.getIsActive()==true ? optStatus.getValue()!="Active":optStatus.getValue()!="Disable"){
-            btnModify.setDisable(false);
-        } else {
-            btnModify.setDisable(true);
-        }
+        } else btnModify.setDisable(Boolean.TRUE.equals(searchUser.getIsActive()) ? Objects.equals(optStatus.getValue(), ACTIVE) : Objects.equals(optStatus.getValue(), DISABLE));
     }
 
     private ObservableList<String> getUserRole(){
         ObservableList<String> userRoleList = FXCollections.observableArrayList();
         try{
+            assert userRoleBo != null;
             List<UserRole> roleList = userRoleBo.getAllUserRole();
             for(UserRole userRole : roleList){
                 userRoleList.add(userRole.getName().substring(0, 1).toUpperCase() + userRole.getName().substring(1));
@@ -254,8 +258,8 @@ public class FormController implements UserFormCustom {
 
     private ObservableList<String> getStatus(){
         ObservableList<String> statusList = FXCollections.observableArrayList();
-        statusList.add("Active");
-        statusList.add("Disable");
+        statusList.add(ACTIVE);
+        statusList.add(DISABLE);
         return statusList;
     }
 
@@ -270,9 +274,8 @@ public class FormController implements UserFormCustom {
         passwordCheckBox.setSelected(false);
         passwordCheckBox.setDisable(true);
         optUserRole.setValue(user.getUserRole().getName().substring(0, 1).toUpperCase() + user.getUserRole().getName().substring(1));
-        optStatus.setValue(user.getIsActive()== true ? "Active":"Disable");
+        optStatus.setValue(Boolean.TRUE.equals(user.getIsActive()) ? ACTIVE:DISABLE);
         validateModify();
-
     }
 
     @Override
@@ -296,7 +299,5 @@ public class FormController implements UserFormCustom {
         btnCancel.setDisable(true);
         btnModify.setDisable(true);
         btnDelete.setDisable(true);
-
-
     }
 }

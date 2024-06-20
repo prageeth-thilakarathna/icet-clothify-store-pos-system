@@ -6,13 +6,11 @@ import edu.icet.pos.controller.user.custom.UserFormCustom;
 import edu.icet.pos.controller.user.custom.UserSearchCustom;
 import edu.icet.pos.model.User;
 import edu.icet.pos.util.BoType;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.text.DateFormat;
@@ -35,9 +33,8 @@ public class SearchController implements UserSearchCustom {
     private UserFormCustom userFormCustom;
     private User searchUser;
 
-
     @FXML
-    private void btnSearchAction(ActionEvent actionEvent) {
+    private void btnSearchAction() {
         try{
             assert userBo != null;
             User user = userBo.getUser(Integer.parseInt(txtUserId.getText()));
@@ -46,7 +43,9 @@ public class SearchController implements UserSearchCustom {
             dspRegisterAt.setText(dateFormat.format(user.getRegisterAt()));
             dspModifyAt.setText(dateFormat.format(user.getModifyAt()));
 
-            userFormCustom = UserCenterController.getInstance().getFxmlLoaderForm().getController();
+            if(userFormCustom==null){
+                userFormCustom = UserCenterController.getInstance().getFxmlLoaderForm().getController();
+            }
             userFormCustom.loadUserToForm(user);
             validateInputs();
 
@@ -58,7 +57,7 @@ public class SearchController implements UserSearchCustom {
     }
 
     @FXML
-    private void btnCancelAction(ActionEvent actionEvent) {
+    private void btnCancelAction() {
         clearForm();
     }
 
@@ -74,16 +73,12 @@ public class SearchController implements UserSearchCustom {
     }
 
     @FXML
-    private void userIdKeyTyped(KeyEvent keyEvent) {
+    private void userIdKeyTyped() {
         validateInputs();
     }
 
     private void validateInputs(){
-        if(txtUserId.getLength()>0 && searchUser==null){
-            btnSearch.setDisable(false);
-        } else {
-            btnSearch.setDisable(true);
-        }
+        btnSearch.setDisable(txtUserId.getLength() <= 0 || searchUser != null);
 
         if(searchUser!=null){
             btnCancel.setDisable(false);

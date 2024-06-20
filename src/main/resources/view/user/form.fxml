@@ -64,7 +64,7 @@
                   </HBox>
                   <HBox alignment="BASELINE_LEFT" prefHeight="32.0" prefWidth="609.0">
                      <children>
-                        <TextField fx:id="txtEmail" focusTraversable="false" layoutX="30.0" layoutY="10.0" onKeyPressed="#emailKeyPressed" onKeyTyped="#emailKeyTyped" prefWidth="264.0" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
+                        <TextField fx:id="txtEmail" focusTraversable="false" layoutX="30.0" layoutY="10.0" onKeyTyped="#emailKeyTyped" prefWidth="264.0" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -72,7 +72,7 @@
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <PasswordField fx:id="txtPassword" focusTraversable="false" onKeyPressed="#passwordKeyPressed" onKeyTyped="#passwordKeyTyped" prefWidth="200.0" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
+                        <PasswordField fx:id="txtPassword" focusTraversable="false" onKeyTyped="#passwordKeyTyped" prefWidth="200.0" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>

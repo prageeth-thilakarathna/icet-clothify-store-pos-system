@@ -67,5 +67,3 @@ u
 Esrc/main/java/edu/icet/pos/controller/user/custom/UserFormCustom.java,6\c\6c4cfbe9c885cbadfb661575bbc945da65026870
 w
 Gsrc/main/java/edu/icet/pos/controller/user/custom/UserSearchCustom.java,9\e\9e25f41e01de89d923ae61cbcedc724b9e02edbe
-p
-@src/main/java/edu/icet/pos/controller/user/custom/SuperUser.java,7\4\746679f972eaf8abbea2f19e003cf82680022f36
