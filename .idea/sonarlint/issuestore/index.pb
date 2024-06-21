@@ -67,3 +67,11 @@ u
 Esrc/main/java/edu/icet/pos/controller/user/custom/UserFormCustom.java,6\c\6c4cfbe9c885cbadfb661575bbc945da65026870
 w
 Gsrc/main/java/edu/icet/pos/controller/user/custom/UserSearchCustom.java,9\e\9e25f41e01de89d923ae61cbcedc724b9e02edbe
+u
+Esrc/main/java/edu/icet/pos/controller/user/custom/UserViewCustom.java,1\3\139f99b0c0ad571bb3c98deaa392872be456bf52
+a
+1src/main/java/edu/icet/pos/model/TblUserView.java,e\a\ea6e5f3cb12a2b32f57735c9ce7e1105a1e8b705
+o
+?src/main/java/edu/icet/pos/controller/user/TableController.java,5\1\51e1a7273f33aceefa8d8da7d693fc2db677831d
+v
+Fsrc/main/java/edu/icet/pos/controller/user/custom/UserTableCustom.java,8\6\8679924c435287835cbdb131f1d12e6b80290727

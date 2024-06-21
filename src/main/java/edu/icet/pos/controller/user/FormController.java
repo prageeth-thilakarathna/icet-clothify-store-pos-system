@@ -7,6 +7,7 @@ import edu.icet.pos.bo.custom.UserRoleBo;
 import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.user.custom.UserFormCustom;
 import edu.icet.pos.controller.user.custom.UserSearchCustom;
+import edu.icet.pos.controller.user.custom.UserViewCustom;
 import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.model.User;
 import edu.icet.pos.model.UserRole;
@@ -50,6 +51,7 @@ public class FormController implements UserFormCustom {
     private final UserRoleBo userRoleBo = BoFactory.getBo(BoType.USER_ROLE);
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
     private final UserSearchCustom userSearchCustom = UserCenterController.getInstance().getFxmlLoaderSearch().getController();
+    private final UserViewCustom userViewCustom = UserCenterController.getInstance().getFxmlLoaderView().getController();
     private User searchUser;
     private static final String ACTIVE = "Active";
     private static final String DISABLE = "Disable";
@@ -104,6 +106,7 @@ public class FormController implements UserFormCustom {
                 userBo.userRegister(user);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(txtEmail.getText()+" User registration was successful.");
+                userViewCustom.updateTbl();
                 alert.show();
                 clearForm();
 
@@ -161,6 +164,7 @@ public class FormController implements UserFormCustom {
             userBo.userUpdate(user);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(searchUser.getId()+" User modification was successful.");
+            userViewCustom.updateTbl();
             alert.show();
             searchUser = null;
             clearForm();
@@ -182,6 +186,7 @@ public class FormController implements UserFormCustom {
             userBo.userDelete(searchUser);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(searchUser.getId()+" User deletion was successful.");
+            userViewCustom.updateTbl();
             alert.show();
             searchUser = null;
             clearForm();

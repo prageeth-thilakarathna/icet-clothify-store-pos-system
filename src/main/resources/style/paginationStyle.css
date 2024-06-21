@@ -1,0 +1,44 @@
+.pagination .pagination-control .page-information .text {
+    -fx-font-family: System;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-fill: #2f3548;
+}
+
+.pagination .pagination-control .control-box .number-button {
+    -fx-background-color: #d9d9d9;
+    -fx-border-color: #b4b4b3;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.pagination .pagination-control .control-box .number-button:selected {
+    -fx-background-color: #159493;
+    -fx-border-color: #0d7574;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.pagination .pagination-control .control-box .number-button:selected .text {
+    -fx-font-family: System;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+    -fx-fill: #FFFFFF;
+}
+
+.pagination .pagination-control .control-box .number-button .text {
+    -fx-font-family: System;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+    -fx-fill: #2f3548;
+}
+
+.pagination .pagination-control .control-box .left-arrow-button {
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.pagination .pagination-control .control-box .right-arrow-button {
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}

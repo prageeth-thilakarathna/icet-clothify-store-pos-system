@@ -13,12 +13,12 @@
 
 <VBox prefHeight="274.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.user.SearchController">
    <children>
-      <ScrollPane prefHeight="330.0" prefWidth="300.0" style="-fx-border-color: #f4f4f4;">
+      <ScrollPane prefHeight="330.0" prefWidth="300.0" style="-fx-focus-color: transparent; -fx-background-color: transparent;">
          <content>
-            <HBox prefHeight="199.0" prefWidth="281.0">
+            <HBox prefHeight="204.0" prefWidth="298.0">
                <children>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <VBox prefHeight="230.0" prefWidth="290.0">
+                  <VBox prefHeight="204.0" prefWidth="290.0">
                      <children>
                         <HBox prefHeight="25.0" prefWidth="20.0">
                            <children>

@@ -70,6 +70,11 @@ public class DashboardLayoutController implements Initializable {
         loadDateAndTime();
         try{
             btnUser.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
+            UserCenterController.getInstance().getFxmlLoaderTable().load();
+
+            FXMLLoader fxmlLoaderView = UserCenterController.getInstance().getFxmlLoaderView();
+            Parent parentView = fxmlLoaderView.load();
+
             FXMLLoader fxmlLoaderSearch = UserCenterController.getInstance().getFxmlLoaderSearch();
             Parent parentSearch = fxmlLoaderSearch.load();
 
@@ -82,8 +87,6 @@ public class DashboardLayoutController implements Initializable {
             rightVBox.getChildren().clear();
             rightVBox.getChildren().add(parentSearch);
 
-
-            Parent parentView = new FXMLLoader(getClass().getResource("/view/user/view.fxml")).load();
             bottomVBox.getChildren().clear();
             bottomVBox.getChildren().add(parentView);
         } catch (IOException e) {

@@ -7,6 +7,9 @@ import edu.icet.pos.entity.UserEntity;
 import edu.icet.pos.model.User;
 import edu.icet.pos.util.DaoType;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+
+import java.util.List;
 
 public class UserBoImpl implements UserBo {
     private final UserDao userDao = DaoFactory.getDao(DaoType.USER);
@@ -39,5 +42,23 @@ public class UserBoImpl implements UserBo {
     public void userDelete(User user) {
         assert userDao != null;
         userDao.delete(new ModelMapper().map(user, UserEntity.class));
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        assert userDao != null;
+        return new ModelMapper().map(userDao.getAll(), new TypeToken<List<User>>() {}.getType());
+    }
+
+    @Override
+    public int getUserCount() {
+        assert userDao != null;
+        return userDao.count();
+    }
+
+    @Override
+    public List<User> getUserPerPage(int offset) {
+        assert userDao != null;
+        return new ModelMapper().map(userDao.getPerPage(offset), new TypeToken<List<User>>() {}.getType());
     }
 }

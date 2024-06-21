@@ -3,6 +3,8 @@ package edu.icet.pos.dao.custom;
 import edu.icet.pos.dao.SuperDao;
 import edu.icet.pos.entity.UserEntity;
 
+import java.util.List;
+
 public interface UserDao extends SuperDao {
     void save(UserEntity userEntity);
 
@@ -13,4 +15,10 @@ public interface UserDao extends SuperDao {
     void update(UserEntity userEntity);
 
     void delete(UserEntity userEntity);
+
+    List<UserEntity> getAll();
+
+    int count();
+
+    List<UserEntity> getPerPage(int offset);
 }
