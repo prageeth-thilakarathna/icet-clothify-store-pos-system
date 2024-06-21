@@ -106,7 +106,7 @@ public class FormController implements UserFormCustom {
                 userBo.userRegister(user);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(txtEmail.getText()+" User registration was successful.");
-                userViewCustom.updateTbl();
+                userViewCustom.updateTbl("registration");
                 alert.show();
                 clearForm();
 
@@ -164,7 +164,7 @@ public class FormController implements UserFormCustom {
             userBo.userUpdate(user);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(searchUser.getId()+" User modification was successful.");
-            userViewCustom.updateTbl();
+            userViewCustom.updateTbl("modification");
             alert.show();
             searchUser = null;
             clearForm();
@@ -186,7 +186,7 @@ public class FormController implements UserFormCustom {
             userBo.userDelete(searchUser);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(searchUser.getId()+" User deletion was successful.");
-            userViewCustom.updateTbl();
+            userViewCustom.updateTbl("deletion");
             alert.show();
             searchUser = null;
             clearForm();

@@ -17,6 +17,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ViewController implements UserViewCustom {
@@ -27,6 +28,7 @@ public class ViewController implements UserViewCustom {
 
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
     private final UserTableCustom userTableCustom = UserCenterController.getInstance().getFxmlLoaderTable().getController();
+    private static final String DELETION = "deletion";
 
     private ObservableList<TblUserView> getUserTblPerPage(int pageIndex){
         ObservableList<TblUserView> userTblList = FXCollections.observableArrayList();
@@ -96,16 +98,35 @@ public class ViewController implements UserViewCustom {
         return pageCount;
     }
 
+    private int getCurrentPageIndex(int pageIndex, String name){
+        if(Objects.equals(name, "registration")){
+            return getPageCount()-1;
+        } else if("modification".equals(name)){
+            return pageIndex;
+        } else if(DELETION.equals(name) && pageIndex==getPageCount()) {
+            return pageIndex-1;
+        } else if(DELETION.equals(name) && pageIndex<getPageCount()) {
+            return pageIndex;
+        } else if(DELETION.equals(name) && (pageIndex+1)==getPageCount()) {
+            return pageIndex;
+        } else {
+            return 0;
+        }
+    }
+
     @Override
-    public void updateTbl() {
+    public void updateTbl(String name) {
         int pageIndex = tblPagination.getCurrentPageIndex();
-        tblPagination.setPageFactory(e -> createTblPage(pageIndex));
+        tblPagination.setPageCount(getPageCount());
+        tblPagination.setPageFactory(this::createTblPage);
+        tblPagination.setCurrentPageIndex(getCurrentPageIndex(pageIndex, name));
         userCountUpdate();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userCountUpdate();
+        tblPagination.setMaxPageIndicatorCount(10);
         tblPagination.setPageCount(getPageCount());
         tblPagination.setPageFactory(this::createTblPage);
     }

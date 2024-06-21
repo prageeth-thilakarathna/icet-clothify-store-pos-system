@@ -127,6 +127,7 @@ public class UserDaoImpl implements UserDao {
                 count.set(resultSet.getInt("row_count"));
             }
         });
+        session.close();
         return count.get();
     }
 
@@ -155,6 +156,7 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         });
+        session.close();
         return userEntityList;
     }
 }
