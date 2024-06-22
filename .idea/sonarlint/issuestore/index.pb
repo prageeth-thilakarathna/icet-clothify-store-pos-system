@@ -75,3 +75,5 @@ o
 ?src/main/java/edu/icet/pos/controller/user/TableController.java,5\1\51e1a7273f33aceefa8d8da7d693fc2db677831d
 v
 Fsrc/main/java/edu/icet/pos/controller/user/custom/UserTableCustom.java,8\6\8679924c435287835cbdb131f1d12e6b80290727
+x
+Hsrc/main/java/edu/icet/pos/controller/auth/ForgotPasswordController.java,1\a\1a0439f8ee84cb0f65e217ffa60d625e43cba835
