@@ -4,6 +4,7 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.bo.custom.UserRoleBo;
 import edu.icet.pos.controller.CenterController;
+import edu.icet.pos.controller.auth.custom.LoginPanelCustom;
 import edu.icet.pos.controller.layout.LayoutCenterController;
 import edu.icet.pos.controller.layout.custom.LayoutCustom;
 import edu.icet.pos.entity.UserRoleEntity;
@@ -17,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import java.net.URL;
@@ -24,7 +26,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LoginPanelController implements Initializable {
+public class LoginPanelController implements LoginPanelCustom {
     @FXML
     private CheckBox passwordCheckBox;
     @FXML
@@ -169,6 +171,11 @@ public class LoginPanelController implements Initializable {
             assert userBo != null;
             userBo.userRegister(mainAdmin);
         }
+    }
+
+    @Override
+    public void clearUser() {
+        loginUser = null;
     }
 
     @Override

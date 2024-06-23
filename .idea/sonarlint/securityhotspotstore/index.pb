@@ -91,3 +91,7 @@ t
 Dsrc/main/java/edu/icet/pos/controller/auth/AuthCenterController.java,a\9\a96e604deb101035bc42cee1b9b1ed5a9023a3e8
 }
 Msrc/main/java/edu/icet/pos/controller/auth/ForgotPasswordPanelController.java,9\0\901ab2921c44df90dbdcbc6ded8cf013b34a85ae
+w
+Gsrc/main/java/edu/icet/pos/controller/auth/custom/LoginPanelCustom.java,0\1\0168956ce224ee31680fdf22e6264d01817b9865
+x
+Hsrc/main/java/edu/icet/pos/controller/dashboard/custom/HeaderCustom.java,e\2\e2d52c8483c1e809b5c396e386ae935f6505ee77

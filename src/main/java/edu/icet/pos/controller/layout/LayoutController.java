@@ -3,6 +3,7 @@ package edu.icet.pos.controller.layout;
 import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.dashboard.DashboardCenterController;
+import edu.icet.pos.controller.dashboard.custom.HeaderCustom;
 import edu.icet.pos.controller.layout.custom.LayoutCustom;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -16,6 +17,8 @@ import java.util.ResourceBundle;
 public class LayoutController implements LayoutCustom {
     @FXML
     private BorderPane borderPane;
+
+    private HeaderCustom headerCustom = DashboardCenterController.getInstance().getFxmlLoaderHeader().getController();
 
     @Override
     public BorderPane getBorderPane() {
@@ -31,6 +34,7 @@ public class LayoutController implements LayoutCustom {
         topVBox.setPrefHeight(60);
         topVBox.getChildren().add(DashboardCenterController.getInstance().getParentHeader());
         borderPane.setTop(topVBox);
+        headerCustom.authHeader();
 
         VBox leftVBox = new VBox();
         leftVBox.setPrefWidth(258);
