@@ -4,8 +4,10 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="658.0" prefWidth="1169.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.DashboardLayoutController">
+<BorderPane prefHeight="658.0" prefWidth="1169.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.layout.DashboardLayoutController">
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="1169.0" style="-fx-background-color: #353c52;" BorderPane.alignment="CENTER">
          <children>
@@ -43,15 +45,27 @@
                   <Insets right="30.0" />
                </HBox.margin>
             </Separator>
-            <ImageView fitHeight="40.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/profile-icon.png" />
-               </image>
+            <SplitMenuButton focusTraversable="false" mnemonicParsing="false" stylesheets="@../../style/userSplitMenuBtnStyle.css">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#profileAction" styleClass="menuItem" text="Profile" />
+                <MenuItem mnemonicParsing="false" onAction="#switchAction" styleClass="menuItem" text="Switch" />
+                  <MenuItem mnemonicParsing="false" onAction="#exitAction" styleClass="menuItem" text="Exit" />
+              </items>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/profile-icon.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
                <HBox.margin>
                   <Insets right="30.0" />
                </HBox.margin>
-            </ImageView>
-            <Label text="Admin" textFill="WHITE">
+            </SplitMenuButton>
+            <Label text="Developer" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -84,7 +98,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
                                  <image>
-                                    <Image url="@../img/dashboard-icon.png" />
+                                    <Image url="@../../img/dashboard-icon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -102,7 +116,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
                                  <image>
-                                    <Image url="@../img/user-icon.png" />
+                                    <Image url="@../../img/user-icon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -123,7 +137,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
                                  <image>
-                                    <Image url="@../img/category-icon.png" />
+                                    <Image url="@../../img/category-icon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -141,7 +155,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
                                  <image>
-                                    <Image url="@../img/supplier-icon.png" />
+                                    <Image url="@../../img/supplier-icon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -159,7 +173,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
                                  <image>
-                                    <Image url="@../img/product-icon.png" />
+                                    <Image url="@../../img/product-icon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -177,7 +191,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
                                  <image>
-                                    <Image url="@../img/inventory-icon.png" />
+                                    <Image url="@../../img/inventory-icon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -195,7 +209,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
                                  <image>
-                                    <Image url="@../img/employee-icon.png" />
+                                    <Image url="@../../img/employee-icon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -213,7 +227,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
                                  <image>
-                                    <Image url="@../img/order-icon.png" />
+                                    <Image url="@../../img/order-icon.png" />
                                  </image>
                               </ImageView>
                            </graphic>

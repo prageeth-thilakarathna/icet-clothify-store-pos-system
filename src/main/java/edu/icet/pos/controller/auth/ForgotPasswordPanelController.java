@@ -3,29 +3,37 @@ package edu.icet.pos.controller.auth;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.controller.CenterController;
+import edu.icet.pos.controller.layout.LayoutCenterController;
+import edu.icet.pos.controller.layout.custom.LayoutCustom;
 import edu.icet.pos.model.User;
 import edu.icet.pos.util.BoType;
 import jakarta.mail.*;
-import jakarta.mail.internet.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.Objects;
+import java.util.Properties;
+import java.util.Random;
+import java.util.ResourceBundle;
 
-public class ForgotPasswordController implements Initializable {
-    @FXML
-    private Label dspSendMessage;
-    @FXML
-    private Button btnCancel;
+public class ForgotPasswordPanelController implements Initializable {
     @FXML
     private TextField txtEmail;
     @FXML
+    private Label dspSendMessage;
+    @FXML
     private Button btnSendOtp;
+    @FXML
+    private Button btnCancel;
     @FXML
     private TextField txtEnterOtp;
     @FXML
@@ -40,6 +48,7 @@ public class ForgotPasswordController implements Initializable {
     private final Random random = new Random();
     private String otpValue;
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
+    private LayoutCustom layoutCustom;
 
     @FXML
     private void btnSendOtpAction() {
@@ -53,6 +62,68 @@ public class ForgotPasswordController implements Initializable {
         txtEnterOtp.setDisable(false);
         txtNewPassword.setDisable(false);
         newPasswordCheckBox.setDisable(false);
+        validateInputs();
+    }
+
+    @FXML
+    private void otpKeyTyped() {
+        validateInputs();
+    }
+
+    @FXML
+    private void newPasswordKeyTyped() {
+        if(newPasswordCheckBox.isSelected()){
+            dspNewPassword.setText(txtNewPassword.getText());
+        } else {
+            dspNewPassword.setText("");
+        }
+        validateInputs();
+    }
+
+    @FXML
+    private void newPasswordCheckBoxAction() {
+        if(newPasswordCheckBox.isSelected()){
+            dspNewPassword.setText(txtNewPassword.getText());
+        } else {
+            dspNewPassword.setText("");
+        }
+    }
+
+    @FXML
+    private void btnResetPasswordAction() {
+        if(Objects.equals(otpValue, txtEnterOtp.getText())){
+            try{
+                assert userBo != null;
+                User user = userBo.getUserByEmail(txtEmail.getText());
+                user.setPassword(CenterController.getInstance().encryptPassword(txtNewPassword.getText()));
+                userBo.userUpdate(user);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText(txtEmail.getText()+" User changing the password was successful.");
+                alert.show();
+                cancel();
+                backToLogin();
+
+            } catch (Exception e){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(e.getMessage());
+                alert.show();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Failed! Please enter a valid OTP.");
+            alert.show();
+        }
+    }
+
+    @FXML
+    private void btnBackAction() {
+        backToLogin();
+    }
+
+    @FXML
+    private void btnCancelAction() {
+        cancel();
         validateInputs();
     }
 
@@ -109,16 +180,6 @@ public class ForgotPasswordController implements Initializable {
         }
     }
 
-    private void validateInputs(){
-        btnResetPassword.setDisable(txtEnterOtp.getLength() != 4 || txtNewPassword.getLength() < 8);
-    }
-
-    @FXML
-    private void btnCancelAction() {
-        cancel();
-        validateInputs();
-    }
-
     private void cancel(){
         btnSendOtp.setDisable(false);
         btnCancel.setDisable(true);
@@ -136,62 +197,24 @@ public class ForgotPasswordController implements Initializable {
         newPasswordCheckBox.setSelected(false);
     }
 
-    @FXML
-    private void otpKeyTyped() {
-        validateInputs();
+    private void validateInputs(){
+        btnResetPassword.setDisable(txtEnterOtp.getLength() != 4 || txtNewPassword.getLength() < 8);
     }
 
-    @FXML
-    private void newPasswordKeyTyped() {
-        if(newPasswordCheckBox.isSelected()){
-            dspNewPassword.setText(txtNewPassword.getText());
-        } else {
-            dspNewPassword.setText("");
+    private void backToLogin(){
+        if(layoutCustom==null){
+            layoutCustom = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
         }
-        validateInputs();
-    }
 
-    @FXML
-    private void newPasswordCheckBoxAction() {
-        if(newPasswordCheckBox.isSelected()){
-            dspNewPassword.setText(txtNewPassword.getText());
-        } else {
-            dspNewPassword.setText("");
-        }
-    }
+        BorderPane borderPane = layoutCustom.getBorderPane();
+        borderPane.getChildren().remove(borderPane.getRight());
 
-    @FXML
-    private void btnResetPasswordAction() {
-        if(Objects.equals(otpValue, txtEnterOtp.getText())){
-            try{
-                assert userBo != null;
-                User user = userBo.getUserByEmail(txtEmail.getText());
-
-                user.setPassword(CenterController.getInstance().encryptPassword(txtNewPassword.getText()));
-
-                userBo.userUpdate(user);
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(txtEmail.getText()+" User changing the password was successful.");
-                alert.show();
-                cancel();
-
-            } catch (Exception e){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText(e.getMessage());
-                alert.show();
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Failed! Please enter a valid OTP.");
-            alert.show();
-        }
-    }
-
-    @FXML
-    private void btnBackAction() throws IOException {
-        Parent parent = new FXMLLoader(getClass().getResource("/view/auth/forgotPassword.fxml")).load();
-
+        VBox rightVBox = new VBox();
+        rightVBox.setAlignment(Pos.BOTTOM_RIGHT);
+        rightVBox.setPrefWidth(585);
+        rightVBox.setPrefHeight(658);
+        rightVBox.getChildren().add(AuthCenterController.getInstance().getParentLoginPanel());
+        borderPane.setRight(rightVBox);
     }
 
     @Override

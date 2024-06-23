@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="658.0" prefWidth="584.0" style="-fx-background-color: #353c52;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label text="Clothify Store (PVT) Ltd" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="48.0" />
+            </font>
+        </Label>
+        <Label prefHeight="117.0" prefWidth="452.0" text="Welcome!" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="96.0" />
+            </font>
+        </Label>
+    </children>
+</VBox>

@@ -1,0 +1,27 @@
+.split-menu-button {
+    -fx-background-color: #d9d9d9;
+    -fx-background-radius: 30px;
+    -fx-border-radius: 30px;
+    -fx-border-color: #d9d9d9;
+    -fx-font-family: System;
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+    -fx-fill: #2f3548;
+}
+
+.split-menu-button .label {
+    -fx-background-color: transparent;
+    -fx-background-radius: 30px;
+    -fx-border-radius: 10px;
+}
+
+.split-menu-button .arrow-button {
+    -fx-background-color: #d9d9d9;
+    -fx-background-radius: 0px 30px 30px 0px;
+    -fx-border-radius: 10px;
+    -fx-cursor: HAND;
+}
+
+.menuItem {
+    -fx-cursor: HAND;
+}

@@ -1,6 +1,5 @@
 package edu.icet.pos.controller;
 
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -10,6 +9,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import lombok.Getter;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -45,7 +48,7 @@ public class CenterController {
         pageBottom.setAlignment(Pos.CENTER);
     }
 
-    public static CenterController getInstance(){
+    public static CenterController getInstance() {
         if(instance==null){
             instance = new CenterController();
         }
@@ -67,6 +70,24 @@ public class CenterController {
             return stringBuilder.toString();
 
         } catch (NoSuchAlgorithmException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+        return null;
+    }
+
+    public String getMACAddress(){
+        try{
+            InetAddress address = InetAddress.getLocalHost();
+            NetworkInterface networkInterface = NetworkInterface.getByInetAddress(address);
+            byte[] mac = networkInterface.getHardwareAddress();
+            StringBuilder stringBuilder = new StringBuilder();
+            for(int i=0; i<mac.length; i++){
+                stringBuilder.append(String.format("%02X%s", mac[i], (i<mac.length -1) ? "-":""));
+            }
+            return stringBuilder.toString();
+        } catch (UnknownHostException | SocketException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();

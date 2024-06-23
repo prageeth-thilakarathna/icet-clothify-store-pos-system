@@ -1,6 +1,5 @@
 
-˜	java:S117D"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îÇ‘èüÿÿÿÿ8Í¸„2J$88123b98-ef9e-4eaa-9391-6ea06d6331f5
-Ê
-java:S1186À"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(É•‹‘úÿÿÿÿ8¯Í¸„2J$1bf61f63-14a3-40b6-8aff-141d4929929f
-`
-java:S2119<"Save and re-use this "Random".(¼İÅf8¾Í¸„2J$e16d02f4-e42c-4f23-9f8a-63296d202db7
+}
+java:S1854Á":Remove this useless assignment to local variable "parent".(ß¥o8‰ÇÑ•„2J$c336a946-27fa-487c-8bee-6970f40504dd
+n
+java:S1481Á"+Remove this unused "parent" local variable.(ß¥o8™ÇÑ•„2J$0f9f8884-a8df-47f7-8d4d-a43412e3a58a

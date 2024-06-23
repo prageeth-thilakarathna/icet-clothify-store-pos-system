@@ -1,0 +1,10 @@
+
+É
+java:S1186B"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(„œûÍüÿÿÿÿ8ê•¤Ÿ„2J$6c1e3840-2bfd-483b-b3a1-49e7ba2d4b2d
+Ã
+java:S1186F"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ìúàh8ê•¤Ÿ„2J$03e39d95-7dfb-43fd-b86a-f67a87828d20
+´
+java:S1130+"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(‰é§Ùþÿÿÿÿ8¹›Á´ƒ2J$bcde5e57-0fbc-48aa-9f30-8b18ff4ad8ef
+ƒ	java:S125("<This block of commented-out lines of code should be removed.(ÅõÄ±ÿÿÿÿÿ8¹›Á´ƒ2J$12fffca3-25dd-4492-8eae-83c6c7754c2b
+~	java:S125-"<This block of commented-out lines of code should be removed.(”“¢ÿ8¹›Á´ƒ2J$9fde40d9-72ec-48a4-908f-2c8e07dd92f7
+r	java:S106i"+Replace this use of System.out by a logger.(©þêÜúÿÿÿÿ8¹›Á´ƒ2J$d4783086-8156-4287-ac04-cd3e93275137

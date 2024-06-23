@@ -1,27 +1,27 @@
 
 ‰
-java:S1192|"FDefine a constant instead of duplicating this literal "admin" 3 times.(Ğ—ïŞ8è¦³à‚2J$1b8a1cc2-6e83-495f-9c0a-a84d36843ea0
+java:S1192|"FDefine a constant instead of duplicating this literal "admin" 3 times.(Ğ—ïŞ8è¦³à‚2J$aeefc6f9-53ca-481a-9e76-7657c9731f35
 É
-java:S11869"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(öŒ½®ùÿÿÿÿ8ˆ§³à‚2J$91c8166b-f3b2-4c8f-af0c-c82889fe127a
+java:S11869"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(öŒ½®ùÿÿÿÿ8ˆ§³à‚2J$cf39b1d5-b54d-4211-80b4-a788cb1a3ba4
 É
-java:S1186="€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(æ¸Æ­úÿÿÿÿ8ˆ§³à‚2J$331a20fd-1565-4b84-971a-243c4e20cd0a
+java:S1186="€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(æ¸Æ­úÿÿÿÿ8ˆ§³à‚2J$e59ef56c-fd86-451c-9ade-b2d4899a4aed
 É
-java:S1186A"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ºç¯¢ÿÿÿÿÿ8ˆ§³à‚2J$c70d46dd-4cb4-4447-bfc6-dead25f13b1d
+java:S1186A"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ºç¯¢ÿÿÿÿÿ8ˆ§³à‚2J$893665a8-bba0-432c-b8c2-4d983bfaab14
 Ä
-java:S1186o"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(™õ¼è8ˆ§³à‚2J$d9feacd7-8c01-4c6f-b095-a7c93f7bf8d2
+java:S1186o"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(™õ¼è8ˆ§³à‚2J$0644da7a-133f-4aba-ac4e-9574b60f8df2
 Ä
-java:S1186s"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ğÙ»Ü8ˆ§³à‚2J$8d68b03f-0646-437e-b261-b64906fba343
+java:S1186s"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ğÙ»Ü8ˆ§³à‚2J$6e63d611-10d8-4dba-8d67-2ff09ea81019
 |
-java:S1854|"9Remove this useless assignment to local variable "admin".(Ğ—ïŞ8—§³à‚2J$a4293599-6b5b-4134-82ea-5161ab5a12f7
+java:S1854|"9Remove this useless assignment to local variable "admin".(Ğ—ïŞ8—§³à‚2J$6ed05c57-5559-4ff2-9090-6bf582b28711
 m
-java:S1481|"*Remove this unused "admin" local variable.(Ğ—ïŞ8—§³à‚2J$34609da8-ac3f-4d8b-9fe6-687276bfa12c
+java:S1481|"*Remove this unused "admin" local variable.(Ğ—ïŞ8—§³à‚2J$52624926-9077-465f-97e5-6bf5ea24180d
 
-java:S1854‹"8Remove this useless assignment to local variable "user".(Õíªøÿÿÿÿÿ8—§³à‚2J$11935f58-4274-44ed-9e53-a237f9ed9f00
+java:S1854‹"8Remove this useless assignment to local variable "user".(Õíªøÿÿÿÿÿ8—§³à‚2J$5c25833f-24b3-4bd7-829b-8f6d123ea86a
 r
-java:S1481‹")Remove this unused "user" local variable.(Õíªøÿÿÿÿÿ8—§³à‚2J$54125932-71dd-45ee-b075-6360ea25d37e
+java:S1481‹")Remove this unused "user" local variable.(Õíªøÿÿÿÿÿ8—§³à‚2J$c6f6c5c2-4c61-4aac-a5f6-a9cd67ffad65
 
-java:S1854Ÿ"8Remove this useless assignment to local variable "user".(Úáıÿÿÿÿ8—§³à‚2J$614497f4-3eaa-4009-9696-52270f3d6098
+java:S1854Ÿ"8Remove this useless assignment to local variable "user".(Úáıÿÿÿÿ8—§³à‚2J$ccd419cf-4e01-42a9-9aa6-d9e07402dc95
 r
-java:S1481Ÿ")Remove this unused "user" local variable.(Úáıÿÿÿÿ8—§³à‚2J$8371b4cc-d7da-4bae-8ff4-177ace4a809d
-s
-java:S1128"QRemove this unused import 'edu.icet.pos.controller.dashboard.NavPanelController'.(íêÕ©ÿÿÿÿÿ8ûÓâà‚2
+java:S1481Ÿ")Remove this unused "user" local variable.(Úáıÿÿÿÿ8—§³à‚2J$502b6bf7-2e33-415a-9736-368f16f5caca
+™
+java:S1128"QRemove this unused import 'edu.icet.pos.controller.dashboard.NavPanelController'.(íêÕ©ÿÿÿÿÿ8ûÓâà‚2J$0335858a-c8c2-433c-8d19-a0517babc24e

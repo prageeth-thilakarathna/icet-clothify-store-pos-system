@@ -1,8 +1,11 @@
 package edu.icet.pos.controller.dashboard;
 
+import edu.icet.pos.controller.layout.LayoutCenterController;
+import edu.icet.pos.controller.layout.custom.LayoutCustom;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -20,6 +23,8 @@ public class HeaderController implements Initializable {
     @FXML
     private Label dspTime;
 
+    private LayoutCustom layoutCustom;
+
     // set data and time
     private void loadDateAndTime() {
         Date date = new Date();
@@ -33,6 +38,23 @@ public class HeaderController implements Initializable {
 
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    @FXML
+    private void profileAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void logOutAction() {
+        if(layoutCustom==null){
+            layoutCustom = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
+        }
+        layoutCustom.loadLogin();
+    }
+
+    @FXML
+    private void exitAction() {
+        System.exit(0);
     }
 
     @Override

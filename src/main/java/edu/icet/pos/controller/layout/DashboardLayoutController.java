@@ -1,12 +1,10 @@
-package edu.icet.pos.controller;
+package edu.icet.pos.controller.layout;
 
-import edu.icet.pos.controller.user.FormController;
-import edu.icet.pos.controller.user.SearchController;
 import edu.icet.pos.controller.user.UserCenterController;
-import edu.icet.pos.controller.user.custom.UserSearchCustom;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -62,6 +60,20 @@ public class DashboardLayoutController implements Initializable {
 
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    @FXML
+    private void profileAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void switchAction(ActionEvent actionEvent) {
+
+    }
+
+    @FXML
+    private void exitAction() {
+        System.exit(0);
     }
 
     @Override

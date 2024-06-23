@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane fx:id="borderPane" prefHeight="658.0" prefWidth="1169.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.layout.LayoutController">
+
+</BorderPane>
