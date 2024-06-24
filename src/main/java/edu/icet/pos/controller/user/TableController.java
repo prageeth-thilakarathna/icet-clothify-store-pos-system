@@ -1,6 +1,6 @@
 package edu.icet.pos.controller.user;
 
-import edu.icet.pos.controller.user.custom.UserTableCustom;
+import edu.icet.pos.controller.user.custom.UserTable;
 import edu.icet.pos.model.TblUserView;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -10,7 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TableController implements UserTableCustom {
+public class TableController implements UserTable {
     @FXML
     private TableView<TblUserView> tblUser;
     @FXML

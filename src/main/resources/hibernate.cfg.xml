@@ -18,5 +18,6 @@
 
         <mapping class="edu.icet.pos.entity.UserRoleEntity"/>
         <mapping class="edu.icet.pos.entity.UserEntity"/>
+        <mapping class="edu.icet.pos.entity.CategoryEntity"/>
     </session-factory>
 </hibernate-configuration>

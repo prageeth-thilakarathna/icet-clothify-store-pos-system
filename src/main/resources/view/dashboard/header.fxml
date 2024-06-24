@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="hBox" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="1169.0" style="-fx-background-color: #353c52;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.HeaderController">
+<HBox fx:id="hBox" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="1169.0" style="-fx-background-color: #353c52;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.DashboardHeaderController">
    <children>
       <Button fx:id="btnSwitchToDev" focusTraversable="false" mnemonicParsing="false" onAction="#switchToDevAction" style="-fx-background-color: #d9d9d9; -fx-background-radius: 10px; -fx-border-color: #d9d9d9; -fx-border-radius: 10px;" text="Switch to Dev" textFill="#2f3548">
          <HBox.margin>

@@ -5,9 +5,9 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.bo.custom.UserRoleBo;
 import edu.icet.pos.controller.CenterController;
-import edu.icet.pos.controller.user.custom.UserFormCustom;
-import edu.icet.pos.controller.user.custom.UserSearchCustom;
-import edu.icet.pos.controller.user.custom.UserViewCustom;
+import edu.icet.pos.controller.user.custom.UserForm;
+import edu.icet.pos.controller.user.custom.UserSearch;
+import edu.icet.pos.controller.user.custom.UserView;
 import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.model.User;
 import edu.icet.pos.model.UserRole;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class FormController implements UserFormCustom {
+public class FormController implements UserForm {
     @FXML
     private Button btnCancel;
     @FXML
@@ -50,8 +50,8 @@ public class FormController implements UserFormCustom {
 
     private final UserRoleBo userRoleBo = BoFactory.getBo(BoType.USER_ROLE);
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
-    private final UserSearchCustom userSearchCustom = UserCenterController.getInstance().getFxmlLoaderSearch().getController();
-    private final UserViewCustom userViewCustom = UserCenterController.getInstance().getFxmlLoaderView().getController();
+    private UserSearch userSearch;
+    private UserView userView;
     private User searchUser;
     private static final String ACTIVE = "Active";
     private static final String DISABLE = "Disable";
@@ -104,9 +104,12 @@ public class FormController implements UserFormCustom {
 
                 assert userBo != null;
                 userBo.userRegister(user);
+                if(userView ==null){
+                    userView = UserCenterController.getInstance().getFxmlLoaderView().getController();
+                }
+                userView.updateTbl("registration");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(txtEmail.getText()+" User registration was successful.");
-                userViewCustom.updateTbl("registration");
                 alert.show();
                 clearForm();
 
@@ -162,15 +165,21 @@ public class FormController implements UserFormCustom {
 
             assert userBo != null;
             userBo.userUpdate(user);
+            if(userView ==null){
+                userView = UserCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            userView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(searchUser.getId()+" User modification was successful.");
-            userViewCustom.updateTbl("modification");
             alert.show();
             searchUser = null;
             clearForm();
             txtPassword.setDisable(false);
             passwordCheckBox.setDisable(false);
-            userSearchCustom.clearSearch();
+            if(userSearch ==null){
+                userSearch = UserCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            userSearch.clearSearch();
 
         } catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -184,15 +193,21 @@ public class FormController implements UserFormCustom {
         try{
             assert userBo != null;
             userBo.userDelete(searchUser);
+            if(userView ==null){
+                userView = UserCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            userView.updateTbl("deletion");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(searchUser.getId()+" User deletion was successful.");
-            userViewCustom.updateTbl("deletion");
             alert.show();
             searchUser = null;
             clearForm();
             txtPassword.setDisable(false);
             passwordCheckBox.setDisable(false);
-            userSearchCustom.clearSearch();
+            if(userSearch ==null){
+                userSearch = UserCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            userSearch.clearSearch();
 
         } catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);

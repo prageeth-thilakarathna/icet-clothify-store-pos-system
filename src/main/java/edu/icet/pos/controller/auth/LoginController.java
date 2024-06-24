@@ -4,7 +4,6 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.bo.custom.UserRoleBo;
 import edu.icet.pos.controller.CenterController;
-import edu.icet.pos.controller.dashboard.NavPanelController;
 import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.model.User;
 import edu.icet.pos.model.UserRole;

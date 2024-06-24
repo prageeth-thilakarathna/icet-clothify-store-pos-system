@@ -2,8 +2,8 @@ package edu.icet.pos.controller.user;
 
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
-import edu.icet.pos.controller.user.custom.UserFormCustom;
-import edu.icet.pos.controller.user.custom.UserSearchCustom;
+import edu.icet.pos.controller.user.custom.UserForm;
+import edu.icet.pos.controller.user.custom.UserSearch;
 import edu.icet.pos.model.User;
 import edu.icet.pos.util.BoType;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
-public class SearchController implements UserSearchCustom {
+public class SearchController implements UserSearch {
     @FXML
     private Button btnSearch;
     @FXML
@@ -30,7 +30,7 @@ public class SearchController implements UserSearchCustom {
     private TextField txtUserId;
 
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
-    private UserFormCustom userFormCustom;
+    private UserForm userForm;
     private User searchUser;
 
     @FXML
@@ -43,10 +43,10 @@ public class SearchController implements UserSearchCustom {
             dspRegisterAt.setText(dateFormat.format(user.getRegisterAt()));
             dspModifyAt.setText(dateFormat.format(user.getModifyAt()));
 
-            if(userFormCustom==null){
-                userFormCustom = UserCenterController.getInstance().getFxmlLoaderForm().getController();
+            if(userForm ==null){
+                userForm = UserCenterController.getInstance().getFxmlLoaderForm().getController();
             }
-            userFormCustom.loadUserToForm(user);
+            userForm.loadUserToForm(user);
             validateInputs();
 
         } catch (Exception e){
@@ -69,7 +69,7 @@ public class SearchController implements UserSearchCustom {
         dspRegisterAt.setText("");
         dspModifyAt.setText("");
         searchUser = null;
-        userFormCustom.clearUser();
+        userForm.clearUser();
     }
 
     @FXML

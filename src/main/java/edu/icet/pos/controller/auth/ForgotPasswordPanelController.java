@@ -4,7 +4,7 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.layout.LayoutCenterController;
-import edu.icet.pos.controller.layout.custom.LayoutCustom;
+import edu.icet.pos.controller.layout.custom.Layout;
 import edu.icet.pos.model.User;
 import edu.icet.pos.util.BoType;
 import jakarta.mail.*;
@@ -48,7 +48,7 @@ public class ForgotPasswordPanelController implements Initializable {
     private final Random random = new Random();
     private String otpValue;
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
-    private LayoutCustom layoutCustom;
+    private Layout layout;
 
     @FXML
     private void btnSendOtpAction() {
@@ -202,11 +202,11 @@ public class ForgotPasswordPanelController implements Initializable {
     }
 
     private void backToLogin(){
-        if(layoutCustom==null){
-            layoutCustom = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
+        if(layout ==null){
+            layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
         }
 
-        BorderPane borderPane = layoutCustom.getBorderPane();
+        BorderPane borderPane = layout.getBorderPane();
         borderPane.getChildren().remove(borderPane.getRight());
 
         VBox rightVBox = new VBox();

@@ -1,5 +1,5 @@
 package edu.icet.pos.util;
 
 public enum BoType {
-    USER_ROLE,USER
+    USER_ROLE,USER,CATEGORY
 }

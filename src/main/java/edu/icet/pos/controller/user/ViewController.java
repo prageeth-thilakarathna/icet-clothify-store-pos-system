@@ -2,8 +2,8 @@ package edu.icet.pos.controller.user;
 
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
-import edu.icet.pos.controller.user.custom.UserTableCustom;
-import edu.icet.pos.controller.user.custom.UserViewCustom;
+import edu.icet.pos.controller.user.custom.UserTable;
+import edu.icet.pos.controller.user.custom.UserView;
 import edu.icet.pos.model.TblUserView;
 import edu.icet.pos.model.User;
 import edu.icet.pos.util.BoType;
@@ -20,14 +20,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class ViewController implements UserViewCustom {
+public class ViewController implements UserView {
     @FXML
     private Pagination tblPagination;
     @FXML
     private Label dspCount;
 
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
-    private final UserTableCustom userTableCustom = UserCenterController.getInstance().getFxmlLoaderTable().getController();
+    private UserTable userTable;
     private static final String DELETION = "deletion";
 
     private ObservableList<TblUserView> getUserTblPerPage(int pageIndex){
@@ -68,7 +68,10 @@ public class ViewController implements UserViewCustom {
     }
 
     private Node createTblPage(int pageIndex){
-        TableView<TblUserView> tableView = userTableCustom.getTable();
+        if(userTable ==null){
+            userTable = UserCenterController.getInstance().getFxmlLoaderTable().getController();
+        }
+        TableView<TblUserView> tableView = userTable.getTable();
         tableView.setItems(getUserTblPerPage(pageIndex));
         return tableView;
     }
@@ -124,10 +127,14 @@ public class ViewController implements UserViewCustom {
     }
 
     @Override
+    public void loadTable() {
+        tblPagination.setPageFactory(this::createTblPage);
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userCountUpdate();
         tblPagination.setMaxPageIndicatorCount(10);
         tblPagination.setPageCount(getPageCount());
-        tblPagination.setPageFactory(this::createTblPage);
     }
 }

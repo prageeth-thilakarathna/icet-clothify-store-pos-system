@@ -4,21 +4,19 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.bo.custom.UserRoleBo;
 import edu.icet.pos.controller.CenterController;
-import edu.icet.pos.controller.auth.custom.LoginPanelCustom;
+import edu.icet.pos.controller.auth.custom.LoginPanel;
 import edu.icet.pos.controller.layout.LayoutCenterController;
-import edu.icet.pos.controller.layout.custom.LayoutCustom;
+import edu.icet.pos.controller.layout.custom.Layout;
 import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.model.User;
 import edu.icet.pos.model.UserRole;
 import edu.icet.pos.util.BoType;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import java.net.URL;
@@ -26,7 +24,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LoginPanelController implements LoginPanelCustom {
+public class LoginPanelController implements LoginPanel {
     @FXML
     private CheckBox passwordCheckBox;
     @FXML
@@ -42,7 +40,7 @@ public class LoginPanelController implements LoginPanelCustom {
 
     private final UserRoleBo userRoleBo = BoFactory.getBo(BoType.USER_ROLE);
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
-    private LayoutCustom layoutCustom;
+    private Layout layout;
     @Getter
     private User loginUser;
 
@@ -72,11 +70,11 @@ public class LoginPanelController implements LoginPanelCustom {
 
     @FXML
     private void forgotPasswordMouseClicked() {
-        if(layoutCustom==null){
-            layoutCustom = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
+        if(layout ==null){
+            layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
         }
         cancel();
-        BorderPane borderPane = layoutCustom.getBorderPane();
+        BorderPane borderPane = layout.getBorderPane();
         borderPane.getChildren().remove(borderPane.getRight());
 
         VBox rightVBox = new VBox();
@@ -94,11 +92,11 @@ public class LoginPanelController implements LoginPanelCustom {
             User user = userBo.getUserByEmail(txtEmail.getText());
             if(Objects.equals(user.getPassword(), CenterController.getInstance().encryptPassword(txtPassword.getText()))){
                 loginUser = user;
-                if(layoutCustom==null){
-                    layoutCustom = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
+                if(layout ==null){
+                    layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
                 }
                 cancel();
-                layoutCustom.loadDashboard();
+                layout.loadDashboard();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Failed! Please input the correct password.");

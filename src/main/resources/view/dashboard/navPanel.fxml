@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="596.0" prefWidth="258.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.NavPanelController">
+<VBox alignment="TOP_CENTER" prefHeight="596.0" prefWidth="258.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.DashboardNavPanelController">
    <children>
       <Label text="Clothify Store" textFill="#2f3548">
          <font>
@@ -63,7 +63,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button fx:id="btnCategory" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Category" textFill="WHITE">
+                  <Button fx:id="btnCategory" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnCategoryAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Category" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

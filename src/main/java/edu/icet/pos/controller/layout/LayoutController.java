@@ -3,8 +3,8 @@ package edu.icet.pos.controller.layout;
 import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.dashboard.DashboardCenterController;
-import edu.icet.pos.controller.dashboard.custom.HeaderCustom;
-import edu.icet.pos.controller.layout.custom.LayoutCustom;
+import edu.icet.pos.controller.dashboard.custom.DashboardHeader;
+import edu.icet.pos.controller.layout.custom.Layout;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -17,11 +17,11 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LayoutController implements LayoutCustom {
+public class LayoutController implements Layout {
     @FXML
     private BorderPane borderPane;
 
-    private HeaderCustom headerCustom = DashboardCenterController.getInstance().getFxmlLoaderHeader().getController();
+    private final DashboardHeader dashboardHeader = DashboardCenterController.getInstance().getFxmlLoaderHeader().getController();
 
     @Override
     public BorderPane getBorderPane() {
@@ -37,7 +37,7 @@ public class LayoutController implements LayoutCustom {
         topVBox.setPrefHeight(60);
         topVBox.getChildren().add(DashboardCenterController.getInstance().getParentHeader());
         borderPane.setTop(topVBox);
-        headerCustom.authHeader();
+        dashboardHeader.authHeader();
 
         VBox leftVBox = new VBox();
         leftVBox.setPrefWidth(258);
@@ -47,6 +47,7 @@ public class LayoutController implements LayoutCustom {
             Parent parentNavPanel = new FXMLLoader(getClass().getResource("/view/dashboard/navPanel.fxml")).load();
             leftVBox.getChildren().add(parentNavPanel);
             borderPane.setLeft(leftVBox);
+            borderPane.setCenter(CenterController.getInstance().getPageBorderPane());
         } catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
