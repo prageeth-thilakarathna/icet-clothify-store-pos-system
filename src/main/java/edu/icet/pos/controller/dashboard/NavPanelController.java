@@ -1,10 +1,12 @@
 package edu.icet.pos.controller.dashboard;
 
 import edu.icet.pos.controller.CenterController;
+import edu.icet.pos.controller.auth.AuthCenterController;
+import edu.icet.pos.controller.auth.custom.LoginPanelCustom;
+import edu.icet.pos.controller.dashboard.custom.NavPanelCustom;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,9 +16,20 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class NavPanelController implements Initializable {
+public class NavPanelController implements NavPanelCustom {
+    @FXML
+    private Button btnSupplier;
+    @FXML
+    private Button btnProduct;
+    @FXML
+    private Button btnInventory;
+    @FXML
+    private Button btnEmployee;
+    @FXML
+    private Button btnOrder;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -27,6 +40,8 @@ public class NavPanelController implements Initializable {
     private Button btnUser;
     @FXML
     private Button btnDashboard;
+
+    private LoginPanelCustom loginPanelCustom = AuthCenterController.getInstance().getFxmlLoaderLoginPanel().getController();
 
     @FXML
     private void btnUserAction(ActionEvent actionEvent) throws IOException {
@@ -61,5 +76,13 @@ public class NavPanelController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnDashboard.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
+        if (loginPanelCustom.getLoginUser() != null && Objects.equals(loginPanelCustom.getLoginUser().getUserRole().getName(), "user")) {
+            navSectionVBox.getChildren().remove(btnUser);
+            navSectionVBox.getChildren().remove(btnCategory);
+            navSectionVBox.getChildren().remove(btnEmployee);
+            navSectionVBox.setPrefHeight(278);
+            scrollPane.setPrefHeight(280);
+        }
+
     }
 }

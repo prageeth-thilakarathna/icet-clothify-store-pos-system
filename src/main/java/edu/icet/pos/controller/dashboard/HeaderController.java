@@ -39,7 +39,7 @@ public class HeaderController implements HeaderCustom {
     private Label dspTime;
 
     private LayoutCustom layoutCustom;
-    private final LoginPanelCustom loginPanelCustom = AuthCenterController.getInstance().getFxmlLoaderLogin().getController();
+    private final LoginPanelCustom loginPanelCustom = AuthCenterController.getInstance().getFxmlLoaderLoginPanel().getController();
 
     // set data and time
     private void loadDateAndTime() {

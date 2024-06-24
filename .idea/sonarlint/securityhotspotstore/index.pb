@@ -95,3 +95,5 @@ w
 Gsrc/main/java/edu/icet/pos/controller/auth/custom/LoginPanelCustom.java,0\1\0168956ce224ee31680fdf22e6264d01817b9865
 x
 Hsrc/main/java/edu/icet/pos/controller/dashboard/custom/HeaderCustom.java,e\2\e2d52c8483c1e809b5c396e386ae935f6505ee77
+z
+Jsrc/main/java/edu/icet/pos/controller/dashboard/custom/NavPanelCustom.java,5\e\5e54bf28ab3f5852d7c5999c268a9eb50f264637

@@ -81,7 +81,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Supplier" textFill="WHITE">
+                  <Button fx:id="btnSupplier" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Supplier" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -99,7 +99,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Product" textFill="WHITE">
+                  <Button fx:id="btnProduct" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Product" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -117,7 +117,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Inventory" textFill="WHITE">
+                  <Button fx:id="btnInventory" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Inventory" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -135,7 +135,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="88.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Employee" textFill="WHITE">
+                  <Button fx:id="btnEmployee" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="88.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Employee" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -153,7 +153,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="127.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Order" textFill="WHITE">
+                  <Button fx:id="btnOrder" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="127.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Order" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

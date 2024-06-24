@@ -12,12 +12,9 @@ public class DashboardCenterController {
     private static final DashboardCenterController instance;
     private final FXMLLoader fxmlLoaderHeader = new FXMLLoader(getClass().getResource("/view/dashboard/header.fxml"));
     private final Parent parentHeader;
-    private final FXMLLoader fxmlLoaderNavPanel = new FXMLLoader(getClass().getResource("/view/dashboard/navPanel.fxml"));
-    private final Parent parentNavPanel;
 
     private DashboardCenterController() throws IOException {
         parentHeader = fxmlLoaderHeader.load();
-        parentNavPanel = fxmlLoaderNavPanel.load();
     }
 
     static {

@@ -6,7 +6,10 @@ import edu.icet.pos.controller.dashboard.DashboardCenterController;
 import edu.icet.pos.controller.dashboard.custom.HeaderCustom;
 import edu.icet.pos.controller.layout.custom.LayoutCustom;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -39,8 +42,16 @@ public class LayoutController implements LayoutCustom {
         VBox leftVBox = new VBox();
         leftVBox.setPrefWidth(258);
         leftVBox.setStyle("-fx-background-color: #d9d9d9;");
-        leftVBox.getChildren().add(DashboardCenterController.getInstance().getParentNavPanel());
-        borderPane.setLeft(leftVBox);
+
+        try{
+            Parent parentNavPanel = new FXMLLoader(getClass().getResource("/view/dashboard/navPanel.fxml")).load();
+            leftVBox.getChildren().add(parentNavPanel);
+            borderPane.setLeft(leftVBox);
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @Override

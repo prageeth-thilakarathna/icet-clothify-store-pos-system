@@ -10,14 +10,14 @@ import java.io.IOException;
 public class AuthCenterController {
     @Getter
     private static final AuthCenterController instance;
-    private final FXMLLoader fxmlLoaderLogin = new FXMLLoader(getClass().getResource("/view/auth/loginPanel.fxml"));
+    private final FXMLLoader fxmlLoaderLoginPanel = new FXMLLoader(getClass().getResource("/view/auth/loginPanel.fxml"));
     private final Parent parentLoginPanel;
     private final Parent parentBanner;
     private final FXMLLoader fxmlLoaderForgotPassword = new FXMLLoader(getClass().getResource("/view/auth/forgotPasswordPanel.fxml"));
     private final Parent parentForgotPassword;
 
     private AuthCenterController() throws IOException {
-        parentLoginPanel = fxmlLoaderLogin.load();
+        parentLoginPanel = fxmlLoaderLoginPanel.load();
         parentBanner = new FXMLLoader(getClass().getResource("/view/auth/banner.fxml")).load();
         parentForgotPassword = fxmlLoaderForgotPassword.load();
     }
