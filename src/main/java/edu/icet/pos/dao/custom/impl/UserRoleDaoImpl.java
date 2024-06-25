@@ -2,7 +2,6 @@ package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.UserRoleDao;
 import edu.icet.pos.entity.UserRoleEntity;
-import edu.icet.pos.model.UserRole;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

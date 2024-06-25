@@ -6,6 +6,12 @@ import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class CategoryDaoImpl implements CategoryDao {
     @Override
     public void save(CategoryEntity categoryEntity) {
@@ -89,5 +95,44 @@ public class CategoryDaoImpl implements CategoryDao {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public int count() {
+        Session session = HibernateUtil.getSession();
+        AtomicInteger count = new AtomicInteger();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) AS row_count FROM category");
+                resultSet.next();
+                count.set(resultSet.getInt("row_count"));
+            }
+        });
+        session.close();
+        return count.get();
+    }
+
+    @Override
+    public List<CategoryEntity> getPerPage(int offset) {
+        Session session = HibernateUtil.getSession();
+        List<CategoryEntity> categoryEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM category LIMIT 5 OFFSET "+offset);
+
+                while(resultSet.next()){
+                    CategoryEntity category = new CategoryEntity();
+                    category.setId(resultSet.getInt("id"));
+                    category.setName(resultSet.getString("name"));
+                    category.setRegisterAt(resultSet.getDate("registerAt"));
+                    category.setModifyAt(resultSet.getDate("modifyAt"));
+                    category.setIsActive(resultSet.getBoolean("isActive"));
+
+                    categoryEntityList.add(category);
+                }
+            }
+        });
+        session.close();
+        return categoryEntityList;
     }
 }

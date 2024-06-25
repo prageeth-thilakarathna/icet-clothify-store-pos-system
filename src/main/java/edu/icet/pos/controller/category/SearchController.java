@@ -4,7 +4,7 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.CategoryBo;
 import edu.icet.pos.controller.category.custom.CategoryForm;
 import edu.icet.pos.controller.category.custom.CategorySearch;
-import edu.icet.pos.model.Category;
+import edu.icet.pos.model.category.Category;
 import edu.icet.pos.util.BoType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

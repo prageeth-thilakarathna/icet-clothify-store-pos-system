@@ -4,7 +4,7 @@ import edu.icet.pos.bo.custom.UserRoleBo;
 import edu.icet.pos.dao.DaoFactory;
 import edu.icet.pos.dao.custom.UserRoleDao;
 import edu.icet.pos.entity.UserRoleEntity;
-import edu.icet.pos.model.UserRole;
+import edu.icet.pos.model.user.UserRole;
 import edu.icet.pos.util.DaoType;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;

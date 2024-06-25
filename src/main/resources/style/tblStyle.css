@@ -22,6 +22,5 @@
 .tblView .column-header-background .nested-column-header .col .label .text {
     -fx-font-family: System;
     -fx-font-size: 14px;
-    -fx-font-style: Bold;
     -fx-fill: #2f3548;
 }

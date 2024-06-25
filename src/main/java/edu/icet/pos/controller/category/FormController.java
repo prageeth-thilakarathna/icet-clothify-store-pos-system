@@ -5,7 +5,8 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.CategoryBo;
 import edu.icet.pos.controller.category.custom.CategoryForm;
 import edu.icet.pos.controller.category.custom.CategorySearch;
-import edu.icet.pos.model.Category;
+import edu.icet.pos.controller.category.custom.CategoryView;
+import edu.icet.pos.model.category.Category;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.util.Date;
@@ -40,24 +40,25 @@ public class FormController implements CategoryForm {
     private final CategoryBo categoryBo = BoFactory.getBo(BoType.CATEGORY);
     private Category searchCategory;
     private CategorySearch categorySearch;
+    private CategoryView categoryView;
 
     @FXML
     private void btnSubCategoryAction(ActionEvent actionEvent) {
     }
 
     @FXML
-    private void nameKeyTyped(KeyEvent keyEvent) {
+    private void nameKeyTyped() {
         validateInputs();
     }
 
     @FXML
-    private void optStatusAction(ActionEvent keyEvent) {
+    private void optStatusAction() {
         validateInputs();
     }
 
     @FXML
-    private void btnRegisterAction(ActionEvent actionEvent) {
-        if(!doesUserAlreadyExist()){
+    private void btnRegisterAction() {
+        if(!doesCategoryAlreadyExist()){
             try{
                 Category category = new Category();
                 category.setName(txtName.getText());
@@ -67,6 +68,10 @@ public class FormController implements CategoryForm {
 
                 assert categoryBo != null;
                 categoryBo.categoryRegister(category);
+                if(categoryView==null){
+                    categoryView = CategoryCenterController.getInstance().getFxmlLoaderView().getController();
+                }
+                categoryView.updateTbl("registration");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(txtName.getText()+" Category registration was successful.");
                 alert.show();
@@ -84,7 +89,7 @@ public class FormController implements CategoryForm {
         }
     }
 
-    private boolean doesUserAlreadyExist(){
+    private boolean doesCategoryAlreadyExist(){
         try{
             assert categoryBo != null;
             Category category = categoryBo.getCategoryByName(txtName.getText());
@@ -110,6 +115,10 @@ public class FormController implements CategoryForm {
 
             assert categoryBo != null;
             categoryBo.categoryUpdate(category);
+            if(categoryView==null){
+                categoryView = CategoryCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            categoryView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("The Category ID = "+searchCategory.getId()+" modification was successful.");
             alert.show();
@@ -132,6 +141,10 @@ public class FormController implements CategoryForm {
         try{
             assert categoryBo != null;
             categoryBo.categoryDelete(searchCategory);
+            if(categoryView==null){
+                categoryView = CategoryCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            categoryView.updateTbl("deletion");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("The Category ID = "+searchCategory.getId()+" deletion was successful.");
             alert.show();

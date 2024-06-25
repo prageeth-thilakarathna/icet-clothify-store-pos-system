@@ -4,6 +4,7 @@ import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.auth.custom.LoginPanel;
 import edu.icet.pos.controller.category.CategoryCenterController;
+import edu.icet.pos.controller.category.custom.CategoryView;
 import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.user.UserCenterController;
 import edu.icet.pos.controller.user.custom.UserView;
@@ -19,7 +20,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class DashboardNavPanelController implements DashboardNavPanel {
+public class NavPanelController implements DashboardNavPanel {
     @FXML
     private Button btnSupplier;
     @FXML
@@ -43,6 +44,7 @@ public class DashboardNavPanelController implements DashboardNavPanel {
 
     private final LoginPanel loginPanel = AuthCenterController.getInstance().getFxmlLoaderLoginPanel().getController();
     private final UserView userView = UserCenterController.getInstance().getFxmlLoaderView().getController();
+    private CategoryView categoryView = CategoryCenterController.getInstance().getFxmlLoaderView().getController();
 
     @FXML
     private void btnUserAction() {
@@ -105,6 +107,8 @@ public class DashboardNavPanelController implements DashboardNavPanel {
 
         VBox pageBottom = CenterController.getInstance().getPageBottom();
         pageBottom.getChildren().clear();
+        pageBottom.getChildren().add(CategoryCenterController.getInstance().getParentView());
+        categoryView.loadTable();
     }
 
     @Override

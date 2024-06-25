@@ -1,6 +1,6 @@
 package edu.icet.pos.controller.user.custom;
 
-import edu.icet.pos.model.TblUserView;
+import edu.icet.pos.model.user.TblUserView;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 

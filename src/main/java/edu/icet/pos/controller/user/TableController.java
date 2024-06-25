@@ -1,7 +1,7 @@
 package edu.icet.pos.controller.user;
 
 import edu.icet.pos.controller.user.custom.UserTable;
-import edu.icet.pos.model.TblUserView;
+import edu.icet.pos.model.user.TblUserView;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,7 +39,6 @@ public class TableController implements UserTable {
         colRegisterAt.setCellValueFactory(new PropertyValueFactory<>("registerAt"));
         colModifyAt.setCellValueFactory(new PropertyValueFactory<>("modifyAt"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-
         tblUser.setFixedCellSize(31.5);
     }
 }

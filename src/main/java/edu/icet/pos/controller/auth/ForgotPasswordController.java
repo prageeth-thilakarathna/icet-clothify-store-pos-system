@@ -3,7 +3,7 @@ package edu.icet.pos.controller.auth;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.controller.CenterController;
-import edu.icet.pos.model.User;
+import edu.icet.pos.model.user.User;
 import edu.icet.pos.util.BoType;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;

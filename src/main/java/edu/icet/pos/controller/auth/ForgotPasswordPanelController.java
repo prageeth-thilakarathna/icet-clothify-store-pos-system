@@ -5,7 +5,7 @@ import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.layout.LayoutCenterController;
 import edu.icet.pos.controller.layout.custom.Layout;
-import edu.icet.pos.model.User;
+import edu.icet.pos.model.user.User;
 import edu.icet.pos.util.BoType;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;

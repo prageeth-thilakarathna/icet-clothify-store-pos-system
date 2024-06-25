@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class DashboardHeaderController implements DashboardHeader {
+public class HeaderController implements DashboardHeader {
     @FXML
     private Separator separatorDev;
     @FXML

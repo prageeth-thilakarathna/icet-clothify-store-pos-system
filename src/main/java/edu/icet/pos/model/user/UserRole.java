@@ -1,4 +1,4 @@
-package edu.icet.pos.model;
+package edu.icet.pos.model.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

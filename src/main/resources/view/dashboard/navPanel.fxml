@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="596.0" prefWidth="258.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.DashboardNavPanelController">
+<VBox alignment="TOP_CENTER" prefHeight="596.0" prefWidth="258.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.NavPanelController">
    <children>
       <Label text="Clothify Store" textFill="#2f3548">
          <font>
