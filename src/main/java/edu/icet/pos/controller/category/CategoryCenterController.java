@@ -12,9 +12,12 @@ public class CategoryCenterController {
     private static final CategoryCenterController instance;
     private final FXMLLoader fxmlLoaderForm = new FXMLLoader(getClass().getResource("/view/category/form.fxml"));
     private final Parent parentForm;
+    private final FXMLLoader fxmlLoaderSearch = new FXMLLoader(getClass().getResource("/view/category/search.fxml"));
+    private final Parent parentSearch;
 
     private CategoryCenterController() throws IOException {
         parentForm = fxmlLoaderForm.load();
+        parentSearch = fxmlLoaderSearch.load();
     }
 
     static {

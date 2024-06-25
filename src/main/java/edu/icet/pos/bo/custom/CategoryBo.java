@@ -7,4 +7,10 @@ public interface CategoryBo extends SuperBo {
     void categoryRegister(Category category);
 
     Category getCategoryByName(String name);
+
+    Category getCategory(Integer id);
+
+    void categoryDelete(Category category);
+
+    void categoryUpdate(Category category);
 }

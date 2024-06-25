@@ -239,7 +239,6 @@ public class FormController implements UserForm {
     private void validateInputs(){
         int emailLength = txtEmail.getLength();
         int passwordLength = txtPassword.getLength();
-
         if(emailLength>4 && passwordLength>=8 && optUserRole.getValue()!=null && optStatus.getValue()!=null && searchUser==null){
             btnRegister.setDisable(false);
         } else {
@@ -248,7 +247,6 @@ public class FormController implements UserForm {
                 validateModify();
             }
         }
-
         btnCancel.setDisable(emailLength <= 0 && passwordLength <= 0 && optUserRole.getValue() == null && optStatus.getValue() == null);
     }
 

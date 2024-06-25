@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.CategoryBo;
 import edu.icet.pos.controller.category.custom.CategoryForm;
+import edu.icet.pos.controller.category.custom.CategorySearch;
 import edu.icet.pos.model.Category;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
@@ -37,6 +38,8 @@ public class FormController implements CategoryForm {
     private static final String ACTIVE = "Active";
     private static final String DISABLE = "Disable";
     private final CategoryBo categoryBo = BoFactory.getBo(BoType.CATEGORY);
+    private Category searchCategory;
+    private CategorySearch categorySearch;
 
     @FXML
     private void btnSubCategoryAction(ActionEvent actionEvent) {
@@ -97,11 +100,53 @@ public class FormController implements CategoryForm {
     }
 
     @FXML
-    private void btnModifyAction(ActionEvent actionEvent) {
+    private void btnModifyAction() {
+        try{
+            Category category = searchCategory;
+
+            category.setName(txtName.getText());
+            category.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
+            category.setModifyAt(new Date());
+
+            assert categoryBo != null;
+            categoryBo.categoryUpdate(category);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("The Category ID = "+searchCategory.getId()+" modification was successful.");
+            alert.show();
+            searchCategory = null;
+            clearForm();
+            if(categorySearch==null){
+                categorySearch = CategoryCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            categorySearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
-    private void btnDeleteAction(ActionEvent actionEvent) {
+    private void btnDeleteAction() {
+        try{
+            assert categoryBo != null;
+            categoryBo.categoryDelete(searchCategory);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("The Category ID = "+searchCategory.getId()+" deletion was successful.");
+            alert.show();
+            searchCategory = null;
+            clearForm();
+            if(categorySearch==null){
+                categorySearch = CategoryCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            categorySearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
@@ -109,17 +154,42 @@ public class FormController implements CategoryForm {
         clearForm();
     }
 
+    @Override
+    public void loadCategoryToForm(Category category) {
+        searchCategory = category;
+        btnDelete.setDisable(false);
+        txtName.setText(category.getName());
+        optStatus.setValue(Boolean.TRUE.equals(category.getIsActive()) ? ACTIVE:DISABLE);
+        validateModify();
+    }
+
+    @Override
+    public void clearCategory() {
+        searchCategory = null;
+        clearForm();
+        txtName.setDisable(false);
+        btnDelete.setDisable(true);
+    }
+
     private void validateInputs(){
-        if(txtName.getLength()>0 && optStatus.getValue()!=null){
+        if(txtName.getLength()>0 && optStatus.getValue()!=null && searchCategory==null){
             btnRegister.setDisable(false);
         } else {
             btnRegister.setDisable(true);
+            if(searchCategory!=null){
+                validateModify();
+            }
         }
+        btnCancel.setDisable(txtName.getLength() <= 0 && optStatus.getValue() == null);
+    }
 
-        if(txtName.getLength()>0 || optStatus.getValue()!=null){
-            btnCancel.setDisable(false);
+    private void validateModify(){
+        if(!Objects.equals(searchCategory.getName(), txtName.getText())){
+            btnModify.setDisable(txtName.getLength() <= 0 || optStatus.getValue() == null);
+        } else if(Boolean.TRUE.equals(searchCategory.getIsActive()) ? Objects.equals(optStatus.getValue(), DISABLE) : Objects.equals(optStatus.getValue(), ACTIVE)) {
+            btnModify.setDisable(txtName.getLength() <= 0 || optStatus.getValue() == null);
         } else {
-            btnCancel.setDisable(true);
+            btnModify.setDisable(true);
         }
     }
 
@@ -129,6 +199,7 @@ public class FormController implements CategoryForm {
         optStatus.setPromptText("   Select a Status");
         btnRegister.setDisable(true);
         btnCancel.setDisable(true);
+        btnModify.setDisable(true);
     }
 
     private ObservableList<String> getStatus(){
@@ -141,7 +212,6 @@ public class FormController implements CategoryForm {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         optStatus.setItems(getStatus());
-
         btnRegister.setDisable(true);
         btnCancel.setDisable(true);
         btnModify.setDisable(true);

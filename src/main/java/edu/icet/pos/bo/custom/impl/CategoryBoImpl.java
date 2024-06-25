@@ -22,4 +22,22 @@ public class CategoryBoImpl implements CategoryBo {
         assert categoryDao != null;
         return new ModelMapper().map(categoryDao.getByName(name), Category.class);
     }
+
+    @Override
+    public Category getCategory(Integer id) {
+        assert categoryDao != null;
+        return new ModelMapper().map(categoryDao.get(id), Category.class);
+    }
+
+    @Override
+    public void categoryDelete(Category category) {
+        assert categoryDao != null;
+        categoryDao.delete(new ModelMapper().map(category, CategoryEntity.class));
+    }
+
+    @Override
+    public void categoryUpdate(Category category) {
+        assert categoryDao != null;
+        categoryDao.update(new ModelMapper().map(category, CategoryEntity.class));
+    }
 }
