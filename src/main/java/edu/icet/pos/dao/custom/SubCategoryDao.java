@@ -7,4 +7,10 @@ public interface SubCategoryDao extends SuperDao {
     void save(SubCategoryEntity subCategoryEntity);
 
     SubCategoryEntity getByName(String name);
+
+    SubCategoryEntity get(Integer id);
+
+    void update(SubCategoryEntity subCategoryEntity);
+
+    void delete(SubCategoryEntity subCategoryEntity);
 }

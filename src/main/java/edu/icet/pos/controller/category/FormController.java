@@ -10,7 +10,7 @@ import edu.icet.pos.controller.category.custom.CategoryView;
 import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.layout.LayoutCenterController;
 import edu.icet.pos.controller.layout.custom.Layout;
-import edu.icet.pos.controller.subCategory.SubCategoryCenterController;
+import edu.icet.pos.controller.sub_category.SubCategoryCenterController;
 import edu.icet.pos.model.category.Category;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
@@ -71,10 +71,11 @@ public class FormController implements CategoryForm {
 
         VBox pageCenter = CenterController.getInstance().getPageCenter();
         pageCenter.getChildren().clear();
-        pageCenter.getChildren().add(SubCategoryCenterController.getInstance().getParentLayout());
+        pageCenter.getChildren().add(SubCategoryCenterController.getInstance().getParentForm());
 
         VBox pageRight = CenterController.getInstance().getPageRight();
         pageRight.getChildren().clear();
+        pageRight.getChildren().add(SubCategoryCenterController.getInstance().getParentSearch());
 
         VBox pageBottom = CenterController.getInstance().getPageBottom();
         pageBottom.getChildren().clear();

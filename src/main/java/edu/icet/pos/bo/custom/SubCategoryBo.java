@@ -7,4 +7,10 @@ public interface SubCategoryBo extends SuperBo {
     void subCategoryRegister(SubCategory subCategory);
 
     SubCategory getSubCategoryByName(String name);
+
+    SubCategory getSubCategory(Integer id);
+
+    void subCategoryUpdate(SubCategory subCategory);
+
+    void subCategoryDelete(SubCategory subCategory);
 }

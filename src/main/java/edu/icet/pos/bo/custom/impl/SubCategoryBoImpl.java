@@ -22,4 +22,22 @@ public class SubCategoryBoImpl implements SubCategoryBo {
         assert subCategoryDao != null;
         return new ModelMapper().map(subCategoryDao.getByName(name), SubCategory.class);
     }
+
+    @Override
+    public SubCategory getSubCategory(Integer id) {
+        assert subCategoryDao != null;
+        return new ModelMapper().map(subCategoryDao.get(id), SubCategory.class);
+    }
+
+    @Override
+    public void subCategoryUpdate(SubCategory subCategory) {
+        assert subCategoryDao != null;
+        subCategoryDao.update(new ModelMapper().map(subCategory, SubCategoryEntity.class));
+    }
+
+    @Override
+    public void subCategoryDelete(SubCategory subCategory) {
+        assert subCategoryDao != null;
+        subCategoryDao.delete(new ModelMapper().map(subCategory, SubCategoryEntity.class));
+    }
 }

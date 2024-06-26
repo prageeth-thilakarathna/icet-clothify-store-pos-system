@@ -1,4 +1,4 @@
-package edu.icet.pos.controller.subCategory;
+package edu.icet.pos.controller.sub_category;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,10 +11,13 @@ public class SubCategoryCenterController {
     @Getter
     private static final SubCategoryCenterController instance;
     private final FXMLLoader fxmlLoaderForm = new FXMLLoader(getClass().getResource("/view/sub-category/form.fxml"));
-    private final Parent parentLayout;
+    private final Parent parentForm;
+    private final FXMLLoader fxmlLoaderSearch = new FXMLLoader(getClass().getResource("/view/sub-category/search.fxml"));
+    private final Parent parentSearch;
 
     private SubCategoryCenterController() throws IOException {
-        parentLayout = fxmlLoaderForm.load();
+        parentForm = fxmlLoaderForm.load();
+        parentSearch = fxmlLoaderSearch.load();
     }
 
     static {

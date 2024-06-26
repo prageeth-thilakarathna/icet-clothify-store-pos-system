@@ -1,10 +1,11 @@
-package edu.icet.pos.controller.subCategory;
+package edu.icet.pos.controller.sub_category;
 
 import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.CategoryBo;
 import edu.icet.pos.bo.custom.SubCategoryBo;
-import edu.icet.pos.controller.subCategory.custom.SubCategoryForm;
+import edu.icet.pos.controller.sub_category.custom.SubCategoryForm;
+import edu.icet.pos.controller.sub_category.custom.SubCategorySearch;
 import edu.icet.pos.entity.CategoryEntity;
 import edu.icet.pos.model.category.Category;
 import edu.icet.pos.model.sub_category.SubCategory;
@@ -45,6 +46,8 @@ public class FormController implements SubCategoryForm {
     private static final String DISABLE = "Disable";
     private final CategoryBo categoryBo = BoFactory.getBo(BoType.CATEGORY);
     private final SubCategoryBo subCategoryBo = BoFactory.getBo(BoType.SUB_CATEGORY);
+    private SubCategory searchSubCategory;
+    private SubCategorySearch subCategorySearch;
 
     @FXML
     private void nameKeyTyped(KeyEvent keyEvent) {
@@ -94,11 +97,55 @@ public class FormController implements SubCategoryForm {
     }
 
     @FXML
-    private void btnModifyAction(ActionEvent actionEvent) {
+    private void btnModifyAction() {
+        try{
+            SubCategory subCategory = searchSubCategory;
+
+            subCategory.setName(txtName.getText());
+            assert categoryBo != null;
+            subCategory.setCategory(new ModelMapper().map(categoryBo.getCategoryByName(optCategory.getValue()), CategoryEntity.class));
+            subCategory.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
+            subCategory.setModifyAt(new Date());
+
+            assert subCategoryBo != null;
+            subCategoryBo.subCategoryUpdate(subCategory);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("The Sub Category ID = "+searchSubCategory.getId()+" modification was successful.");
+            alert.show();
+            searchSubCategory = null;
+            clearForm();
+            if(subCategorySearch==null){
+                subCategorySearch = SubCategoryCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            subCategorySearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
-    private void btnDeleteAction(ActionEvent actionEvent) {
+    private void btnDeleteAction() {
+        try{
+            assert subCategoryBo != null;
+            subCategoryBo.subCategoryDelete(searchSubCategory);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("The Sub Category ID = "+searchSubCategory.getId()+" deletion was successful.");
+            alert.show();
+            searchSubCategory = null;
+            clearForm();
+            if(subCategorySearch==null){
+                subCategorySearch = SubCategoryCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            subCategorySearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
@@ -131,16 +178,33 @@ public class FormController implements SubCategoryForm {
     }
 
     private void validateInputs(){
-        if(txtName.getLength()>0 && optCategory.getValue()!=null && optStatus.getValue()!=null){
+        if(txtName.getLength()>0 && optCategory.getValue()!=null && optStatus.getValue()!=null && searchSubCategory==null){
             btnRegister.setDisable(false);
         } else {
             btnRegister.setDisable(true);
+            if(searchSubCategory!=null){
+                validateModify();
+            } else {
+                btnModify.setDisable(true);
+            }
         }
 
         if(txtName.getLength()>0 || optCategory.getValue()!=null || optStatus.getValue()!=null){
             btnCancel.setDisable(false);
         } else {
             btnCancel.setDisable(true);
+        }
+    }
+
+    private void validateModify(){
+        if(!Objects.equals(searchSubCategory.getName(), txtName.getText())){
+            btnModify.setDisable(txtName.getLength() <= 0 || optCategory.getValue() == null || optStatus.getValue() == null);
+        } else if(!Objects.equals(searchSubCategory.getCategory().getName(), optCategory.getValue())){
+            btnModify.setDisable(txtName.getLength() <= 0 || optCategory.getValue() == null || optStatus.getValue() == null);
+        } else if(Boolean.TRUE.equals(searchSubCategory.getIsActive()) ? Objects.equals(optStatus.getValue(), DISABLE) : Objects.equals(optStatus.getValue(), ACTIVE)){
+            btnModify.setDisable(txtName.getLength() <= 0 || optCategory.getValue() == null || optStatus.getValue() == null);
+        } else {
+            btnModify.setDisable(true);
         }
     }
 
@@ -165,6 +229,23 @@ public class FormController implements SubCategoryForm {
         statusList.add(ACTIVE);
         statusList.add(DISABLE);
         return statusList;
+    }
+
+    @Override
+    public void loadSubCategoryToForm(SubCategory subCategory) {
+        searchSubCategory = subCategory;
+        btnDelete.setDisable(false);
+        txtName.setText(subCategory.getName());
+        optCategory.setValue(subCategory.getCategory().getName());
+        optStatus.setValue(Boolean.TRUE.equals(subCategory.getIsActive()) ? ACTIVE:DISABLE);
+        validateModify();
+    }
+
+    @Override
+    public void clearSubCategory() {
+        searchSubCategory = null;
+        clearForm();
+        btnDelete.setDisable(true);
     }
 
     @Override
