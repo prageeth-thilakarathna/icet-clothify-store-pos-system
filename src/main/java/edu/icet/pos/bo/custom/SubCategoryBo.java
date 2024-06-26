@@ -3,6 +3,8 @@ package edu.icet.pos.bo.custom;
 import edu.icet.pos.bo.SuperBo;
 import edu.icet.pos.model.sub_category.SubCategory;
 
+import java.util.List;
+
 public interface SubCategoryBo extends SuperBo {
     void subCategoryRegister(SubCategory subCategory);
 
@@ -13,4 +15,8 @@ public interface SubCategoryBo extends SuperBo {
     void subCategoryUpdate(SubCategory subCategory);
 
     void subCategoryDelete(SubCategory subCategory);
+
+    int getSubCategoryCount();
+
+    List<SubCategory> getSubCategoryPerPage(int offset);
 }

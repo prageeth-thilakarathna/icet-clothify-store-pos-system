@@ -11,6 +11,7 @@ import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.layout.LayoutCenterController;
 import edu.icet.pos.controller.layout.custom.Layout;
 import edu.icet.pos.controller.sub_category.SubCategoryCenterController;
+import edu.icet.pos.controller.sub_category.custom.SubCategoryView;
 import edu.icet.pos.model.category.Category;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
@@ -47,7 +48,7 @@ public class FormController implements CategoryForm {
     private CategoryView categoryView;
     private Layout layout;
     private DashboardNavPanel dashboardNavPanel;
-
+    private final SubCategoryView subCategoryView = SubCategoryCenterController.getInstance().getFxmlLoaderView().getController();
 
     @FXML
     private void btnSubCategoryAction() {
@@ -79,6 +80,8 @@ public class FormController implements CategoryForm {
 
         VBox pageBottom = CenterController.getInstance().getPageBottom();
         pageBottom.getChildren().clear();
+        pageBottom.getChildren().add(SubCategoryCenterController.getInstance().getParentView());
+        subCategoryView.loadTable();
     }
 
     @FXML

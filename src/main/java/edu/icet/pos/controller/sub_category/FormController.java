@@ -6,6 +6,7 @@ import edu.icet.pos.bo.custom.CategoryBo;
 import edu.icet.pos.bo.custom.SubCategoryBo;
 import edu.icet.pos.controller.sub_category.custom.SubCategoryForm;
 import edu.icet.pos.controller.sub_category.custom.SubCategorySearch;
+import edu.icet.pos.controller.sub_category.custom.SubCategoryView;
 import edu.icet.pos.entity.CategoryEntity;
 import edu.icet.pos.model.category.Category;
 import edu.icet.pos.model.sub_category.SubCategory;
@@ -48,6 +49,7 @@ public class FormController implements SubCategoryForm {
     private final SubCategoryBo subCategoryBo = BoFactory.getBo(BoType.SUB_CATEGORY);
     private SubCategory searchSubCategory;
     private SubCategorySearch subCategorySearch;
+    private SubCategoryView subCategoryView;
 
     @FXML
     private void nameKeyTyped(KeyEvent keyEvent) {
@@ -78,6 +80,10 @@ public class FormController implements SubCategoryForm {
 
                 assert subCategoryBo != null;
                 subCategoryBo.subCategoryRegister(subCategory);
+                if(subCategoryView==null){
+                    subCategoryView = SubCategoryCenterController.getInstance().getFxmlLoaderView().getController();
+                }
+                subCategoryView.updateTbl("registration");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(txtName.getText()+" Sub Category registration was successful.");
                 alert.show();
@@ -109,6 +115,10 @@ public class FormController implements SubCategoryForm {
 
             assert subCategoryBo != null;
             subCategoryBo.subCategoryUpdate(subCategory);
+            if(subCategoryView==null){
+                subCategoryView = SubCategoryCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            subCategoryView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("The Sub Category ID = "+searchSubCategory.getId()+" modification was successful.");
             alert.show();
@@ -131,6 +141,10 @@ public class FormController implements SubCategoryForm {
         try{
             assert subCategoryBo != null;
             subCategoryBo.subCategoryDelete(searchSubCategory);
+            if(subCategoryView==null){
+                subCategoryView = SubCategoryCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            subCategoryView.updateTbl("deletion");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("The Sub Category ID = "+searchSubCategory.getId()+" deletion was successful.");
             alert.show();

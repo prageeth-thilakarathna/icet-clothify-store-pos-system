@@ -7,6 +7,9 @@ import edu.icet.pos.entity.SubCategoryEntity;
 import edu.icet.pos.model.sub_category.SubCategory;
 import edu.icet.pos.util.DaoType;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+
+import java.util.List;
 
 public class SubCategoryBoImpl implements SubCategoryBo {
     private final SubCategoryDao subCategoryDao = DaoFactory.getDao(DaoType.SUB_CATEGORY);
@@ -39,5 +42,17 @@ public class SubCategoryBoImpl implements SubCategoryBo {
     public void subCategoryDelete(SubCategory subCategory) {
         assert subCategoryDao != null;
         subCategoryDao.delete(new ModelMapper().map(subCategory, SubCategoryEntity.class));
+    }
+
+    @Override
+    public int getSubCategoryCount() {
+        assert subCategoryDao != null;
+        return subCategoryDao.count();
+    }
+
+    @Override
+    public List<SubCategory> getSubCategoryPerPage(int offset) {
+        assert subCategoryDao != null;
+        return new ModelMapper().map(subCategoryDao.getPerPage(offset), new TypeToken<List<SubCategory>>() {}.getType());
     }
 }
