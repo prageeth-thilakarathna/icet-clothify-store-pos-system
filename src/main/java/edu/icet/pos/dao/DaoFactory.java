@@ -1,9 +1,6 @@
 package edu.icet.pos.dao;
 
-import edu.icet.pos.dao.custom.impl.CategoryDaoImpl;
-import edu.icet.pos.dao.custom.impl.SubCategoryDaoImpl;
-import edu.icet.pos.dao.custom.impl.UserDaoImpl;
-import edu.icet.pos.dao.custom.impl.UserRoleDaoImpl;
+import edu.icet.pos.dao.custom.impl.*;
 import edu.icet.pos.util.DaoType;
 
 public class DaoFactory {
@@ -15,6 +12,7 @@ public class DaoFactory {
             case USER: return (T) new UserDaoImpl();
             case CATEGORY: return (T) new CategoryDaoImpl();
             case SUB_CATEGORY: return (T) new SubCategoryDaoImpl();
+            case SUPPLIER: return (T) new SupplierDaoImpl();
         }
         return null;
     }

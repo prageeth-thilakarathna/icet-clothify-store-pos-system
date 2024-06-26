@@ -1,9 +1,6 @@
 package edu.icet.pos.bo;
 
-import edu.icet.pos.bo.custom.impl.CategoryBoImpl;
-import edu.icet.pos.bo.custom.impl.SubCategoryBoImpl;
-import edu.icet.pos.bo.custom.impl.UserBoImpl;
-import edu.icet.pos.bo.custom.impl.UserRoleBoImpl;
+import edu.icet.pos.bo.custom.impl.*;
 import edu.icet.pos.util.BoType;
 
 public class BoFactory {
@@ -15,6 +12,7 @@ public class BoFactory {
             case USER: return (T) new UserBoImpl();
             case CATEGORY: return (T) new CategoryBoImpl();
             case SUB_CATEGORY: return (T) new SubCategoryBoImpl();
+            case SUPPLIER: return (T) new SupplierBoImpl();
         }
         return null;
     }
