@@ -52,8 +52,11 @@ public class NavPanelController implements DashboardNavPanel {
         btnDashboard.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnCategory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
+        HBox pageTop = CenterController.getInstance().getPageTop();
+        pageTop.getChildren().clear();
         Label pageHeader = CenterController.getInstance().getPageHeader();
         pageHeader.setText("User");
+        pageTop.getChildren().add(pageHeader);
 
         VBox pageCenter = CenterController.getInstance().getPageCenter();
         pageCenter.getChildren().clear();
@@ -75,8 +78,11 @@ public class NavPanelController implements DashboardNavPanel {
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnCategory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
+        HBox pageTop = CenterController.getInstance().getPageTop();
+        pageTop.getChildren().clear();
         Label pageHeader = CenterController.getInstance().getPageHeader();
         pageHeader.setText("Dashboard");
+        pageTop.getChildren().add(pageHeader);
 
         VBox pageCenter = CenterController.getInstance().getPageCenter();
         pageCenter.getChildren().clear();
@@ -94,8 +100,11 @@ public class NavPanelController implements DashboardNavPanel {
         btnDashboard.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
+        HBox pageTop = CenterController.getInstance().getPageTop();
+        pageTop.getChildren().clear();
         Label pageHeader = CenterController.getInstance().getPageHeader();
         pageHeader.setText("Category");
+        pageTop.getChildren().add(pageHeader);
 
         VBox pageCenter = CenterController.getInstance().getPageCenter();
         pageCenter.getChildren().clear();
@@ -112,14 +121,16 @@ public class NavPanelController implements DashboardNavPanel {
     }
 
     @Override
+    public void loadCategory() {
+        btnCategoryAction();
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         BorderPane borderPanePage = CenterController.getInstance().getPageBorderPane();
         borderPanePage.getChildren().removeAll(borderPanePage.getChildren());
 
         HBox pageTop = CenterController.getInstance().getPageTop();
-        Label pageHeader = CenterController.getInstance().getPageHeader();
-        pageTop.getChildren().clear();
-        pageTop.getChildren().add(pageHeader);
         borderPanePage.setTop(pageTop);
 
         VBox pageCenter = CenterController.getInstance().getPageCenter();

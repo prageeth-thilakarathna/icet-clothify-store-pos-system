@@ -1,3 +1,5 @@
 
 á
-java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(³Ú¹şÿÿÿÿÿ8íß¢„2J$0693c0b7-638a-4e87-b026-08a32f39248d
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(³Ú¹şÿÿÿÿÿ8ú‰ˆ…2J$e9fd3e1f-8fd6-4e7f-95be-4c892fab98e5
+{
+java:S1128"3Remove this unused import 'javafx.geometry.Insets'.(›¨µğûÿÿÿÿ8‚ÙŒ…2J$8dd4eb31-46f9-4504-b9a4-b9fa774821d6

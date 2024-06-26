@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import lombok.Getter;
 
 import java.net.URL;
 import java.util.Objects;
@@ -22,6 +23,7 @@ public class LayoutController implements Layout {
     private BorderPane borderPane;
 
     private final DashboardHeader dashboardHeader = DashboardCenterController.getInstance().getFxmlLoaderHeader().getController();
+    private FXMLLoader fxmlLoaderNavPanel;
 
     @Override
     public BorderPane getBorderPane() {
@@ -44,7 +46,9 @@ public class LayoutController implements Layout {
         leftVBox.setStyle("-fx-background-color: #d9d9d9;");
 
         try{
-            Parent parentNavPanel = new FXMLLoader(getClass().getResource("/view/dashboard/navPanel.fxml")).load();
+            FXMLLoader fxmlLoaderNav = new FXMLLoader(getClass().getResource("/view/dashboard/navPanel.fxml"));
+            fxmlLoaderNavPanel = fxmlLoaderNav;
+            Parent parentNavPanel = fxmlLoaderNav.load();
             leftVBox.getChildren().add(parentNavPanel);
             borderPane.setLeft(leftVBox);
             borderPane.setCenter(CenterController.getInstance().getPageBorderPane());
@@ -71,6 +75,11 @@ public class LayoutController implements Layout {
         rightVBox.setPrefHeight(658);
         rightVBox.getChildren().add(AuthCenterController.getInstance().getParentLoginPanel());
         borderPane.setRight(rightVBox);
+    }
+
+    @Override
+    public FXMLLoader getNavPanel() {
+        return fxmlLoaderNavPanel;
     }
 
     @Override

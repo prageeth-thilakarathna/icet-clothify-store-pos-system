@@ -19,4 +19,6 @@ public interface CategoryBo extends SuperBo {
     int getCategoryCount();
 
     List<Category> getCategoryPerPage(int offset);
+
+    List<Category> getAllCategory();
 }

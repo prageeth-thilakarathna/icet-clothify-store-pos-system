@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox prefHeight="274.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.subCategory.FormController">
+   <children>
+      <ScrollPane focusTraversable="false" prefHeight="274.0" prefWidth="627.0" style="-fx-focus-color: transparent; -fx-background-color: transparent;">
+         <content>
+            <VBox prefHeight="231.0" prefWidth="609.0">
+               <children>
+                  <HBox prefHeight="25.0" prefWidth="609.0">
+                     <children>
+                        <Label text="Name" textFill="#2f3548">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text="Category" textFill="#2f3548">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="245.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="37.0" prefWidth="609.0">
+                     <children>
+                        <TextField fx:id="txtName" focusTraversable="false" onKeyTyped="#nameKeyTyped" prefHeight="37.0" prefWidth="264.0" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <JFXComboBox fx:id="optCategory" focusTraversable="false" onAction="#optCategoryAction" prefHeight="37.0" prefWidth="264.0" promptText="   Select a Category" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXComboBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="60.0" prefHeight="25.0" prefWidth="609.0">
+                     <children>
+                        <Label text="Status" textFill="#2f3548">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="85.0" prefHeight="37.0" prefWidth="609.0">
+                     <children>
+                        <JFXComboBox fx:id="optStatus" focusTraversable="false" onAction="#optStatusAction" prefHeight="37.0" prefWidth="264.0" promptText="   Select a Status" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXComboBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="32.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnRegister" focusTraversable="false" mnemonicParsing="false" onAction="#btnRegisterAction" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="Register" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnModify" focusTraversable="false" layoutX="30.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnModifyAction" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #353c52; -fx-background-radius: 10px;" text="Modify" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnDelete" focusTraversable="false" layoutX="115.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #ea3e43; -fx-background-radius: 10px;" text="Delete" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnCancel" focusTraversable="false" layoutX="135.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #353c52; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

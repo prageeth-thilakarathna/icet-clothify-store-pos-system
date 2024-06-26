@@ -1,8 +1,11 @@
 package edu.icet.pos.controller;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,6 +28,7 @@ public class CenterController {
     private final VBox pageCenter = new VBox();
     private final VBox pageRight = new VBox();
     private final VBox pageBottom = new VBox();
+    private final Hyperlink pageMainHeader = new Hyperlink();
 
     private CenterController(){
         pageTop.setPrefWidth(911);
@@ -46,6 +50,10 @@ public class CenterController {
         pageBottom.setPrefWidth(911);
         pageBottom.setPrefHeight(273);
         pageBottom.setAlignment(Pos.CENTER);
+
+        pageMainHeader.setStyle("-fx-text-fill: #2f3548; -fx-font-weight: 700; -fx-underline: true; -fx-font-size: 18px;");
+        pageMainHeader.setTranslateX(20);
+        pageMainHeader.setBorder(Border.EMPTY);
     }
 
     public static CenterController getInstance() {

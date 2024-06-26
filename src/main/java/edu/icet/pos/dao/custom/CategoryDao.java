@@ -19,4 +19,6 @@ public interface CategoryDao extends SuperDao {
     int count();
 
     List<CategoryEntity> getPerPage(int offset);
+
+    List<CategoryEntity> getAll();
 }

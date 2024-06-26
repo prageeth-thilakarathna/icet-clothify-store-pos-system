@@ -2,6 +2,7 @@ package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.CategoryDao;
 import edu.icet.pos.entity.CategoryEntity;
+import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -133,6 +134,24 @@ public class CategoryDaoImpl implements CategoryDao {
             }
         });
         session.close();
+        return categoryEntityList;
+    }
+
+    @Override
+    public List<CategoryEntity> getAll() {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        List<CategoryEntity> categoryEntityList;
+        try {
+            tx = session.beginTransaction();
+            categoryEntityList = session.createQuery("SELECT a FROM CategoryEntity a", CategoryEntity.class).getResultList();
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
         return categoryEntityList;
     }
 }

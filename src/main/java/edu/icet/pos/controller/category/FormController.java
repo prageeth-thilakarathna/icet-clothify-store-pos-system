@@ -3,18 +3,22 @@ package edu.icet.pos.controller.category;
 import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.CategoryBo;
+import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.category.custom.CategoryForm;
 import edu.icet.pos.controller.category.custom.CategorySearch;
 import edu.icet.pos.controller.category.custom.CategoryView;
+import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
+import edu.icet.pos.controller.layout.LayoutCenterController;
+import edu.icet.pos.controller.layout.custom.Layout;
+import edu.icet.pos.controller.subCategory.SubCategoryCenterController;
 import edu.icet.pos.model.category.Category;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.Date;
@@ -41,9 +45,39 @@ public class FormController implements CategoryForm {
     private Category searchCategory;
     private CategorySearch categorySearch;
     private CategoryView categoryView;
+    private Layout layout;
+    private DashboardNavPanel dashboardNavPanel;
+
 
     @FXML
-    private void btnSubCategoryAction(ActionEvent actionEvent) {
+    private void btnSubCategoryAction() {
+        HBox pageTop = CenterController.getInstance().getPageTop();
+        pageTop.getChildren().clear();
+
+        Hyperlink pageMainHeader = CenterController.getInstance().getPageMainHeader();
+        pageMainHeader.setText("Category");
+        if(layout==null){
+            layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
+        }
+        if(dashboardNavPanel==null){
+            dashboardNavPanel = layout.getNavPanel().getController();
+        }
+        pageMainHeader.setOnAction(actionEvent1 -> dashboardNavPanel.loadCategory());
+        pageTop.getChildren().add(pageMainHeader);
+
+        Label pageHeader = CenterController.getInstance().getPageHeader();
+        pageHeader.setText("/ Sub Category");
+        pageTop.getChildren().add(pageHeader);
+
+        VBox pageCenter = CenterController.getInstance().getPageCenter();
+        pageCenter.getChildren().clear();
+        pageCenter.getChildren().add(SubCategoryCenterController.getInstance().getParentLayout());
+
+        VBox pageRight = CenterController.getInstance().getPageRight();
+        pageRight.getChildren().clear();
+
+        VBox pageBottom = CenterController.getInstance().getPageBottom();
+        pageBottom.getChildren().clear();
     }
 
     @FXML
