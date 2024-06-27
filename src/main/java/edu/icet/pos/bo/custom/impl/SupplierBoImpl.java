@@ -16,4 +16,22 @@ public class SupplierBoImpl implements SupplierBo {
         assert supplierDao != null;
         supplierDao.save(new ModelMapper().map(supplier, SupplierEntity.class));
     }
+
+    @Override
+    public Supplier getSupplier(Integer id) {
+        assert supplierDao != null;
+        return new ModelMapper().map(supplierDao.get(id), Supplier.class);
+    }
+
+    @Override
+    public void supplierUpdate(Supplier supplier) {
+        assert supplierDao != null;
+        supplierDao.update(new ModelMapper().map(supplier, SupplierEntity.class));
+    }
+
+    @Override
+    public void supplierDelete(Supplier supplier) {
+        assert supplierDao != null;
+        supplierDao.delete(new ModelMapper().map(supplier, SupplierEntity.class));
+    }
 }

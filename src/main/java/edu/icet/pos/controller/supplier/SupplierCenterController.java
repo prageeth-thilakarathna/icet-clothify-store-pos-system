@@ -12,9 +12,12 @@ public class SupplierCenterController {
     private static final SupplierCenterController instance;
     private final FXMLLoader fxmlLoaderForm = new FXMLLoader(getClass().getResource("/view/supplier/form.fxml"));
     private final Parent parentForm;
+    private final FXMLLoader fxmlLoaderSearch = new FXMLLoader(getClass().getResource("/view/supplier/search.fxml"));
+    private final Parent parentSearch;
 
     private SupplierCenterController() throws IOException {
         parentForm = fxmlLoaderForm.load();
+        parentSearch = fxmlLoaderSearch.load();
     }
 
     static {

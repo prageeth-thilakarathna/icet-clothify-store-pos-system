@@ -163,7 +163,7 @@ public class FormController implements SubCategoryForm {
     }
 
     @FXML
-    private void btnCancelAction(ActionEvent actionEvent) {
+    private void btnCancelAction() {
         clearForm();
     }
 

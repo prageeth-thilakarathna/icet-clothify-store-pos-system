@@ -4,11 +4,11 @@ import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.SupplierBo;
 import edu.icet.pos.controller.supplier.custom.SupplierForm;
+import edu.icet.pos.controller.supplier.custom.SupplierSearch;
 import edu.icet.pos.model.supplier.Supplier;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -53,6 +53,8 @@ public class FormController implements SupplierForm {
     private static final String ACTIVE = "Active";
     private static final String DISABLE = "Disable";
     private final SupplierBo supplierBo = BoFactory.getBo(BoType.SUPPLIER);
+    private Supplier searchSupplier;
+    private SupplierSearch supplierSearch;
 
     @FXML
     private void optTitleAction() {
@@ -86,7 +88,7 @@ public class FormController implements SupplierForm {
 
     @FXML
     private void btnRegisterAction() {
-        try{
+        try {
             Supplier supplier = new Supplier();
 
             supplier.setTitle(optTitle.getValue());
@@ -101,9 +103,41 @@ public class FormController implements SupplierForm {
             assert supplierBo != null;
             supplierBo.supplierRegister(supplier);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(optTitle.getValue()+" "+txtFirstName.getText()+" "+txtLastName.getText()+" Supplier registration was successful.");
+            alert.setContentText(optTitle.getValue() + " " + txtFirstName.getText() + " " + txtLastName.getText() + " Supplier registration was successful.");
             alert.show();
             clearForm();
+
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+    }
+
+    @FXML
+    private void btnModifyAction() {
+        try{
+            Supplier supplier = searchSupplier;
+
+            supplier.setTitle(optTitle.getValue());
+            supplier.setFirstName(txtFirstName.getText());
+            supplier.setLastName(txtLastName.getText());
+            supplier.setContact(txtContact.getText());
+            supplier.setAddress(txtAddress.getText());
+            supplier.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
+            supplier.setModifyAt(new Date());
+
+            assert supplierBo != null;
+            supplierBo.supplierUpdate(supplier);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(supplier.getTitle()+" "+supplier.getFirstName()+" "+supplier.getLastName()+" Supplier modification was successful.");
+            alert.show();
+            searchSupplier =null;
+            clearForm();
+            if(supplierSearch==null){
+                supplierSearch = SupplierCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            supplierSearch.clearSearch();
 
         } catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -113,55 +147,161 @@ public class FormController implements SupplierForm {
     }
 
     @FXML
-    private void btnModifyAction(ActionEvent actionEvent) {
-    }
-
-    @FXML
     private void btnCancelAction() {
         clearForm();
     }
 
     @FXML
-    private void btnActiveAction(ActionEvent actionEvent) {
+    private void btnActiveAction() {
+        try{
+            Supplier supplier = searchSupplier;
+            supplier.setIsActive(true);
+            supplier.setModifyAt(new Date());
+
+            assert supplierBo != null;
+            supplierBo.supplierUpdate(supplier);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(supplier.getTitle()+" "+supplier.getFirstName()+" "+supplier.getLastName()+" Supplier activation was successful.");
+            alert.show();
+            searchSupplier =null;
+            clearForm();
+            if(supplierSearch==null){
+                supplierSearch = SupplierCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            supplierSearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
-    private void btnDisableAction(ActionEvent actionEvent) {
+    private void btnDisableAction() {
+        try{
+            Supplier supplier = searchSupplier;
+            supplier.setIsActive(false);
+            supplier.setModifyAt(new Date());
+
+            assert supplierBo != null;
+            supplierBo.supplierUpdate(supplier);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(supplier.getTitle()+" "+supplier.getFirstName()+" "+supplier.getLastName()+" Supplier disable was successful.");
+            alert.show();
+            searchSupplier =null;
+            clearForm();
+            if(supplierSearch==null){
+                supplierSearch = SupplierCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            supplierSearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
-    private void btnDeleteAction(ActionEvent actionEvent) {
+    private void btnDeleteAction() {
+        try{
+            assert supplierBo != null;
+            supplierBo.supplierDelete(searchSupplier);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(searchSupplier.getTitle()+" "+searchSupplier.getFirstName()+" "+searchSupplier.getLastName()+" Supplier deletion was successful.");
+            alert.show();
+            searchSupplier = null;
+            clearForm();
+            if(supplierSearch==null){
+                supplierSearch = SupplierCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            supplierSearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
-    private void validateInputs(){
-        if(
-                optTitle.getValue()!=null &&
-                txtFirstName.getLength()>0 &&
-                txtLastName.getLength()>0 &&
-                txtContact.getLength()>0 &&
-                txtAddress.getLength()>0 &&
-                optStatus.getValue()!=null
-        ){
+    @Override
+    public void loadSupplierToForm(Supplier supplier) {
+        searchSupplier = supplier;
+        btnDelete.setDisable(false);
+
+        if (Boolean.TRUE.equals(supplier.getIsActive())) {
+            btnDisable.setDisable(false);
+        } else {
+            btnActive.setDisable(false);
+        }
+
+        optTitle.setValue(supplier.getTitle());
+        txtFirstName.setText(supplier.getFirstName());
+        txtLastName.setText(supplier.getLastName());
+        txtContact.setText(supplier.getContact());
+        txtAddress.setText(supplier.getAddress());
+        optStatus.setValue(Boolean.TRUE.equals(supplier.getIsActive()) ? ACTIVE : DISABLE);
+        validateInputs();
+    }
+
+    @Override
+    public void clearSupplier() {
+        searchSupplier = null;
+        clearForm();
+        btnDelete.setDisable(true);
+        btnActive.setDisable(true);
+        btnDisable.setDisable(true);
+    }
+
+    private void validateInputs() {
+        if (!isInputEmpty() && searchSupplier==null) {
             btnRegister.setDisable(false);
         } else {
             btnRegister.setDisable(true);
+            if (searchSupplier != null) {
+                validateModify();
+            } else {
+                btnModify.setDisable(true);
+            }
         }
 
-        if(
-                optTitle.getValue()!=null ||
-                txtFirstName.getLength()>0 ||
-                txtLastName.getLength()>0 ||
-                txtContact.getLength()>0 ||
-                txtAddress.getLength()>0 ||
-                optStatus.getValue()!=null
-        ){
-            btnCancel.setDisable(false);
+        btnCancel.setDisable(optTitle.getValue() == null &&
+                txtFirstName.getLength() <= 0 &&
+                txtLastName.getLength() <= 0 &&
+                txtContact.getLength() <= 0 &&
+                txtAddress.getLength() <= 0 &&
+                optStatus.getValue() == null);
+    }
+
+    private void validateModify() {
+        if (!Objects.equals(optTitle.getValue(), searchSupplier.getTitle())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(txtFirstName.getText(), searchSupplier.getFirstName())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(txtLastName.getText(), searchSupplier.getLastName())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(txtContact.getText(), searchSupplier.getContact())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(txtAddress.getText(), searchSupplier.getAddress())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (Objects.equals(optStatus.getValue(), ACTIVE) != Boolean.TRUE.equals(searchSupplier.getIsActive())) {
+            btnModify.setDisable(isInputEmpty());
         } else {
-            btnCancel.setDisable(true);
+            btnModify.setDisable(true);
         }
     }
 
-    private void clearForm(){
+    private boolean isInputEmpty(){
+        return optTitle.getValue() == null ||
+                txtFirstName.getLength() <= 0 ||
+                txtLastName.getLength() <= 0 ||
+                txtContact.getLength() <= 0 ||
+                txtAddress.getLength() <= 0 ||
+                optStatus.getValue() == null;
+    }
+
+    private void clearForm() {
         optTitle.setValue(null);
         optTitle.setPromptText("   Select a Title");
         txtFirstName.setText("");
