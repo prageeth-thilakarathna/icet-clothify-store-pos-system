@@ -5,6 +5,7 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.SupplierBo;
 import edu.icet.pos.controller.supplier.custom.SupplierForm;
 import edu.icet.pos.controller.supplier.custom.SupplierSearch;
+import edu.icet.pos.controller.supplier.custom.SupplierView;
 import edu.icet.pos.model.supplier.Supplier;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
@@ -55,6 +56,7 @@ public class FormController implements SupplierForm {
     private final SupplierBo supplierBo = BoFactory.getBo(BoType.SUPPLIER);
     private Supplier searchSupplier;
     private SupplierSearch supplierSearch;
+    private SupplierView supplierView;
 
     @FXML
     private void optTitleAction() {
@@ -102,6 +104,10 @@ public class FormController implements SupplierForm {
 
             assert supplierBo != null;
             supplierBo.supplierRegister(supplier);
+            if(supplierView==null){
+                supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            supplierView.updateTbl("registration");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(optTitle.getValue() + " " + txtFirstName.getText() + " " + txtLastName.getText() + " Supplier registration was successful.");
             alert.show();
@@ -129,6 +135,10 @@ public class FormController implements SupplierForm {
 
             assert supplierBo != null;
             supplierBo.supplierUpdate(supplier);
+            if(supplierView==null){
+                supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            supplierView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(supplier.getTitle()+" "+supplier.getFirstName()+" "+supplier.getLastName()+" Supplier modification was successful.");
             alert.show();
@@ -160,6 +170,10 @@ public class FormController implements SupplierForm {
 
             assert supplierBo != null;
             supplierBo.supplierUpdate(supplier);
+            if(supplierView==null){
+                supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            supplierView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(supplier.getTitle()+" "+supplier.getFirstName()+" "+supplier.getLastName()+" Supplier activation was successful.");
             alert.show();
@@ -186,6 +200,10 @@ public class FormController implements SupplierForm {
 
             assert supplierBo != null;
             supplierBo.supplierUpdate(supplier);
+            if(supplierView==null){
+                supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            supplierView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(supplier.getTitle()+" "+supplier.getFirstName()+" "+supplier.getLastName()+" Supplier disable was successful.");
             alert.show();
@@ -208,6 +226,10 @@ public class FormController implements SupplierForm {
         try{
             assert supplierBo != null;
             supplierBo.supplierDelete(searchSupplier);
+            if(supplierView==null){
+                supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            supplierView.updateTbl("deletion");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(searchSupplier.getTitle()+" "+searchSupplier.getFirstName()+" "+searchSupplier.getLastName()+" Supplier deletion was successful.");
             alert.show();

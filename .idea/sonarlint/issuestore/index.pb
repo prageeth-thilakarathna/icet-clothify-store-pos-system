@@ -173,3 +173,13 @@ t
 Dsrc/main/java/edu/icet/pos/controller/supplier/SearchController.java,e\9\e978b509f0519e4187a68d029086e69045fa4f54
 y
 Isrc/main/java/edu/icet/pos/controller/supplier/custom/SupplierSearch.java,6\3\63478412b682743c210ad2ba7e56674364ea9e8f
+s
+Csrc/main/java/edu/icet/pos/controller/supplier/TableController.java,8\f\8f8df44ef048a09343f1e368a21bd3a457864100
+x
+Hsrc/main/java/edu/icet/pos/controller/supplier/custom/SupplierTable.java,2\4\24a30653ba2327fda70dbef12d564d9b112bc91e
+n
+>src/main/java/edu/icet/pos/model/supplier/TblSupplierView.java,a\f\afa440ed16a1afc8bf9c5cf9e449d945adf1bf6a
+r
+Bsrc/main/java/edu/icet/pos/controller/supplier/ViewController.java,2\c\2cc2bea44153d6e144d764eabad766da621d477d
+w
+Gsrc/main/java/edu/icet/pos/controller/supplier/custom/SupplierView.java,3\3\335b238c5d906de3cede5d14777db6fa7d9a2aac

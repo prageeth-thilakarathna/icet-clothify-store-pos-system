@@ -6,6 +6,12 @@ import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class SupplierDaoImpl implements SupplierDao {
     @Override
     public void save(SupplierEntity supplierEntity) {
@@ -71,5 +77,48 @@ public class SupplierDaoImpl implements SupplierDao {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public int count() {
+        Session session = HibernateUtil.getSession();
+        AtomicInteger count = new AtomicInteger();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) AS row_count FROM supplier");
+                resultSet.next();
+                count.set(resultSet.getInt("row_count"));
+            }
+        });
+        session.close();
+        return count.get();
+    }
+
+    @Override
+    public List<SupplierEntity> getPerPage(int offset) {
+        Session session = HibernateUtil.getSession();
+        List<SupplierEntity> supplierEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM supplier LIMIT 5 OFFSET "+offset);
+
+                while(resultSet.next()){
+                    SupplierEntity supplier = new SupplierEntity();
+                    supplier.setId(resultSet.getInt("id"));
+                    supplier.setTitle(resultSet.getString("title"));
+                    supplier.setFirstName(resultSet.getString("firstName"));
+                    supplier.setLastName(resultSet.getString("lastName"));
+                    supplier.setContact(resultSet.getString("contact"));
+                    supplier.setAddress(resultSet.getString("address"));
+                    supplier.setRegisterAt(resultSet.getDate("registerAt"));
+                    supplier.setModifyAt(resultSet.getDate("modifyAt"));
+                    supplier.setIsActive(resultSet.getBoolean("isActive"));
+
+                    supplierEntityList.add(supplier);
+                }
+            }
+        });
+        session.close();
+        return supplierEntityList;
     }
 }
