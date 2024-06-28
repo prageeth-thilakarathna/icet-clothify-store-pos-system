@@ -1,0 +1,34 @@
+
+‘
+java:S2095Ê"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8»•½†2J$cca389c1-0c32-4d27-bbfc-6e0618c6c625
+Ê
+java:S1186’"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ú´³üÿÿÿÿ8»•½†2J$bc0f21d6-35c6-41db-a9dc-1dd730e20be2
+Å
+java:S1186œ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹âÃ§8»•½†2J$1dea3a65-4f8c-4218-8974-a680a68668d3
+Å
+java:S1186ä"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒŠ“Ó8»•½†2J$0c082879-8aa4-488d-8883-97a5fb442a47
+Å
+java:S1186í"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‰÷Àá8»•½†2J$26ac9d59-cb93-4807-9029-c2d20f497eec
+Å
+java:S1186ñ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—õÔ–8»•½†2J$28c4711f-55bf-4587-9e8b-8667648cef1a
+Ê
+java:S1186õ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÂÀ©Ñøÿÿÿÿ8»•½†2J$20eeb332-24ca-4ea3-97a6-7698f0344ab1
+‚
+java:S1854‚">Remove this useless assignment to local variable "supplierId".(×İš¬8£å†2J$7123bcb0-060d-4ba6-b595-0f1e71c8df7d
+s
+java:S1481‚"/Remove this unused "supplierId" local variable.(×İš¬8£å†2J$37164163-86fc-44ac-86e8-9ec15fc4e4c5
+n	java:S106ƒ"+Replace this use of System.out by a logger.(Šœ‹¯8’œÅ†2J$9b9a9fc6-3c43-483f-a009-615fd0e189af
+
+java:S2674Ì"JCheck the return value of the "read" call to see how many bytes were read.(®Ê¦š8Ú•½†2J$36702bdf-aa36-487f-909a-9edc9ade8bd2
+‹
+java:S1126ù"BReplace this if-then-else statement by a single method invocation.(öõïëûÿÿÿÿ8é•½†2J$e6581b59-0526-495c-b87c-d0daedb1d776
+…
+java:S1126‹"AReplace this if-then-else statement by a single return statement.(µÔñ£8é•½†2J$c164af82-e88e-4e0c-86eb-b1528efca154
+~
+java:S1128";Remove this unused import 'com.sun.glass.ui.CommonDialogs'.(Œ÷Éş8¯´Í†2J$c410718b-5d08-433e-b63e-d2a9fd51ea41
+‚
+java:S1128 ":Remove this unused import 'java.io.FileNotFoundException'.(·î™ùÿÿÿÿ8¯´Í†2J$9662dc79-72de-49d1-b3af-c268791fade3
+m
+java:S1128""*Remove this unused import 'java.sql.Blob'.(ïÚ¶ã8¯´Í†2J$84502f26-2c68-40d9-a2f5-c17e07eda89e
+r
+java:S1068V"/Remove this unused "inventoryBo" private field.(£Õ8ù•½†2J$78e775bf-b455-4f92-9ab1-e44a1943d85b

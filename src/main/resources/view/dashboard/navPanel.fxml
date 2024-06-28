@@ -99,7 +99,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnProduct" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Product" textFill="WHITE">
+                  <Button fx:id="btnProduct" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnProductAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Product" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

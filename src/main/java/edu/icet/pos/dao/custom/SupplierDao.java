@@ -17,4 +17,6 @@ public interface SupplierDao extends SuperDao {
     int count();
 
     List<SupplierEntity> getPerPage(int offset);
+
+    List<SupplierEntity> getAll();
 }

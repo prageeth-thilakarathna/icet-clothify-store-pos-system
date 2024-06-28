@@ -49,4 +49,10 @@ public class SupplierBoImpl implements SupplierBo {
         assert supplierDao != null;
         return new ModelMapper().map(supplierDao.getPerPage(offset), new TypeToken<List<Supplier>>() {}.getType());
     }
+
+    @Override
+    public List<Supplier> getAllSupplier() {
+        assert supplierDao != null;
+        return new ModelMapper().map(supplierDao.getAll(), new TypeToken<List<Supplier>>() {}.getType());
+    }
 }

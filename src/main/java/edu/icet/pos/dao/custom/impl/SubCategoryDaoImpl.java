@@ -140,4 +140,25 @@ public class SubCategoryDaoImpl implements SubCategoryDao {
         session.close();
         return subCategoryEntityList;
     }
+
+    @Override
+    public List<SubCategoryEntity> getByCategory(CategoryEntity categoryEntity) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        List<SubCategoryEntity> subCategoryEntityList;
+        try {
+            tx = session.beginTransaction();
+            String sql = "FROM SubCategoryEntity O WHERE O.category = :categoryEntity";
+            subCategoryEntityList = session.createQuery(sql, SubCategoryEntity.class)
+                    .setParameter("categoryEntity", categoryEntity)
+                    .getResultList();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return subCategoryEntityList;
+    }
 }

@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,8 +25,11 @@ public class SubCategoryEntity {
     private Date modifyAt;
     private Boolean isActive;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "categoryId", foreignKey = @ForeignKey(name = "fk_category_sub_category"))
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CategoryEntity category;
+
+    @OneToMany(mappedBy = "subCategory")
+    private List<ProductEntity> product;
 }

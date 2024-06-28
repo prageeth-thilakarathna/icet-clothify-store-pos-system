@@ -21,5 +21,7 @@
         <mapping class="edu.icet.pos.entity.CategoryEntity"/>
         <mapping class="edu.icet.pos.entity.SubCategoryEntity"/>
         <mapping class="edu.icet.pos.entity.SupplierEntity"/>
+        <mapping class="edu.icet.pos.entity.ProductEntity"/>
+        <mapping class="edu.icet.pos.entity.InventoryEntity"/>
     </session-factory>
 </hibernate-configuration>

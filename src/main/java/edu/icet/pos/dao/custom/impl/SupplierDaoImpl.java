@@ -1,6 +1,7 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.SupplierDao;
+import edu.icet.pos.entity.CategoryEntity;
 import edu.icet.pos.entity.SupplierEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
@@ -119,6 +120,24 @@ public class SupplierDaoImpl implements SupplierDao {
             }
         });
         session.close();
+        return supplierEntityList;
+    }
+
+    @Override
+    public List<SupplierEntity> getAll() {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        List<SupplierEntity> supplierEntityList;
+        try {
+            tx = session.beginTransaction();
+            supplierEntityList = session.createQuery("SELECT a FROM SupplierEntity a", SupplierEntity.class).getResultList();
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
         return supplierEntityList;
     }
 }

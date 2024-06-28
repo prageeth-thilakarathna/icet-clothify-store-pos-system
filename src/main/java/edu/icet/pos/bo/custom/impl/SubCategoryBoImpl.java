@@ -3,7 +3,9 @@ package edu.icet.pos.bo.custom.impl;
 import edu.icet.pos.bo.custom.SubCategoryBo;
 import edu.icet.pos.dao.DaoFactory;
 import edu.icet.pos.dao.custom.SubCategoryDao;
+import edu.icet.pos.entity.CategoryEntity;
 import edu.icet.pos.entity.SubCategoryEntity;
+import edu.icet.pos.model.category.Category;
 import edu.icet.pos.model.sub_category.SubCategory;
 import edu.icet.pos.util.DaoType;
 import org.modelmapper.ModelMapper;
@@ -54,5 +56,11 @@ public class SubCategoryBoImpl implements SubCategoryBo {
     public List<SubCategory> getSubCategoryPerPage(int offset) {
         assert subCategoryDao != null;
         return new ModelMapper().map(subCategoryDao.getPerPage(offset), new TypeToken<List<SubCategory>>() {}.getType());
+    }
+
+    @Override
+    public List<SubCategory> getSubCategoryByCategory(Category category) {
+        assert subCategoryDao != null;
+        return new ModelMapper().map(subCategoryDao.getByCategory(new ModelMapper().map(category, CategoryEntity.class)), new TypeToken<List<SubCategory>>() {}.getType());
     }
 }
