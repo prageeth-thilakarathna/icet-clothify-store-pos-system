@@ -34,7 +34,7 @@ public class ProductEntity {
     private String description;
     private String size;
     private Double price;
-    private Integer availableQuantity;
+    private Integer quantityOnHand;
     private Blob image;
     private Date registerAt;
     private Date modifyAt;

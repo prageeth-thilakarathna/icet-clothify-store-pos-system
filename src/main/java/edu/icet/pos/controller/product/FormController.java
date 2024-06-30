@@ -1,17 +1,19 @@
 package edu.icet.pos.controller.product;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.sun.glass.ui.CommonDialogs;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.*;
 import edu.icet.pos.controller.product.custom.ProductForm;
+import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.entity.SubCategoryEntity;
 import edu.icet.pos.entity.SupplierEntity;
 import edu.icet.pos.model.category.Category;
+import edu.icet.pos.model.inventory.Inventory;
 import edu.icet.pos.model.product.Product;
 import edu.icet.pos.model.sub_category.SubCategory;
 import edu.icet.pos.model.supplier.Supplier;
 import edu.icet.pos.util.BoType;
+import edu.icet.pos.util.HibernateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,9 +31,7 @@ import org.modelmapper.ModelMapper;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -52,8 +52,6 @@ public class FormController implements ProductForm {
     private TextField txtPrice;
     @FXML
     private TextField txtQuantityOnHand;
-    @FXML
-    private TextField dspAvailableQuantity;
     @FXML
     private Button btnChooseImage;
     @FXML
@@ -127,8 +125,6 @@ public class FormController implements ProductForm {
 
     @FXML
     private void optSupplierAction() {
-        int supplierId = Integer.parseInt(optSupplier.getValue().split("-")[0]);
-        System.out.println("id :"+optSupplier.getValue().split("\\s")[4]+"String");
         validateInputs();
     }
 
@@ -148,19 +144,18 @@ public class FormController implements ProductForm {
     }
 
     @FXML
-    private void priceKeyTyped(KeyEvent keyEvent) {
+    private void priceKeyTyped() {
         validateInputs();
     }
 
     @FXML
-    private void quantityOnHandKeyPressed(KeyEvent keyEvent) {
+    private void quantityOnHandKeyPressed() {
 
     }
 
     @FXML
     private void quantityOnHandKeyTyped(KeyEvent keyEvent) {
         validateInputs();
-        dspAvailableQuantity.setText(txtQuantityOnHand.getText());
     }
 
     @FXML
@@ -175,17 +170,17 @@ public class FormController implements ProductForm {
     }
 
     @FXML
-    private void dspImageNameKeyTyped(KeyEvent keyEvent) {
+    private void dspImageNameKeyTyped() {
         validateInputs();
     }
 
     @FXML
-    private void optStatusAction(ActionEvent actionEvent) {
+    private void optStatusAction() {
         validateInputs();
     }
 
     @FXML
-    private void btnRegisterAction(ActionEvent actionEvent) {
+    private void btnRegisterAction() {
         try{
             Product product = new Product();
 
@@ -197,7 +192,7 @@ public class FormController implements ProductForm {
             product.setDescription(txtDescription.getText());
             product.setSize(optSize.getValue());
             product.setPrice(Double.parseDouble(txtPrice.getText()));
-            product.setAvailableQuantity(Integer.parseInt(txtQuantityOnHand.getText()));
+            product.setQuantityOnHand(Integer.parseInt(txtQuantityOnHand.getText()));
 
             FileInputStream fileInputStream = new FileInputStream(selectImage);
             byte[] bytes = new byte[(int) selectImage.length()];
@@ -210,18 +205,34 @@ public class FormController implements ProductForm {
             product.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
 
             assert productBo != null;
-            productBo.productRegister(product);
+            Product productRes = productBo.productRegister(product);
+            qtyOnHandRegister(productRes);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Product registration was successful.");
+            alert.setContentText("Product and Quantity On Hand registration was successful.");
             alert.show();
             clearForm();
 
-
         } catch(Exception e){
+            HibernateUtil.singletonRollback();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
+        } finally {
+            HibernateUtil.singletonSessionClose();
         }
+    }
+
+    private void qtyOnHandRegister(Product product){
+        Inventory inventory = new Inventory();
+
+        inventory.setProduct(new ModelMapper().map(product, ProductEntity.class));
+        inventory.setStock(product.getQuantityOnHand());
+        inventory.setRegisterAt(new Date());
+        inventory.setModifyAt(new Date());
+        inventory.setIsActive(true);
+
+        assert inventoryBo != null;
+        inventoryBo.qtyOnHandRegister(inventory);
     }
 
     @FXML
@@ -294,7 +305,6 @@ public class FormController implements ProductForm {
         optSize.setPromptText("   Select a Size");
         txtPrice.setText("");
         txtQuantityOnHand.setText("");
-        dspAvailableQuantity.setText("");
         dspImageName.setText("");
         optStatus.setValue("");
         optStatus.setPromptText("   Select a Status");

@@ -16,4 +16,10 @@ public class InventoryBoImpl implements InventoryBo {
         assert inventoryDao != null;
         inventoryDao.save(new ModelMapper().map(inventory, InventoryEntity.class));
     }
+
+    @Override
+    public void qtyOnHandRegister(Inventory inventory) {
+        assert inventoryDao != null;
+        inventoryDao.saveQtyOnHand(new ModelMapper().map(inventory, InventoryEntity.class));
+    }
 }

@@ -12,8 +12,14 @@ public class ProductBoImpl implements ProductBo {
     private final ProductDao productDao = DaoFactory.getDao(DaoType.PRODUCT);
 
     @Override
-    public void productRegister(Product product) {
+    public Product productRegister(Product product) {
         assert productDao != null;
-        productDao.save(new ModelMapper().map(product, ProductEntity.class));
+        return new ModelMapper().map(productDao.save(new ModelMapper().map(product, ProductEntity.class)), Product.class);
+    }
+
+    @Override
+    public Product getProduct(Integer id) {
+        assert productDao != null;
+        return new ModelMapper().map(productDao.get(id), Product.class);
     }
 }

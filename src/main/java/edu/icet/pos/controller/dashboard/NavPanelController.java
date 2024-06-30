@@ -178,6 +178,7 @@ public class NavPanelController implements DashboardNavPanel {
 
         VBox pageRight = CenterController.getInstance().getPageRight();
         pageRight.getChildren().clear();
+        pageRight.getChildren().add(ProductCenterController.getInstance().getParentSearch());
 
         VBox pageBottom = CenterController.getInstance().getPageBottom();
         pageBottom.getChildren().clear();

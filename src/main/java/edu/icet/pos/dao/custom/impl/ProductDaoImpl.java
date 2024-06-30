@@ -8,12 +8,21 @@ import org.hibernate.Transaction;
 
 public class ProductDaoImpl implements ProductDao {
     @Override
-    public void save(ProductEntity productEntity) {
+    public ProductEntity save(ProductEntity productEntity) {
+        Session session = HibernateUtil.getSingletonSession();
+        HibernateUtil.singletonBegin();
+        session.persist(productEntity);
+        return productEntity;
+    }
+
+    @Override
+    public ProductEntity get(Integer id) {
         Session session = HibernateUtil.getSession();
         Transaction tx = null;
+        ProductEntity productEntity;
         try {
             tx = session.beginTransaction();
-            session.persist(productEntity);
+            productEntity = session.get(ProductEntity.class, id);
             tx.commit();
         } catch (Exception e){
             if(tx!=null) tx.rollback();
@@ -21,5 +30,6 @@ public class ProductDaoImpl implements ProductDao {
         } finally {
             session.close();
         }
+        return productEntity;
     }
 }

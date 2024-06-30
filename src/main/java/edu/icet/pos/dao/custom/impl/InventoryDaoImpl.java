@@ -22,4 +22,11 @@ public class InventoryDaoImpl implements InventoryDao {
             session.close();
         }
     }
+
+    @Override
+    public void saveQtyOnHand(InventoryEntity inventoryEntity) {
+        Session session = HibernateUtil.getSingletonSession();
+        session.persist(inventoryEntity);
+        HibernateUtil.singletonCommit();
+    }
 }

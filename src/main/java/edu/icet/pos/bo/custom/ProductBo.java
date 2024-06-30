@@ -4,5 +4,7 @@ import edu.icet.pos.bo.SuperBo;
 import edu.icet.pos.model.product.Product;
 
 public interface ProductBo extends SuperBo {
-    void productRegister(Product product);
+    Product productRegister(Product product);
+
+    Product getProduct(Integer id);
 }

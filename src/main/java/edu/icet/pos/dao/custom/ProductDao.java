@@ -4,5 +4,7 @@ import edu.icet.pos.dao.SuperDao;
 import edu.icet.pos.entity.ProductEntity;
 
 public interface ProductDao extends SuperDao {
-    void save(ProductEntity productEntity);
+    ProductEntity save(ProductEntity productEntity);
+
+    ProductEntity get(Integer id);
 }

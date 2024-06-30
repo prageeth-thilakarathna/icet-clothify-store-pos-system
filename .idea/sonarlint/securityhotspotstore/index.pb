@@ -213,3 +213,7 @@ n
 >src/main/java/edu/icet/pos/bo/custom/impl/InventoryBoImpl.java,b\f\bf8bf0acd9481f17e4653768a8e77230cea125a1
 e
 5src/main/java/edu/icet/pos/bo/custom/InventoryBo.java,a\6\a6c66fb114066b3311efa2800b7fae411edda67f
+s
+Csrc/main/java/edu/icet/pos/controller/product/SearchController.java,f\b\fbf1adf192d2cab9a8981cf043ff6001ac8d8f59
+w
+Gsrc/main/java/edu/icet/pos/controller/product/custom/ProductSearch.java,a\d\adbbecc11d8366702e13fff5a9241933eb33f65f

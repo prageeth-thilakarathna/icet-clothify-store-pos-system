@@ -153,12 +153,12 @@
                               <Insets left="20.0" />
                            </HBox.margin>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" text="Available Quantity" textFill="#2f3548">
+                        <Label layoutX="10.0" layoutY="10.0" text="Image" textFill="#2f3548">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="164.0" />
+                              <Insets left="64.0" />
                            </HBox.margin>
                         </Label>
                      </children>
@@ -168,16 +168,23 @@
                   </HBox>
                   <HBox layoutX="10.0" layoutY="205.0" prefHeight="37.0" prefWidth="609.0">
                      <children>
-                        <TextField fx:id="txtQuantityOnHand" focusTraversable="false" layoutX="30.0" layoutY="10.0" onKeyPressed="#quantityOnHandKeyPressed" onKeyTyped="#quantityOnHandKeyTyped" prefHeight="37.0" prefWidth="264.0" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
+                        <TextField fx:id="txtQuantityOnHand" focusTraversable="false" layoutX="30.0" layoutY="10.0" onKeyPressed="#quantityOnHandKeyPressed" onKeyTyped="#quantityOnHandKeyTyped" prefHeight="37.0" prefWidth="164.0" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="dspAvailableQuantity" disable="true" focusTraversable="false" layoutX="30.0" layoutY="10.0" prefHeight="37.0" prefWidth="264.0" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
+                        <Button fx:id="btnChooseImage" focusTraversable="false" mnemonicParsing="false" onAction="#btnChooseImageAction" prefHeight="37.0" prefWidth="104.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 10px 0px 0px 10px; -fx-border-color: #353c52; -fx-border-radius: 10px 0px 0px 10px;" text="Choose Image" textFill="#2f3548">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
-                        </TextField>
+                        </Button>
+                        <TextField fx:id="dspImageName" editable="false" focusTraversable="false" onKeyTyped="#dspImageNameKeyTyped" prefHeight="37.0" prefWidth="260.0" style="-fx-border-radius: 0px 10px 10px 0px; -fx-background-radius: 0px 10px 10px 0px;" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css" />
                      </children>
                   </HBox>
                   <HBox layoutX="10.0" layoutY="361.0" prefHeight="25.0" prefWidth="609.0">
@@ -190,14 +197,6 @@
                               <Insets left="20.0" />
                            </HBox.margin>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" text="Status" textFill="#2f3548">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="342.0" />
-                           </HBox.margin>
-                        </Label>
                      </children>
                      <VBox.margin>
                         <Insets top="20.0" />
@@ -205,23 +204,7 @@
                   </HBox>
                   <HBox layoutX="10.0" layoutY="381.0" prefHeight="37.0" prefWidth="609.0">
                      <children>
-                        <Button fx:id="btnChooseImage" focusTraversable="false" mnemonicParsing="false" onAction="#btnChooseImageAction" prefHeight="37.0" prefWidth="140.0" style="-fx-background-color: #d9d9d9; -fx-background-radius: 10px 0px 0px 10px; -fx-border-color: #353c52; -fx-border-radius: 10px 0px 0px 10px;" text="Choose Image" textFill="#2f3548">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </Button>
-                        <TextField fx:id="dspImageName" editable="false" focusTraversable="false" layoutX="30.0" layoutY="10.0" onKeyTyped="#dspImageNameKeyTyped" prefHeight="37.0" prefWidth="296.0" style="-fx-border-radius: 0px 10px 10px 0px; -fx-background-radius: 0px 10px 10px 0px;" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </TextField>
-                        <JFXComboBox fx:id="optStatus" focusTraversable="false" onAction="#optStatusAction" prefHeight="37.0" prefWidth="200.0" promptText="   Select a Status" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
+                        <JFXComboBox fx:id="optStatus" focusTraversable="false" onAction="#optStatusAction" prefHeight="37.0" prefWidth="264.0" promptText="   Select a Status" styleClass="txtInput" stylesheets="@../../style/textFieldStyle.css">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
