@@ -7,4 +7,8 @@ public interface ProductDao extends SuperDao {
     ProductEntity save(ProductEntity productEntity);
 
     ProductEntity get(Integer id);
+
+    void update(ProductEntity productEntity);
+
+    void delete(ProductEntity productEntity);
 }

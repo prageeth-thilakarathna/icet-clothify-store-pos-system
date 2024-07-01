@@ -2,10 +2,10 @@ package edu.icet.pos.controller.product;
 
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.ProductBo;
+import edu.icet.pos.controller.product.custom.ProductForm;
 import edu.icet.pos.controller.product.custom.ProductSearch;
 import edu.icet.pos.model.product.Product;
 import edu.icet.pos.util.BoType;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -36,6 +36,7 @@ public class SearchController implements ProductSearch {
 
     private final ProductBo productBo = BoFactory.getBo(BoType.PRODUCT);
     private Product searchProduct;
+    private ProductForm productForm;
 
     @FXML
     private void productIdKeyTyped() {
@@ -43,7 +44,7 @@ public class SearchController implements ProductSearch {
     }
 
     @FXML
-    private void btnSearchAction(ActionEvent actionEvent) {
+    private void btnSearchAction() {
         try{
             assert productBo != null;
             searchProduct = productBo.getProduct(Integer.parseInt(txtProductId.getText()));
@@ -55,7 +56,10 @@ public class SearchController implements ProductSearch {
             Image image = new Image(inputStream);
             dspImage.setImage(image);
 
-
+            if (productForm==null){
+                productForm = ProductCenterController.getInstance().getFxmlLoaderForm().getController();
+            }
+            productForm.loadProductToForm(searchProduct);
             validateInputs();
 
         } catch (Exception e){
@@ -88,7 +92,13 @@ public class SearchController implements ProductSearch {
         dspRegisterAt.setText("");
         dspModifyAt.setText("");
         searchProduct = null;
-        //supplierForm.clearSupplier();
+        dspImage.setImage(null);
+        productForm.clearProduct();
+    }
+
+    @Override
+    public void clearSearch() {
+        clearForm();
     }
 
     @Override

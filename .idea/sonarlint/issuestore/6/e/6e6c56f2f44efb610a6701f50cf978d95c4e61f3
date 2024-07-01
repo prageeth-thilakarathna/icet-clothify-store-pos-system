@@ -1,23 +1,17 @@
 
 ‘
-java:S2095Å"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8¤ÚàÃ†2J$7906fc66-77a8-4b76-abb3-1f74cdd1e6a1
-Ê
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ú´³üÿÿÿÿ8¬Á†2J$835ca4cd-809c-4c20-adb2-aa30805acb12
-Ê
-java:S1186˜"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(İœá¼ıÿÿÿÿ8¬Á†2J$d50eef6d-852a-493d-bcc5-d4ef02605e25
-Å
-java:S1186ï"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒŠ“Ó8¬Á†2J$db8df8a7-6fdb-4d58-a55b-47943510e083
-Å
-java:S1186ø"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‰÷Àá8¬Á†2J$aaefb35f-f431-4eb2-a4f3-0f43f62ae310
-Å
-java:S1186ü"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—õÔ–8¬Á†2J$32a0f291-29d7-44b3-90a7-222bf82d078b
-Ê
-java:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÂÀ©Ñøÿÿÿÿ8¬Á†2J$3aa34f33-e50a-4444-9a53-19c215dfa08a
-
-java:S2674Ç"JCheck the return value of the "read" call to see how many bytes were read.(®Ê¦š8½¬Á†2J$e774c746-0f10-4963-8264-00cf6e8fec1f
-s
-java:S2093¸"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8½¬Á†2J$6423c6d7-e095-4911-b638-7fac0c6271ca
+java:S2095í"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8Ç¿äí†2J$653ef179-8294-4dc8-85b3-26d2b9da2fa2
+‘
+java:S2095¥"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8Ç¿äí†2J$a3d2100f-7590-4379-9263-493547441a56
 ‹
-java:S1126„"BReplace this if-then-else statement by a single method invocation.(öõïëûÿÿÿÿ8Ì¬Á†2J$4c55cdba-1d81-43b0-bf58-5233cf850b2a
+java:S1126¡"BReplace this if-then-else statement by a single method invocation.(…ÀÌ¿ıÿÿÿÿ8×¿äí†2J$e76cd405-8ccf-484d-9b06-b65a2dbef2d2
 …
-java:S1126–"AReplace this if-then-else statement by a single return statement.(µÔñ£8Ì¬Á†2J$40c79177-9c65-4a07-9c23-8a91d1dd4c62
+java:S1126¼"BReplace this if-then-else statement by a single method invocation.(Ëõ÷p8×¿äí†2J$036e6870-4441-4df1-b22f-a8959aa627aa
+
+java:S2674ï"JCheck the return value of the "read" call to see how many bytes were read.(®Ê¦š8æ¿äí†2J$9628b507-b087-43c1-ae8e-a18f4f4ce072
+s
+java:S2093à"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8æ¿äí†2J$ef3f6077-8d09-4919-8944-91800017ee86
+
+java:S2674§"JCheck the return value of the "read" call to see how many bytes were read.(®Ê¦š8ö¿äí†2J$573a5118-2dae-45d2-8cd1-d34ae9e65b01
+…
+java:S1126£"AReplace this if-then-else statement by a single return statement.(µÔñ£8…Àäí†2J$fac1c7a4-db75-4272-b4d2-9f278984bdfb

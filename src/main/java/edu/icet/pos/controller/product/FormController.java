@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.*;
 import edu.icet.pos.controller.product.custom.ProductForm;
+import edu.icet.pos.controller.product.custom.ProductSearch;
 import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.entity.SubCategoryEntity;
 import edu.icet.pos.entity.SupplierEntity;
@@ -16,12 +17,12 @@ import edu.icet.pos.util.BoType;
 import edu.icet.pos.util.HibernateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
@@ -31,6 +32,7 @@ import org.modelmapper.ModelMapper;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -83,17 +85,20 @@ public class FormController implements ProductForm {
     private final ProductBo productBo = BoFactory.getBo(BoType.PRODUCT);
     private final InventoryBo inventoryBo = BoFactory.getBo(BoType.INVENTORY);
     private File selectImage;
+    private Product searchProduct;
+    private Image searchImage;
+    private ProductSearch productSearch;
 
     @FXML
     private void optCategoryAction() {
-        try{
-            if(optCategory.getValue()!=null){
+        try {
+            if (optCategory.getValue() != null) {
                 assert categoryBo != null;
                 Category category = categoryBo.getCategoryByName(optCategory.getValue());
                 setSubCategory(category);
             }
             optSubCategory.setDisable(false);
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -102,16 +107,16 @@ public class FormController implements ProductForm {
         }
     }
 
-    private void setSubCategory(Category category){
+    private void setSubCategory(Category category) {
         ObservableList<String> subCategoryArrayList = FXCollections.observableArrayList();
-        try{
+        try {
             assert subCategoryBo != null;
             List<SubCategory> subCategoryList = subCategoryBo.getSubCategoryByCategory(category);
-            for(SubCategory subCategory : subCategoryList){
+            for (SubCategory subCategory : subCategoryList) {
                 subCategoryArrayList.add(subCategory.getName());
             }
             optSubCategory.setItems(subCategoryArrayList);
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -134,13 +139,30 @@ public class FormController implements ProductForm {
     }
 
     @FXML
-    private void optSizeAction(ActionEvent actionEvent) {
+    private void optSizeAction() {
         validateInputs();
     }
 
     @FXML
     private void priceKeyPressed(KeyEvent keyEvent) {
+        int length = txtPrice.getLength();
+        String ch = keyEvent.getCode().getChar();
 
+        boolean condition = true;
+        int count = 0;
+        if (length > 0) {
+            count++;
+        }
+
+        if (count == 0 && ch.equals("0")) {
+            condition = false;
+        }
+
+        if (length < 8 && condition && (ch.charAt(0) >= '0' && ch.charAt(0) <= '9') || keyEvent.getCode().getCode() == 8 || keyEvent.getCode().getCode() == 46) {
+            txtPrice.setEditable(true);
+        } else {
+            txtPrice.setEditable(false);
+        }
     }
 
     @FXML
@@ -149,12 +171,29 @@ public class FormController implements ProductForm {
     }
 
     @FXML
-    private void quantityOnHandKeyPressed() {
+    private void quantityOnHandKeyPressed(KeyEvent keyEvent) {
+        int length = txtQuantityOnHand.getLength();
+        int chInt = keyEvent.getCode().getCode();
 
+        boolean condition = true;
+        int count = 0;
+        if (length > 0) {
+            count++;
+        }
+
+        if (count == 0 && chInt == 48) {
+            condition = false;
+        }
+
+        if (length < 5 && condition && (chInt >= 48 && chInt <= 57) || chInt == 8) {
+            txtQuantityOnHand.setEditable(true);
+        } else {
+            txtQuantityOnHand.setEditable(false);
+        }
     }
 
     @FXML
-    private void quantityOnHandKeyTyped(KeyEvent keyEvent) {
+    private void quantityOnHandKeyTyped() {
         validateInputs();
     }
 
@@ -167,6 +206,7 @@ public class FormController implements ProductForm {
         dspImageName.setText(selectImage.getName());
         Tooltip tooltip = new Tooltip(selectImage.getName());
         dspImageName.setTooltip(tooltip);
+        validateInputs();
     }
 
     @FXML
@@ -181,7 +221,7 @@ public class FormController implements ProductForm {
 
     @FXML
     private void btnRegisterAction() {
-        try{
+        try {
             Product product = new Product();
 
             assert subCategoryBo != null;
@@ -212,7 +252,7 @@ public class FormController implements ProductForm {
             alert.show();
             clearForm();
 
-        } catch(Exception e){
+        } catch (Exception e) {
             HibernateUtil.singletonRollback();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
@@ -222,7 +262,7 @@ public class FormController implements ProductForm {
         }
     }
 
-    private void qtyOnHandRegister(Product product){
+    private void qtyOnHandRegister(Product product) {
         Inventory inventory = new Inventory();
 
         inventory.setProduct(new ModelMapper().map(product, ProductEntity.class));
@@ -236,7 +276,44 @@ public class FormController implements ProductForm {
     }
 
     @FXML
-    private void btnModifyAction(ActionEvent actionEvent) {
+    private void btnModifyAction() {
+        try {
+            Product product = searchProduct;
+
+            assert subCategoryBo != null;
+            product.setSubCategory(new ModelMapper().map(subCategoryBo.getSubCategoryByName(optSubCategory.getValue()), SubCategoryEntity.class));
+            int supplierId = Integer.parseInt(optSupplier.getValue().split("\\s")[0]);
+            assert supplierBo != null;
+            product.setSupplier(new ModelMapper().map(supplierBo.getSupplier(supplierId), SupplierEntity.class));
+            product.setDescription(txtDescription.getText());
+            product.setSize(optSize.getValue());
+            product.setPrice(Double.parseDouble(txtPrice.getText()));
+
+            if (selectImage != null) {
+                FileInputStream fileInputStream = new FileInputStream(selectImage);
+                byte[] bytes = new byte[(int) selectImage.length()];
+                fileInputStream.read(bytes);
+                product.setImage(new SerialBlob(bytes));
+            }
+            product.setModifyAt(new Date());
+            product.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
+
+            assert productBo != null;
+            productBo.productUpdate(product);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(product.getId() + " Product modification was successful.");
+            alert.show();
+            clearProduct();
+            if (productSearch == null) {
+                productSearch = ProductCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            productSearch.clearSearch();
+
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
@@ -245,22 +322,86 @@ public class FormController implements ProductForm {
     }
 
     @FXML
-    private void btnActiveAction(ActionEvent actionEvent) {
+    private void btnActiveAction() {
+        try{
+            Product product = searchProduct;
+            product.setIsActive(true);
+            product.setModifyAt(new Date());
+
+            assert productBo != null;
+            productBo.productUpdate(product);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(product.getId() + " Product activation was successful.");
+            alert.show();
+            clearProduct();
+            if (productSearch == null) {
+                productSearch = ProductCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            productSearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
-    private void btnDisableAction(ActionEvent actionEvent) {
+    private void btnDisableAction() {
+        try{
+            Product product = searchProduct;
+            product.setIsActive(false);
+            product.setModifyAt(new Date());
+
+            assert productBo != null;
+            productBo.productUpdate(product);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(product.getId() + " Product disable was successful.");
+            alert.show();
+            clearProduct();
+            if (productSearch == null) {
+                productSearch = ProductCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            productSearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
-    private void btnDeleteAction(ActionEvent actionEvent) {
+    private void btnDeleteAction() {
+        try{
+            assert productBo != null;
+            productBo.productDelete(searchProduct);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(searchProduct.getId() + " Product deletion was successful.");
+            alert.show();
+            clearProduct();
+            if (productSearch == null) {
+                productSearch = ProductCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            productSearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     private void validateInputs() {
-        if (!isInputEmpty()) {
+        if (!isInputEmpty() && searchProduct == null) {
             btnRegister.setDisable(false);
         } else {
             btnRegister.setDisable(true);
+            if (searchProduct != null) {
+                validateModify();
+            } else {
+                btnModify.setDisable(true);
+            }
         }
 
         btnCancel.setDisable(optCategory.getValue() == null &&
@@ -283,7 +424,7 @@ public class FormController implements ProductForm {
                         optSize.getValue() != null &&
                         txtPrice.getLength() > 0 &&
                         txtQuantityOnHand.getLength() > 0 &&
-                        dspImageName.getLength() > 4 &&
+                        (selectImage != null || searchImage != null) &&
                         optStatus.getValue() != null
         ) {
             return false;
@@ -292,7 +433,29 @@ public class FormController implements ProductForm {
         }
     }
 
-    private void clearForm(){
+    private void validateModify() {
+        if (!Objects.equals(searchProduct.getSubCategory().getName(), optSubCategory.getValue())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (searchProduct.getSupplier().getId() != Integer.parseInt(optSupplier.getValue().split("\\s")[0])) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(searchProduct.getDescription(), txtDescription.getText())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(searchProduct.getSize(), optSize.getValue())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(String.valueOf(searchProduct.getPrice()), txtPrice.getText())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(String.valueOf(searchProduct.getQuantityOnHand()), txtQuantityOnHand.getText())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (selectImage != null) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (Boolean.TRUE.equals(searchProduct.getIsActive()) ? Objects.equals(optStatus.getValue(), DISABLE) : Objects.equals(optStatus.getValue(), ACTIVE)) {
+            btnModify.setDisable(isInputEmpty());
+        } else {
+            btnModify.setDisable(true);
+        }
+    }
+
+    private void clearForm() {
         optCategory.setValue(null);
         optCategory.setPromptText("   Select a Category");
         optSubCategory.setItems(null);
@@ -310,17 +473,18 @@ public class FormController implements ProductForm {
         optStatus.setPromptText("   Select a Status");
         btnRegister.setDisable(true);
         btnCancel.setDisable(true);
+        selectImage = null;
     }
 
-    private ObservableList<String> getCategory(){
+    private ObservableList<String> getCategory() {
         ObservableList<String> categoryArrayList = FXCollections.observableArrayList();
-        try{
+        try {
             assert categoryBo != null;
             List<Category> categoryList = categoryBo.getAllCategory();
-            for(Category category : categoryList){
+            for (Category category : categoryList) {
                 categoryArrayList.add(category.getName());
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -328,15 +492,15 @@ public class FormController implements ProductForm {
         return categoryArrayList;
     }
 
-    private ObservableList<String> getSupplier(){
+    private ObservableList<String> getSupplier() {
         ObservableList<String> supplierArrayList = FXCollections.observableArrayList();
-        try{
+        try {
             assert supplierBo != null;
             List<Supplier> supplierList = supplierBo.getAllSupplier();
-            for(Supplier supplier : supplierList) {
+            for (Supplier supplier : supplierList) {
                 supplierArrayList.add(supplier.getId() + " - " + supplier.getTitle() + ". " + supplier.getFirstName() + " " + supplier.getLastName());
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -351,7 +515,7 @@ public class FormController implements ProductForm {
         return statusList;
     }
 
-    private ObservableList<String> getSize(){
+    private ObservableList<String> getSize() {
         ObservableList<String> sizeArrayList = FXCollections.observableArrayList();
         sizeArrayList.add("XXS");
         sizeArrayList.add("XS");
@@ -364,6 +528,51 @@ public class FormController implements ProductForm {
         sizeArrayList.add("4X L");
         sizeArrayList.add("5X L");
         return sizeArrayList;
+    }
+
+    @Override
+    public void loadProductToForm(Product product) {
+        searchProduct = product;
+        btnDelete.setDisable(false);
+
+        if (Boolean.TRUE.equals(product.getIsActive())) {
+            btnDisable.setDisable(false);
+        } else {
+            btnActive.setDisable(false);
+        }
+
+        optCategory.setValue(product.getSubCategory().getCategory().getName());
+        optSubCategory.setValue(product.getSubCategory().getName());
+        optSupplier.setValue(product.getSupplier().getId() + " - " + product.getSupplier().getTitle() + ". " + product.getSupplier().getFirstName() + " " + product.getSupplier().getLastName());
+        txtDescription.setText(product.getDescription());
+        optSize.setValue(product.getSize());
+        txtPrice.setText(String.valueOf(product.getPrice()));
+        txtQuantityOnHand.setText(String.valueOf(product.getQuantityOnHand()));
+
+        try {
+            InputStream inputStream = product.getImage().getBinaryStream();
+            searchImage = new Image(inputStream);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+        optStatus.setValue(Boolean.TRUE.equals(product.getIsActive()) ? ACTIVE : DISABLE);
+        selectImage = null;
+        dspImageName.setText("");
+        txtQuantityOnHand.setDisable(true);
+        validateInputs();
+    }
+
+    @Override
+    public void clearProduct() {
+        searchProduct = null;
+        clearForm();
+        btnDelete.setDisable(true);
+        searchImage = null;
+        btnActive.setDisable(true);
+        btnDisable.setDisable(true);
+        txtQuantityOnHand.setDisable(false);
     }
 
     @Override

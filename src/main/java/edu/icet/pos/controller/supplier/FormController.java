@@ -104,7 +104,7 @@ public class FormController implements SupplierForm {
 
             assert supplierBo != null;
             supplierBo.supplierRegister(supplier);
-            if(supplierView==null){
+            if (supplierView == null) {
                 supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
             }
             supplierView.updateTbl("registration");
@@ -122,7 +122,7 @@ public class FormController implements SupplierForm {
 
     @FXML
     private void btnModifyAction() {
-        try{
+        try {
             Supplier supplier = searchSupplier;
 
             supplier.setTitle(optTitle.getValue());
@@ -135,21 +135,21 @@ public class FormController implements SupplierForm {
 
             assert supplierBo != null;
             supplierBo.supplierUpdate(supplier);
-            if(supplierView==null){
+            if (supplierView == null) {
                 supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
             }
             supplierView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(supplier.getTitle()+" "+supplier.getFirstName()+" "+supplier.getLastName()+" Supplier modification was successful.");
+            alert.setContentText(supplier.getTitle() + " " + supplier.getFirstName() + " " + supplier.getLastName() + " Supplier modification was successful.");
             alert.show();
-            searchSupplier =null;
+            searchSupplier = null;
             clearForm();
-            if(supplierSearch==null){
+            if (supplierSearch == null) {
                 supplierSearch = SupplierCenterController.getInstance().getFxmlLoaderSearch().getController();
             }
             supplierSearch.clearSearch();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -163,28 +163,28 @@ public class FormController implements SupplierForm {
 
     @FXML
     private void btnActiveAction() {
-        try{
+        try {
             Supplier supplier = searchSupplier;
             supplier.setIsActive(true);
             supplier.setModifyAt(new Date());
 
             assert supplierBo != null;
             supplierBo.supplierUpdate(supplier);
-            if(supplierView==null){
+            if (supplierView == null) {
                 supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
             }
             supplierView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(supplier.getTitle()+" "+supplier.getFirstName()+" "+supplier.getLastName()+" Supplier activation was successful.");
+            alert.setContentText(supplier.getTitle() + " " + supplier.getFirstName() + " " + supplier.getLastName() + " Supplier activation was successful.");
             alert.show();
-            searchSupplier =null;
+            searchSupplier = null;
             clearForm();
-            if(supplierSearch==null){
+            if (supplierSearch == null) {
                 supplierSearch = SupplierCenterController.getInstance().getFxmlLoaderSearch().getController();
             }
             supplierSearch.clearSearch();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -193,28 +193,28 @@ public class FormController implements SupplierForm {
 
     @FXML
     private void btnDisableAction() {
-        try{
+        try {
             Supplier supplier = searchSupplier;
             supplier.setIsActive(false);
             supplier.setModifyAt(new Date());
 
             assert supplierBo != null;
             supplierBo.supplierUpdate(supplier);
-            if(supplierView==null){
+            if (supplierView == null) {
                 supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
             }
             supplierView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(supplier.getTitle()+" "+supplier.getFirstName()+" "+supplier.getLastName()+" Supplier disable was successful.");
+            alert.setContentText(supplier.getTitle() + " " + supplier.getFirstName() + " " + supplier.getLastName() + " Supplier disable was successful.");
             alert.show();
-            searchSupplier =null;
+            searchSupplier = null;
             clearForm();
-            if(supplierSearch==null){
+            if (supplierSearch == null) {
                 supplierSearch = SupplierCenterController.getInstance().getFxmlLoaderSearch().getController();
             }
             supplierSearch.clearSearch();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -223,24 +223,24 @@ public class FormController implements SupplierForm {
 
     @FXML
     private void btnDeleteAction() {
-        try{
+        try {
             assert supplierBo != null;
             supplierBo.supplierDelete(searchSupplier);
-            if(supplierView==null){
+            if (supplierView == null) {
                 supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
             }
             supplierView.updateTbl("deletion");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(searchSupplier.getTitle()+" "+searchSupplier.getFirstName()+" "+searchSupplier.getLastName()+" Supplier deletion was successful.");
+            alert.setContentText(searchSupplier.getTitle() + " " + searchSupplier.getFirstName() + " " + searchSupplier.getLastName() + " Supplier deletion was successful.");
             alert.show();
             searchSupplier = null;
             clearForm();
-            if(supplierSearch==null){
+            if (supplierSearch == null) {
                 supplierSearch = SupplierCenterController.getInstance().getFxmlLoaderSearch().getController();
             }
             supplierSearch.clearSearch();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -277,7 +277,7 @@ public class FormController implements SupplierForm {
     }
 
     private void validateInputs() {
-        if (!isInputEmpty() && searchSupplier==null) {
+        if (!isInputEmpty() && searchSupplier == null) {
             btnRegister.setDisable(false);
         } else {
             btnRegister.setDisable(true);
@@ -314,7 +314,7 @@ public class FormController implements SupplierForm {
         }
     }
 
-    private boolean isInputEmpty(){
+    private boolean isInputEmpty() {
         return optTitle.getValue() == null ||
                 txtFirstName.getLength() <= 0 ||
                 txtLastName.getLength() <= 0 ||

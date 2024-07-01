@@ -7,4 +7,8 @@ public interface ProductBo extends SuperBo {
     Product productRegister(Product product);
 
     Product getProduct(Integer id);
+
+    void productUpdate(Product product);
+
+    void productDelete(Product product);
 }

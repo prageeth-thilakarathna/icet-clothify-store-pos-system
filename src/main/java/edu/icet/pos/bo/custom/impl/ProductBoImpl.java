@@ -22,4 +22,16 @@ public class ProductBoImpl implements ProductBo {
         assert productDao != null;
         return new ModelMapper().map(productDao.get(id), Product.class);
     }
+
+    @Override
+    public void productUpdate(Product product) {
+        assert productDao != null;
+        productDao.update(new ModelMapper().map(product, ProductEntity.class));
+    }
+
+    @Override
+    public void productDelete(Product product) {
+        assert productDao != null;
+        productDao.delete(new ModelMapper().map(product, ProductEntity.class));
+    }
 }
