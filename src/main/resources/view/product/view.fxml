@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="273.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.product.ViewController">
+   <children>
+      <ScrollPane focusTraversable="false" prefHeight="300.0" prefWidth="911.0" style="-fx-focus-color: transparent; -fx-background-color: transparent;">
+         <content>
+            <VBox prefHeight="271.0" prefWidth="909.0">
+               <children>
+                  <Separator prefWidth="200.0" />
+                  <HBox alignment="BASELINE_RIGHT" prefHeight="20.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Product Count -" textFill="#2f3548">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="dspCount" layoutX="10.0" layoutY="10.0" prefWidth="50.0" textFill="#2f3548">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Pagination fx:id="tblPagination" focusTraversable="false" pageCount="15" prefHeight="249.0" prefWidth="909.0" stylesheets="@../../style/paginationStyle.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="5.0" />
+                     </VBox.margin>
+                  </Pagination>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

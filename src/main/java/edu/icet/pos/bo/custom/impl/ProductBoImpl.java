@@ -7,6 +7,9 @@ import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.model.product.Product;
 import edu.icet.pos.util.DaoType;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+
+import java.util.List;
 
 public class ProductBoImpl implements ProductBo {
     private final ProductDao productDao = DaoFactory.getDao(DaoType.PRODUCT);
@@ -33,5 +36,17 @@ public class ProductBoImpl implements ProductBo {
     public void productDelete(Product product) {
         assert productDao != null;
         productDao.delete(new ModelMapper().map(product, ProductEntity.class));
+    }
+
+    @Override
+    public int getProductCount() {
+        assert productDao != null;
+        return productDao.count();
+    }
+
+    @Override
+    public List<Product> getProductPerPage(int offset) {
+        assert productDao != null;
+        return new ModelMapper().map(productDao.getPerPage(offset), new TypeToken<List<Product>>() {}.getType());
     }
 }

@@ -217,3 +217,13 @@ s
 Csrc/main/java/edu/icet/pos/controller/product/SearchController.java,f\b\fbf1adf192d2cab9a8981cf043ff6001ac8d8f59
 w
 Gsrc/main/java/edu/icet/pos/controller/product/custom/ProductSearch.java,a\d\adbbecc11d8366702e13fff5a9241933eb33f65f
+q
+Asrc/main/java/edu/icet/pos/controller/product/CardController.java,1\d\1da14f05ef778b7352d712c3917db8dc3c77bba5
+u
+Esrc/main/java/edu/icet/pos/controller/product/custom/ProductCard.java,a\e\ae6c2e153404d954d867d585591bff41827b88ae
+q
+Asrc/main/java/edu/icet/pos/controller/product/ViewController.java,6\1\614df937764f07418b98f790b7aac16424134fc8
+u
+Esrc/main/java/edu/icet/pos/controller/product/custom/ProductView.java,b\e\bea3588b606ae479a782443638bf24569f301397
+r
+Bsrc/main/java/edu/icet/pos/controller/product/PanelController.java,1\2\1225369252cd6f201aa34afcba53145d3d6968c7

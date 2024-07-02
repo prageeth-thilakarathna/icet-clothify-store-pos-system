@@ -1,17 +1,19 @@
 
 ‘
-java:S2095í"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8Ç¿äí†2J$653ef179-8294-4dc8-85b3-26d2b9da2fa2
+java:S1192¸"MDefine a constant instead of duplicating this literal "modification" 3 times.(©ªˆß8Ï«‰‡2J$fd5d2b0c-8306-4e16-885f-f665cfed0238
 ‘
-java:S2095¥"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8Ç¿äí†2J$a3d2100f-7590-4379-9263-493547441a56
+java:S2095ï"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8±Ú…‡2J$52309fae-19ca-4ed4-b312-26eb92718974
+‘
+java:S2095«"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8±Ú…‡2J$04e6c23f-8454-49fe-8ef7-2594c4fecead
 ‹
-java:S1126¡"BReplace this if-then-else statement by a single method invocation.(…ÀÌ¿ıÿÿÿÿ8×¿äí†2J$e76cd405-8ccf-484d-9b06-b65a2dbef2d2
+java:S1126£"BReplace this if-then-else statement by a single method invocation.(…ÀÌ¿ıÿÿÿÿ8ÌÚ…‡2J$f155c81c-a2e2-411f-8bb4-b2d1f2b40ab3
 …
-java:S1126¼"BReplace this if-then-else statement by a single method invocation.(Ëõ÷p8×¿äí†2J$036e6870-4441-4df1-b22f-a8959aa627aa
+java:S1126¾"BReplace this if-then-else statement by a single method invocation.(Ëõ÷p8ÌÚ…‡2J$9912fd59-a3fa-469f-83ad-f17fc7fa1136
 
-java:S2674ï"JCheck the return value of the "read" call to see how many bytes were read.(®Ê¦š8æ¿äí†2J$9628b507-b087-43c1-ae8e-a18f4f4ce072
+java:S2674ñ"JCheck the return value of the "read" call to see how many bytes were read.(®Ê¦š8ìÚ…‡2J$9ff2c6b5-3318-4009-b5df-8832b7afb00b
 s
-java:S2093à"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8æ¿äí†2J$ef3f6077-8d09-4919-8944-91800017ee86
+java:S2093â"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8ìÚ…‡2J$f4f752c1-e8d0-43d9-b632-f23bd50f9648
 
-java:S2674§"JCheck the return value of the "read" call to see how many bytes were read.(®Ê¦š8ö¿äí†2J$573a5118-2dae-45d2-8cd1-d34ae9e65b01
+java:S2674­"JCheck the return value of the "read" call to see how many bytes were read.(®Ê¦š8üÚ…‡2J$7e95861e-2971-4677-9641-d6a00f38f327
 …
-java:S1126£"AReplace this if-then-else statement by a single return statement.(µÔñ£8…Àäí†2J$fac1c7a4-db75-4272-b4d2-9f278984bdfb
+java:S1126¹"AReplace this if-then-else statement by a single return statement.(µÔñ£8Ç®‰‡2J$41631a43-6158-4953-bb20-200233eb48f6

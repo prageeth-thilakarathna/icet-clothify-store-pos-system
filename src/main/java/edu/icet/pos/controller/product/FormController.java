@@ -5,6 +5,7 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.*;
 import edu.icet.pos.controller.product.custom.ProductForm;
 import edu.icet.pos.controller.product.custom.ProductSearch;
+import edu.icet.pos.controller.product.custom.ProductView;
 import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.entity.SubCategoryEntity;
 import edu.icet.pos.entity.SupplierEntity;
@@ -88,6 +89,7 @@ public class FormController implements ProductForm {
     private Product searchProduct;
     private Image searchImage;
     private ProductSearch productSearch;
+    private ProductView productView;
 
     @FXML
     private void optCategoryAction() {
@@ -247,6 +249,10 @@ public class FormController implements ProductForm {
             assert productBo != null;
             Product productRes = productBo.productRegister(product);
             qtyOnHandRegister(productRes);
+            if(productView==null){
+                productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            productView.updatePanel("registration");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Product and Quantity On Hand registration was successful.");
             alert.show();
@@ -300,6 +306,10 @@ public class FormController implements ProductForm {
 
             assert productBo != null;
             productBo.productUpdate(product);
+            if(productView==null){
+                productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            productView.updatePanel("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(product.getId() + " Product modification was successful.");
             alert.show();
@@ -330,6 +340,10 @@ public class FormController implements ProductForm {
 
             assert productBo != null;
             productBo.productUpdate(product);
+            if(productView==null){
+                productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            productView.updatePanel("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(product.getId() + " Product activation was successful.");
             alert.show();
@@ -355,6 +369,10 @@ public class FormController implements ProductForm {
 
             assert productBo != null;
             productBo.productUpdate(product);
+            if(productView==null){
+                productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            productView.updatePanel("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(product.getId() + " Product disable was successful.");
             alert.show();
@@ -376,6 +394,10 @@ public class FormController implements ProductForm {
         try{
             assert productBo != null;
             productBo.productDelete(searchProduct);
+            if(productView==null){
+                productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            productView.updatePanel("deletion");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(searchProduct.getId() + " Product deletion was successful.");
             alert.show();

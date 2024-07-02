@@ -7,6 +7,7 @@ import edu.icet.pos.controller.category.CategoryCenterController;
 import edu.icet.pos.controller.category.custom.CategoryView;
 import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.product.ProductCenterController;
+import edu.icet.pos.controller.product.custom.ProductView;
 import edu.icet.pos.controller.supplier.SupplierCenterController;
 import edu.icet.pos.controller.supplier.custom.SupplierView;
 import edu.icet.pos.controller.user.UserCenterController;
@@ -49,6 +50,7 @@ public class NavPanelController implements DashboardNavPanel {
     private final UserView userView = UserCenterController.getInstance().getFxmlLoaderView().getController();
     private final CategoryView categoryView = CategoryCenterController.getInstance().getFxmlLoaderView().getController();
     private final SupplierView supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
+    private final ProductView productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
 
     @FXML
     private void btnUserAction() {
@@ -182,6 +184,8 @@ public class NavPanelController implements DashboardNavPanel {
 
         VBox pageBottom = CenterController.getInstance().getPageBottom();
         pageBottom.getChildren().clear();
+        pageBottom.getChildren().add(ProductCenterController.getInstance().getParentView());
+        productView.loadCard();
     }
 
     @Override
