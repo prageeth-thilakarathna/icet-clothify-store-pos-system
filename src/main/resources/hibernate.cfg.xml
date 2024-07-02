@@ -23,5 +23,7 @@
         <mapping class="edu.icet.pos.entity.SupplierEntity"/>
         <mapping class="edu.icet.pos.entity.ProductEntity"/>
         <mapping class="edu.icet.pos.entity.InventoryEntity"/>
+        <mapping class="edu.icet.pos.entity.JobRoleEntity"/>
+        <mapping class="edu.icet.pos.entity.EmployeeEntity"/>
     </session-factory>
 </hibernate-configuration>

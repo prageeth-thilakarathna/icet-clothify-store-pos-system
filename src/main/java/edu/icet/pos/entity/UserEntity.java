@@ -26,4 +26,7 @@ public class UserEntity {
     @ManyToOne
     @JoinColumn(name = "userRoleId", foreignKey = @ForeignKey(name = "fk_user_role_user"))
     private UserRoleEntity userRole;
+
+    @OneToOne(mappedBy = "user")
+    private EmployeeEntity employee;
 }

@@ -1,15 +1,15 @@
 
 Š
-java:S1192"FDefine a constant instead of duplicating this literal "admin" 3 times.(Ğ—ïŞ8ÌîĞ±„2J$1177726f-ab77-4438-8cc7-79507e177015
+java:S1192"FDefine a constant instead of duplicating this literal "admin" 3 times.(Ğ—ïŞ8ÌîĞ±„2J$54013e5e-80fc-4fa6-9861-12739245e723
 }
-java:S1854"9Remove this useless assignment to local variable "admin".(Ğ—ïŞ8ğîĞ±„2J$ad003b9d-e14a-483d-a39f-5c2124c3899d
+java:S1854"9Remove this useless assignment to local variable "admin".(Ğ—ïŞ8ğîĞ±„2J$5a15e27c-9bf5-4ab6-8b99-79c0882c1d4e
 n
-java:S1481"*Remove this unused "admin" local variable.(Ğ—ïŞ8ñîĞ±„2J$17e785c9-15f1-4579-8b60-add2cce31162
+java:S1481"*Remove this unused "admin" local variable.(Ğ—ïŞ8ñîĞ±„2J$09c11521-df28-4d0c-95b0-7aad4c005cf2
 
-java:S1854"8Remove this useless assignment to local variable "user".(Õíªøÿÿÿÿÿ8ñîĞ±„2J$5ad09c34-a918-4a25-a19f-70ff28b3dee7
+java:S1854"8Remove this useless assignment to local variable "user".(Õíªøÿÿÿÿÿ8ñîĞ±„2J$7cc316ba-a39b-4e82-bb15-df979ea13a67
 r
-java:S1481")Remove this unused "user" local variable.(Õíªøÿÿÿÿÿ8òîĞ±„2J$5af27fe2-2cd3-4f4e-a1f0-9a15e8a0b921
+java:S1481")Remove this unused "user" local variable.(Õíªøÿÿÿÿÿ8òîĞ±„2J$66c8c869-baeb-4781-ae96-e6511ac821e1
 
-java:S1854¸"8Remove this useless assignment to local variable "user".(Úáıÿÿÿÿ8õîĞ±„2J$344647bf-fe78-4b97-b86b-55ae23b57758
+java:S1854¸"8Remove this useless assignment to local variable "user".(Úáıÿÿÿÿ8õîĞ±„2J$7cf86a62-5946-4bec-bbf8-50879c7245a3
 r
-java:S1481¸")Remove this unused "user" local variable.(Úáıÿÿÿÿ8õîĞ±„2J$b1548b02-1ca5-485a-8b0b-89075775d3ef
+java:S1481¸")Remove this unused "user" local variable.(Úáıÿÿÿÿ8õîĞ±„2J$c5942dbd-98b6-473e-b060-5edb076faf2a

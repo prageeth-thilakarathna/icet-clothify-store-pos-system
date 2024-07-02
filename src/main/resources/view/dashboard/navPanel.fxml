@@ -135,7 +135,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnEmployee" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="88.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Employee" textFill="WHITE">
+                  <Button fx:id="btnEmployee" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="38.0" layoutY="88.0" mnemonicParsing="false" onAction="#btnEmployeeAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="      Employee" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

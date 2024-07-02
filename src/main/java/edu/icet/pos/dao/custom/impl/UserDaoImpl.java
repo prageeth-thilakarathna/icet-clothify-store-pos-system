@@ -1,6 +1,7 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.UserDao;
+import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.entity.UserEntity;
 import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.util.HibernateUtil;
@@ -158,5 +159,41 @@ public class UserDaoImpl implements UserDao {
         });
         session.close();
         return userEntityList;
+    }
+
+    @Override
+    public List<UserEntity> getNotIsExist() {
+        Session session = HibernateUtil.getSession();
+        List<UserEntity> userEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT eMail FROM user " +
+                        "WHERE NOT EXISTS (SELECT * FROM employee " +
+                        "WHERE user.id = employee.userId)");
+                while(resultSet.next()){
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.setEMail(resultSet.getString("eMail"));
+                    userEntityList.add(userEntity);
+                }
+            }
+        });
+        session.close();
+        return userEntityList;
+    }
+
+    @Override
+    public void employeeSave(EmployeeEntity employeeEntity) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.persist(employeeEntity);
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 }

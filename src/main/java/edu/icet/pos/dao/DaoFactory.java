@@ -15,6 +15,8 @@ public class DaoFactory {
             case SUPPLIER: return (T) new SupplierDaoImpl();
             case PRODUCT: return (T) new ProductDaoImpl();
             case INVENTORY: return (T) new InventoryDaoImpl();
+            case JOB_ROLE: return (T) new JobRoleDaoImpl();
+            case EMPLOYEE: return (T) new EmployeeDaoImpl();
         }
         return null;
     }

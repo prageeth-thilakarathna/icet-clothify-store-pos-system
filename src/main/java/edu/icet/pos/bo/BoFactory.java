@@ -15,6 +15,7 @@ public class BoFactory {
             case SUPPLIER: return (T) new SupplierBoImpl();
             case PRODUCT: return (T) new ProductBoImpl();
             case INVENTORY: return (T) new InventoryBoImpl();
+            case JOB_ROLE: return (T) new JobRoleBoImpl();
         }
         return null;
     }
