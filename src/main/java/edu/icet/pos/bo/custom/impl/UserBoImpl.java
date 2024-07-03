@@ -75,4 +75,22 @@ public class UserBoImpl implements UserBo {
         assert userDao != null;
         userDao.employeeSave(new ModelMapper().map(employee, EmployeeEntity.class));
     }
+
+    @Override
+    public Employee getEmployeeById(Integer id) {
+        assert userDao != null;
+        return new ModelMapper().map(userDao.getEmployee(id), Employee.class);
+    }
+
+    @Override
+    public void employeeUpdate(Employee employee) {
+        assert userDao != null;
+        userDao.update(new ModelMapper().map(employee, EmployeeEntity.class));
+    }
+
+    @Override
+    public void employeeDelete(Employee employee) {
+        assert userDao != null;
+        userDao.delete(new ModelMapper().map(employee, EmployeeEntity.class));
+    }
 }

@@ -26,4 +26,10 @@ public interface UserDao extends SuperDao {
     List<UserEntity> getNotIsExist();
 
     void employeeSave(EmployeeEntity employeeEntity);
+
+    EmployeeEntity getEmployee(Integer id);
+
+    void update(EmployeeEntity employeeEntity);
+
+    void delete(EmployeeEntity employeeEntity);
 }

@@ -11,4 +11,6 @@ public interface EmployeeDao extends SuperDao {
     List<EmployeeEntity> getAll();
 
     void save(EmployeeEntity employeeEntity);
+
+    EmployeeEntity get(Integer id);
 }

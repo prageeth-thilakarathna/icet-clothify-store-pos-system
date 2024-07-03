@@ -26,4 +26,10 @@ public interface UserBo extends SuperBo {
     List<User> getUsersNotExistInEmployee();
 
     void employeeRegister(Employee employee);
+
+    Employee getEmployeeById(Integer id);
+
+    void employeeUpdate(Employee employee);
+
+    void employeeDelete(Employee employee);
 }

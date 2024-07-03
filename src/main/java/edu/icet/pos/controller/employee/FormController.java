@@ -2,11 +2,10 @@ package edu.icet.pos.controller.employee;
 
 import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
-import edu.icet.pos.bo.custom.EmployeeBo;
 import edu.icet.pos.bo.custom.JobRoleBo;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.controller.employee.custom.EmployeeForm;
-import edu.icet.pos.entity.EmployeeEntity;
+import edu.icet.pos.controller.employee.custom.EmployeeSearch;
 import edu.icet.pos.entity.JobRoleEntity;
 import edu.icet.pos.entity.UserEntity;
 import edu.icet.pos.model.employee.Employee;
@@ -15,12 +14,10 @@ import edu.icet.pos.model.user.User;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import org.modelmapper.ModelMapper;
 
@@ -66,52 +63,53 @@ public class FormController implements EmployeeForm {
 
     private final JobRoleBo jobRoleBo = BoFactory.getBo(BoType.JOB_ROLE);
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
-    private final EmployeeBo employeeBo = BoFactory.getBo(BoType.EMPLOYEE);
     private static final String ACTIVE = "Active";
     private static final String DISABLE = "Disable";
+    private Employee searchEmployee;
+    private EmployeeSearch employeeSearch;
 
     @FXML
-    private void optUserAction(ActionEvent actionEvent) {
+    private void optUserAction() {
         validateInputs();
     }
 
     @FXML
-    private void optJobRoleAction(ActionEvent actionEvent) {
+    private void optJobRoleAction() {
         validateInputs();
     }
 
     @FXML
-    private void optTitleAction(ActionEvent actionEvent) {
+    private void optTitleAction() {
         validateInputs();
     }
 
     @FXML
-    private void firstNameKeyTyped(KeyEvent keyEvent) {
+    private void firstNameKeyTyped() {
         validateInputs();
     }
 
     @FXML
-    private void lastNameKeyTyped(KeyEvent keyEvent) {
+    private void lastNameKeyTyped() {
         validateInputs();
     }
 
     @FXML
-    private void contactKeyTyped(KeyEvent keyEvent) {
+    private void contactKeyTyped() {
         validateInputs();
     }
 
     @FXML
-    private void addressKeyTyped(KeyEvent keyEvent) {
+    private void addressKeyTyped() {
         validateInputs();
     }
 
     @FXML
-    private void optStatusAction(ActionEvent actionEvent) {
+    private void optStatusAction() {
         validateInputs();
     }
 
     @FXML
-    private void btnRegisterAction(ActionEvent actionEvent) {
+    private void btnRegisterAction() {
         try{
             Employee employee = new Employee();
 
@@ -129,7 +127,6 @@ public class FormController implements EmployeeForm {
             employee.setModifyAt(new Date());
             employee.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
 
-            assert employeeBo != null;
             userBo.employeeRegister(employee);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(optTitle.getValue() + " " + txtFirstName.getText() + " " + txtLastName.getText() + " Employee registration was successful.");
@@ -145,31 +142,125 @@ public class FormController implements EmployeeForm {
     }
 
     @FXML
-    private void btnModifyAction(ActionEvent actionEvent) {
+    private void btnModifyAction() {
+        try{
+            Employee employee = searchEmployee;
+
+            String roleName = optJobRole.getValue().substring(0, 1).toLowerCase() + optJobRole.getValue().substring(1);
+            assert jobRoleBo != null;
+            employee.setJobRole(new ModelMapper().map(jobRoleBo.getJobRoleByName(roleName), JobRoleEntity.class));
+            employee.setTitle(optTitle.getValue());
+            employee.setFirstName(txtFirstName.getText());
+            employee.setLastName(txtLastName.getText());
+            employee.setContact(txtContact.getText());
+            employee.setAddress(txtAddress.getText());
+            employee.setModifyAt(new Date());
+            employee.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
+
+            assert userBo != null;
+            userBo.employeeUpdate(employee);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(employee.getTitle() + " " + employee.getFirstName() + " " + employee.getLastName() + " Employee modification was successful.");
+            alert.show();
+            clearEmployee();
+            if(employeeSearch==null){
+                employeeSearch = EmployeeCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            employeeSearch.clearSearch();
+
+        } catch(Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
-    private void btnCancelAction(ActionEvent actionEvent) {
+    private void btnCancelAction() {
         clearForm();
     }
 
     @FXML
-    private void btnActiveAction(ActionEvent actionEvent) {
+    private void btnActiveAction() {
+        try{
+            Employee employee = searchEmployee;
+            employee.setIsActive(true);
+            employee.setModifyAt(new Date());
+
+            assert userBo != null;
+            userBo.employeeUpdate(employee);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(employee.getTitle() + " " + employee.getFirstName() + " " + employee.getLastName() + " Employee activation was successful.");
+            alert.show();
+            clearEmployee();
+            if(employeeSearch==null){
+                employeeSearch = EmployeeCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            employeeSearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
-    private void btnDisableAction(ActionEvent actionEvent) {
+    private void btnDisableAction() {
+        try{
+            Employee employee = searchEmployee;
+            employee.setIsActive(false);
+            employee.setModifyAt(new Date());
+
+            assert userBo != null;
+            userBo.employeeUpdate(employee);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(employee.getTitle() + " " + employee.getFirstName() + " " + employee.getLastName() + " Employee disable was successful.");
+            alert.show();
+            clearEmployee();
+            if(employeeSearch==null){
+                employeeSearch = EmployeeCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            employeeSearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
-    private void btnDeleteAction(ActionEvent actionEvent) {
+    private void btnDeleteAction() {
+        try{
+            assert userBo != null;
+            userBo.employeeDelete(searchEmployee);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(searchEmployee.getTitle() + " " + searchEmployee.getFirstName() + " " + searchEmployee.getLastName() + " Employee deletion was successful.");
+            alert.show();
+            clearEmployee();
+            if(employeeSearch==null){
+                employeeSearch = EmployeeCenterController.getInstance().getFxmlLoaderSearch().getController();
+            }
+            employeeSearch.clearSearch();
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     private void validateInputs(){
-        if(!isInputEmpty()){
+        if(!isInputEmpty() && searchEmployee==null){
             btnRegister.setDisable(false);
         } else {
             btnRegister.setDisable(true);
+            if(searchEmployee!=null){
+                validateModify();
+            } else {
+                btnModify.setDisable(true);
+            }
         }
 
         btnCancel.setDisable(optUser.getValue() == null &&
@@ -180,6 +271,26 @@ public class FormController implements EmployeeForm {
                 txtContact.getLength() <= 0 &&
                 txtAddress.getLength() <= 0 &&
                 optStatus.getValue() == null);
+    }
+
+    private void validateModify(){
+        if(!searchEmployee.getJobRole().getName().equalsIgnoreCase(optJobRole.getValue())){
+            btnModify.setDisable(isInputEmpty());
+        } else if(!Objects.equals(searchEmployee.getTitle(), optTitle.getValue())){
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(txtFirstName.getText(), searchEmployee.getFirstName())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(txtLastName.getText(), searchEmployee.getLastName())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(txtContact.getText(), searchEmployee.getContact())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (!Objects.equals(txtAddress.getText(), searchEmployee.getAddress())) {
+            btnModify.setDisable(isInputEmpty());
+        } else if (Objects.equals(optStatus.getValue(), ACTIVE) != Boolean.TRUE.equals(searchEmployee.getIsActive())) {
+            btnModify.setDisable(isInputEmpty());
+        } else {
+            btnModify.setDisable(true);
+        }
     }
 
     private boolean isInputEmpty(){
@@ -220,6 +331,22 @@ public class FormController implements EmployeeForm {
         try{
             assert userBo != null;
             List<User> users = userBo.getUsersNotExistInEmployee();
+            for(User user : users){
+                userList.add(user.getEMail());
+            }
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+        return userList;
+    }
+
+    private ObservableList<String> getAllUser(){
+        ObservableList<String> userList = FXCollections.observableArrayList();
+        try{
+            assert userBo != null;
+            List<User> users = userBo.getAllUser();
             for(User user : users){
                 userList.add(user.getEMail());
             }
@@ -280,6 +407,41 @@ public class FormController implements EmployeeForm {
         statusList.add(ACTIVE);
         statusList.add(DISABLE);
         return statusList;
+    }
+
+    @Override
+    public void loadEmployeeToForm(Employee employee) {
+        searchEmployee = employee;
+        btnDelete.setDisable(false);
+
+        if (Boolean.TRUE.equals(employee.getIsActive())) {
+            btnDisable.setDisable(false);
+        } else {
+            btnActive.setDisable(false);
+        }
+
+        optUser.setItems(getAllUser());
+        optUser.setValue(employee.getUser().getEMail());
+        optUser.setDisable(true);
+        optJobRole.setValue(employee.getJobRole().getName().substring(0, 1).toUpperCase() + employee.getJobRole().getName().substring(1));
+        optTitle.setValue(employee.getTitle());
+        txtFirstName.setText(employee.getFirstName());
+        txtLastName.setText(employee.getLastName());
+        txtContact.setText(employee.getContact());
+        txtAddress.setText(employee.getAddress());
+        optStatus.setValue(Boolean.TRUE.equals(employee.getIsActive()) ? ACTIVE : DISABLE);
+        validateInputs();
+    }
+
+    @Override
+    public void clearEmployee() {
+        searchEmployee = null;
+        clearForm();
+        optUser.setItems(getUsers());
+        optUser.setDisable(false);
+        btnDelete.setDisable(true);
+        btnActive.setDisable(true);
+        btnDisable.setDisable(true);
     }
 
     @Override

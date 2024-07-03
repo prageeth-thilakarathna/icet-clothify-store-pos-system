@@ -31,4 +31,10 @@ public class EmployeeBoImpl implements EmployeeBo {
         assert employeeDao != null;
         employeeDao.save(new ModelMapper().map(employee, EmployeeEntity.class));
     }
+
+    @Override
+    public Employee getEmployee(Integer id) {
+        assert employeeDao != null;
+        return new ModelMapper().map(employeeDao.get(id), Employee.class);
+    }
 }

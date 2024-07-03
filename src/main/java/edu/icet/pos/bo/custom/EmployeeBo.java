@@ -11,4 +11,6 @@ public interface EmployeeBo extends SuperBo {
     List<Employee> getAllEmployee();
 
     void employeeRegister(Employee employee);
+
+    Employee getEmployee(Integer id);
 }

@@ -1,6 +1,7 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.EmployeeDao;
+import edu.icet.pos.entity.CategoryEntity;
 import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
@@ -59,5 +60,23 @@ public class EmployeeDaoImpl implements EmployeeDao {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public EmployeeEntity get(Integer id) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        EmployeeEntity employeeEntity;
+        try {
+            tx = session.beginTransaction();
+            employeeEntity = session.get(EmployeeEntity.class, id);
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return employeeEntity;
     }
 }
