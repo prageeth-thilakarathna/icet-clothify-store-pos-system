@@ -7,6 +7,7 @@ import edu.icet.pos.controller.category.CategoryCenterController;
 import edu.icet.pos.controller.category.custom.CategoryView;
 import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.employee.EmployeeCenterController;
+import edu.icet.pos.controller.employee.custom.EmployeeView;
 import edu.icet.pos.controller.product.ProductCenterController;
 import edu.icet.pos.controller.product.custom.ProductView;
 import edu.icet.pos.controller.supplier.SupplierCenterController;
@@ -52,6 +53,7 @@ public class NavPanelController implements DashboardNavPanel {
     private final CategoryView categoryView = CategoryCenterController.getInstance().getFxmlLoaderView().getController();
     private final SupplierView supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
     private final ProductView productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
+    private final EmployeeView employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
 
     @FXML
     private void btnUserAction() {
@@ -219,6 +221,14 @@ public class NavPanelController implements DashboardNavPanel {
 
         VBox pageBottom = CenterController.getInstance().getPageBottom();
         pageBottom.getChildren().clear();
+
+        ScrollPane scrollPaneView = new ScrollPane();
+        scrollPaneView.setStyle("-fx-focus-color: transparent; -fx-background-color: transparent;");
+        scrollPaneView.setFocusTraversable(false);
+        scrollPaneView.setPrefHeight(273);
+        scrollPaneView.setContent(EmployeeCenterController.getInstance().getParentView());
+        pageBottom.getChildren().add(scrollPaneView);
+        employeeView.loadTable();
     }
 
     @Override

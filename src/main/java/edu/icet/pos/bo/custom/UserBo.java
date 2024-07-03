@@ -32,4 +32,8 @@ public interface UserBo extends SuperBo {
     void employeeUpdate(Employee employee);
 
     void employeeDelete(Employee employee);
+
+    int getEmployeeCount();
+
+    List<Employee> getEmployeePerPage(int offset);
 }

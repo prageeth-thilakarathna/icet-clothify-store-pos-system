@@ -39,6 +39,6 @@ public class TableController implements UserTable {
         colRegisterAt.setCellValueFactory(new PropertyValueFactory<>("registerAt"));
         colModifyAt.setCellValueFactory(new PropertyValueFactory<>("modifyAt"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        tblUser.setFixedCellSize(31.5);
+        tblUser.setFixedCellSize(29.1);
     }
 }

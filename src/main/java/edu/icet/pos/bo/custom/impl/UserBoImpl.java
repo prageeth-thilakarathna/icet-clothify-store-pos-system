@@ -93,4 +93,16 @@ public class UserBoImpl implements UserBo {
         assert userDao != null;
         userDao.delete(new ModelMapper().map(employee, EmployeeEntity.class));
     }
+
+    @Override
+    public int getEmployeeCount() {
+        assert userDao != null;
+        return userDao.employeeCount();
+    }
+
+    @Override
+    public List<Employee> getEmployeePerPage(int offset) {
+        assert userDao != null;
+        return new ModelMapper().map(userDao.getEmployeePerPage(offset), new TypeToken<List<Employee>>() {}.getType());
+    }
 }

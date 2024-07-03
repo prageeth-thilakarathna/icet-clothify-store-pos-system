@@ -11,4 +11,6 @@ public interface JobRoleDao extends SuperDao {
     JobRoleEntity getByName(String name);
 
     List<JobRoleEntity> getAll();
+
+    JobRoleEntity get(Integer id);
 }

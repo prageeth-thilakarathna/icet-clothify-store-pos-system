@@ -2,6 +2,7 @@ package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.UserDao;
 import edu.icet.pos.entity.EmployeeEntity;
+import edu.icet.pos.entity.JobRoleEntity;
 import edu.icet.pos.entity.UserEntity;
 import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.util.HibernateUtil;
@@ -245,5 +246,57 @@ public class UserDaoImpl implements UserDao {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public int employeeCount() {
+        Session session = HibernateUtil.getSession();
+        AtomicInteger count = new AtomicInteger();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) AS row_count FROM employee");
+                resultSet.next();
+                count.set(resultSet.getInt("row_count"));
+            }
+        });
+        session.close();
+        return count.get();
+    }
+
+    @Override
+    public List<EmployeeEntity> getEmployeePerPage(int offset) {
+        Session session = HibernateUtil.getSession();
+        List<EmployeeEntity> employeeEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM employee LIMIT 5 OFFSET "+offset);
+
+                while(resultSet.next()){
+                    EmployeeEntity employee = new EmployeeEntity();
+                    employee.setId(resultSet.getInt("id"));
+
+                    UserEntity user = new UserEntity();
+                    user.setId(resultSet.getInt("userId"));
+                    employee.setUser(user);
+
+                    JobRoleEntity jobRole = new JobRoleEntity();
+                    jobRole.setId(resultSet.getInt("jobRoleId"));
+                    employee.setJobRole(jobRole);
+
+                    employee.setTitle(resultSet.getString("title"));
+                    employee.setFirstName(resultSet.getString("firstName"));
+                    employee.setLastName(resultSet.getString("lastName"));
+                    employee.setContact(resultSet.getString("contact"));
+                    employee.setAddress(resultSet.getString("address"));
+                    employee.setRegisterAt(resultSet.getDate("registerAt"));
+                    employee.setModifyAt(resultSet.getDate("modifyAt"));
+                    employee.setIsActive(resultSet.getBoolean("isActive"));
+
+                    employeeEntityList.add(employee);
+                }
+            }
+        });
+        session.close();
+        return employeeEntityList;
     }
 }

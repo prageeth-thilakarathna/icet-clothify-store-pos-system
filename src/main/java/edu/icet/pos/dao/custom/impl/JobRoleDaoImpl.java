@@ -2,7 +2,7 @@ package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.JobRoleDao;
 import edu.icet.pos.entity.JobRoleEntity;
-import edu.icet.pos.entity.UserRoleEntity;
+import edu.icet.pos.entity.SupplierEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -60,5 +60,23 @@ public class JobRoleDaoImpl implements JobRoleDao {
             session.close();
         }
         return jobRoleEntityList;
+    }
+
+    @Override
+    public JobRoleEntity get(Integer id) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        JobRoleEntity jobRoleEntity;
+        try {
+            tx = session.beginTransaction();
+            jobRoleEntity = session.get(JobRoleEntity.class, id);
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return jobRoleEntity;
     }
 }

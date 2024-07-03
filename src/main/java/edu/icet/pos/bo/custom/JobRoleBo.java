@@ -11,4 +11,6 @@ public interface JobRoleBo extends SuperBo {
     JobRole getJobRoleByName(String name);
 
     List<JobRole> getAllJobRole();
+
+    JobRole getJobRole(Integer id);
 }

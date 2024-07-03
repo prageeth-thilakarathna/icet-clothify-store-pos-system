@@ -14,10 +14,16 @@ public class EmployeeCenterController {
     private final Parent parentForm;
     private final FXMLLoader fxmlLoaderSearch = new FXMLLoader(getClass().getResource("/view/employee/search.fxml"));
     private final Parent parentSearch;
+    private final FXMLLoader fxmlLoaderView = new FXMLLoader(getClass().getResource("/view/employee/view.fxml"));
+    private final Parent parentView;
+    private final FXMLLoader fxmlLoaderTable = new FXMLLoader(getClass().getResource("/view/employee/table.fxml"));
+    private final Parent parentTable;
 
     private EmployeeCenterController() throws IOException {
         parentForm = fxmlLoaderForm.load();
         parentSearch = fxmlLoaderSearch.load();
+        parentView = fxmlLoaderView.load();
+        parentTable = fxmlLoaderTable.load();
     }
 
     static {

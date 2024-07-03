@@ -39,6 +39,6 @@ public class TableController implements SubCategoryTable {
         colRegisterAt.setCellValueFactory(new PropertyValueFactory<>("registerAt"));
         colModifyAt.setCellValueFactory(new PropertyValueFactory<>("modifyAt"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        tblSubCategory.setFixedCellSize(31.5);
+        tblSubCategory.setFixedCellSize(29.1);
     }
 }

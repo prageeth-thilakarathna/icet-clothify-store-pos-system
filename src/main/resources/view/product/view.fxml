@@ -17,12 +17,15 @@
             <VBox prefHeight="271.0" prefWidth="909.0">
                <children>
                   <Separator prefWidth="200.0" />
-                  <HBox alignment="BASELINE_RIGHT" prefHeight="20.0" prefWidth="200.0">
+                  <HBox alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="200.0">
                      <children>
                         <Label text="Product Count -" textFill="#2f3548">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
                         </Label>
                         <Label fx:id="dspCount" layoutX="10.0" layoutY="10.0" prefWidth="50.0" textFill="#2f3548">
                            <font>

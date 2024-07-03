@@ -6,6 +6,7 @@ import edu.icet.pos.bo.custom.JobRoleBo;
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.controller.employee.custom.EmployeeForm;
 import edu.icet.pos.controller.employee.custom.EmployeeSearch;
+import edu.icet.pos.controller.employee.custom.EmployeeView;
 import edu.icet.pos.entity.JobRoleEntity;
 import edu.icet.pos.entity.UserEntity;
 import edu.icet.pos.model.employee.Employee;
@@ -67,6 +68,7 @@ public class FormController implements EmployeeForm {
     private static final String DISABLE = "Disable";
     private Employee searchEmployee;
     private EmployeeSearch employeeSearch;
+    private EmployeeView employeeView;
 
     @FXML
     private void optUserAction() {
@@ -128,6 +130,10 @@ public class FormController implements EmployeeForm {
             employee.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
 
             userBo.employeeRegister(employee);
+            if (employeeView==null){
+                employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            employeeView.updateTbl("registration");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(optTitle.getValue() + " " + txtFirstName.getText() + " " + txtLastName.getText() + " Employee registration was successful.");
             alert.show();
@@ -159,6 +165,10 @@ public class FormController implements EmployeeForm {
 
             assert userBo != null;
             userBo.employeeUpdate(employee);
+            if (employeeView==null){
+                employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            employeeView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(employee.getTitle() + " " + employee.getFirstName() + " " + employee.getLastName() + " Employee modification was successful.");
             alert.show();
@@ -189,6 +199,10 @@ public class FormController implements EmployeeForm {
 
             assert userBo != null;
             userBo.employeeUpdate(employee);
+            if (employeeView==null){
+                employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            employeeView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(employee.getTitle() + " " + employee.getFirstName() + " " + employee.getLastName() + " Employee activation was successful.");
             alert.show();
@@ -214,6 +228,10 @@ public class FormController implements EmployeeForm {
 
             assert userBo != null;
             userBo.employeeUpdate(employee);
+            if (employeeView==null){
+                employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            employeeView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(employee.getTitle() + " " + employee.getFirstName() + " " + employee.getLastName() + " Employee disable was successful.");
             alert.show();
@@ -235,6 +253,10 @@ public class FormController implements EmployeeForm {
         try{
             assert userBo != null;
             userBo.employeeDelete(searchEmployee);
+            if (employeeView==null){
+                employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            employeeView.updateTbl("deletion");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(searchEmployee.getTitle() + " " + searchEmployee.getFirstName() + " " + searchEmployee.getLastName() + " Employee deletion was successful.");
             alert.show();

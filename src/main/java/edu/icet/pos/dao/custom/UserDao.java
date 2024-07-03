@@ -32,4 +32,8 @@ public interface UserDao extends SuperDao {
     void update(EmployeeEntity employeeEntity);
 
     void delete(EmployeeEntity employeeEntity);
+
+    int employeeCount();
+
+    List<EmployeeEntity> getEmployeePerPage(int offset);
 }

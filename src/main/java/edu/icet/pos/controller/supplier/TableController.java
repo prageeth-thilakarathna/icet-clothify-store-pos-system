@@ -42,5 +42,6 @@ public class TableController implements SupplierTable {
         colRegisterAt.setCellValueFactory(new PropertyValueFactory<>("registerAt"));
         colModifyAt.setCellValueFactory(new PropertyValueFactory<>("modifyAt"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        tblSupplier.setFixedCellSize(29.1);
     }
 }

@@ -36,6 +36,6 @@ public class TableController implements CategoryTable {
         colRegisterAt.setCellValueFactory(new PropertyValueFactory<>("registerAt"));
         colModifyAt.setCellValueFactory(new PropertyValueFactory<>("modifyAt"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        tblCategory.setFixedCellSize(31.5);
+        tblCategory.setFixedCellSize(29.1);
     }
 }
