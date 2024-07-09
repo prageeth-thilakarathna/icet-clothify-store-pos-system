@@ -13,7 +13,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         stage.setScene(new Scene(LayoutCenterController.getInstance().getParentLayout()));
-        stage.setMaximized(true);
         stage.setTitle("Clothify Store");
         stage.show();
     }

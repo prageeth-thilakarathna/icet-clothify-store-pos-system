@@ -16,5 +16,5 @@ public interface ProductBo extends SuperBo {
 
     int getProductCount();
 
-    List<Product> getProductPerPage(int offset);
+    List<Product> getProductPerPage(int limit, int offset);
 }

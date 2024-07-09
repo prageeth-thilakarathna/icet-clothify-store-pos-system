@@ -89,12 +89,12 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<ProductEntity> getPerPage(int offset) {
+    public List<ProductEntity> getPerPage(int limit, int offset) {
         Session session = HibernateUtil.getSession();
         List<ProductEntity> productEntityList = new ArrayList<>();
         session.doWork(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM product LIMIT 5 OFFSET "+offset);
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM product LIMIT "+limit+" OFFSET "+offset);
 
                 while(resultSet.next()){
                     ProductEntity product = new ProductEntity();

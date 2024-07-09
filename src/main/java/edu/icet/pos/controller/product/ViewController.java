@@ -87,7 +87,7 @@ public class ViewController implements ProductView {
         GridPane gridPane = new GridPane();
         try {
             assert productBo != null;
-            List<Product> productList = productBo.getProductPerPage(pageIndex * 5);
+            List<Product> productList = productBo.getProductPerPage(5, pageIndex * 5);
 
             for (int i = 0; i < productList.size(); i++) {
                 FXMLLoader fxmlLoaderCard = new FXMLLoader(getClass().getResource("/view/product/card.fxml"));

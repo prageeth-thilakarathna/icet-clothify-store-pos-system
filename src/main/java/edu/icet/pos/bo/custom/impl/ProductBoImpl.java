@@ -45,8 +45,8 @@ public class ProductBoImpl implements ProductBo {
     }
 
     @Override
-    public List<Product> getProductPerPage(int offset) {
+    public List<Product> getProductPerPage(int limit, int offset) {
         assert productDao != null;
-        return new ModelMapper().map(productDao.getPerPage(offset), new TypeToken<List<Product>>() {}.getType());
+        return new ModelMapper().map(productDao.getPerPage(limit, offset), new TypeToken<List<Product>>() {}.getType());
     }
 }

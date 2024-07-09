@@ -1,8 +1,10 @@
-package edu.icet.pos.controller.product;
+package edu.icet.pos.controller.place_order;
 
-import edu.icet.pos.controller.product.custom.ProductCard;
+import edu.icet.pos.controller.place_order.custom.PlaceOrderCard;
 import edu.icet.pos.model.product.Product;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,18 +15,26 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class CardController implements ProductCard {
+public class CardController implements PlaceOrderCard {
     @FXML
     private ImageView dspImage;
     @FXML
     private Label dspId;
     @FXML
     private Label dspDescription;
+    @FXML
+    private Label dspPrice;
+    @FXML
+    private Button btnAddToCart;
 
     private Product product;
 
     @FXML
     private void cardMouseClicked(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    private void btnAddToCartAction(ActionEvent actionEvent) {
     }
 
     @Override
@@ -39,5 +49,6 @@ public class CardController implements ProductCard {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

@@ -16,5 +16,5 @@ public interface ProductDao extends SuperDao {
 
     int count();
 
-    List<ProductEntity> getPerPage(int offset);
+    List<ProductEntity> getPerPage(int limit, int offset);
 }

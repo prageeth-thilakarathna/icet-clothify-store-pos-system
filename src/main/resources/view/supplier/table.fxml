@@ -9,7 +9,7 @@
    <children>
       <HBox alignment="BASELINE_CENTER" prefHeight="198.0" prefWidth="909.0">
          <children>
-            <TableView fx:id="tblSupplier" focusTraversable="false" prefHeight="197.0" prefWidth="869.0" styleClass="tblView" stylesheets="@../../style/tblStyle.css">
+            <TableView fx:id="tblSupplier" focusTraversable="false" prefHeight="196.0" prefWidth="869.0" styleClass="tblView" stylesheets="@../../style/tblStyle.css">
                <columns>
                   <TableColumn fx:id="colId" prefWidth="40.0" styleClass="col" text="ID" />
                   <TableColumn fx:id="colFullName" prefWidth="170.0" styleClass="col" text="Full Name" />

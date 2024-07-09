@@ -8,6 +8,8 @@ import edu.icet.pos.controller.category.custom.CategoryView;
 import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.employee.EmployeeCenterController;
 import edu.icet.pos.controller.employee.custom.EmployeeView;
+import edu.icet.pos.controller.place_order.PlaceOrderCenterController;
+import edu.icet.pos.controller.place_order.custom.PlaceOrderView;
 import edu.icet.pos.controller.product.ProductCenterController;
 import edu.icet.pos.controller.product.custom.ProductView;
 import edu.icet.pos.controller.supplier.SupplierCenterController;
@@ -54,6 +56,7 @@ public class NavPanelController implements DashboardNavPanel {
     private final SupplierView supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
     private final ProductView productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
     private final EmployeeView employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
+    private final PlaceOrderView placeOrderView = PlaceOrderCenterController.getInstance().getFxmlLoaderView().getController();
 
     @FXML
     private void btnUserAction() {
@@ -63,6 +66,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnSupplier.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnProduct.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
@@ -92,6 +96,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnSupplier.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnProduct.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
@@ -117,6 +122,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnSupplier.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnProduct.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
@@ -146,6 +152,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnProduct.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
@@ -175,6 +182,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnDashboard.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
@@ -204,6 +212,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnCategory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnDashboard.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
@@ -231,6 +240,31 @@ public class NavPanelController implements DashboardNavPanel {
         employeeView.loadTable();
     }
 
+    @FXML
+    private void btnOrderAction() {
+        btnOrder.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
+        btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnProduct.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnSupplier.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnCategory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnDashboard.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+
+        HBox pageTop = CenterController.getInstance().getPageTop();
+        pageTop.getChildren().clear();
+        Label pageHeader = CenterController.getInstance().getPageHeader();
+        pageHeader.setText("Place Order");
+        pageTop.getChildren().add(pageHeader);
+
+        VBox pageCenter = CenterController.getInstance().getPageCenter();
+        pageCenter.getChildren().clear();
+        pageCenter.getChildren().add(PlaceOrderCenterController.getInstance().getParentView());
+        placeOrderView.loadCard();
+
+        VBox pageRight = CenterController.getInstance().getPageRight();
+        pageRight.getChildren().clear();
+    }
+
     @Override
     public void loadCategory() {
         btnCategoryAction();
@@ -250,8 +284,8 @@ public class NavPanelController implements DashboardNavPanel {
         VBox pageRight = CenterController.getInstance().getPageRight();
         borderPanePage.setRight(pageRight);
 
-        VBox pageBottom = CenterController.getInstance().getPageBottom();
-        borderPanePage.setBottom(pageBottom);
+        //VBox pageBottom = CenterController.getInstance().getPageBottom();
+        //borderPanePage.setBottom(pageBottom);
 
         if (loginPanel.getLoginUser() != null && Objects.equals(loginPanel.getLoginUser().getUserRole().getName(), "user")) {
             navSectionVBox.getChildren().remove(btnUser);
@@ -260,6 +294,6 @@ public class NavPanelController implements DashboardNavPanel {
             navSectionVBox.setPrefHeight(278);
             scrollPane.setPrefHeight(280);
         }
-        btnEmployeeAction();
+        btnOrderAction();
     }
 }
