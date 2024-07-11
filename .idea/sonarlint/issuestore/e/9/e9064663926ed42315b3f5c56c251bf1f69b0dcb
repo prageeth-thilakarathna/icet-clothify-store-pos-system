@@ -1,0 +1,8 @@
+
+á
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(Åñˆ¼þÿÿÿÿ8•íï‡Š2J$dafd2e33-3c01-4d54-936c-a88c531523f3
+k	java:S108<")Either remove or fill this block of code.(”ý¾8¥íï‡Š2J$da006d43-cea7-428c-821e-928383878ca6
+x
+java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úýÿÿÿÿ8œÀò‡Š2J$fddaf1b0-dd8a-4a75-8371-6ccd4e316004
+u
+java:S1128"2Remove this unused import 'java.sql.SQLException'.(ÛïÆŸ8œÀò‡Š2J$8d3e07da-20dc-4c6c-afbc-0cb204ce5754

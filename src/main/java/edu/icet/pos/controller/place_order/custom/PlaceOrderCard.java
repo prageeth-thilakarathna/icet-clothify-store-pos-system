@@ -7,4 +7,6 @@ import java.sql.SQLException;
 
 public interface PlaceOrderCard extends Initializable {
     void setDetail(Product product) throws SQLException;
+
+    Product getProduct();
 }

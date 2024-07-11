@@ -1,8 +1,8 @@
 package edu.icet.pos.controller.place_order;
 
 import edu.icet.pos.controller.place_order.custom.PlaceOrderCard;
+import edu.icet.pos.model.place_order.OrderDetail;
 import edu.icet.pos.model.product.Product;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,7 +34,13 @@ public class CardController implements PlaceOrderCard {
     }
 
     @FXML
-    private void btnAddToCartAction(ActionEvent actionEvent) {
+    private void btnAddToCartAction() {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setProduct(this.product);
+        orderDetail.setQuantity(1);
+        orderDetail.setTotal(product.getPrice());
+        CartController.getInstance().setOrderDetail(orderDetail);
+        btnAddToCart.setDisable(true);
     }
 
     @Override
@@ -45,6 +51,11 @@ public class CardController implements PlaceOrderCard {
         Image image = new Image(inputStream);
         dspImage.setImage(image);
         dspDescription.setText(product.getDescription());
+    }
+
+    @Override
+    public Product getProduct() {
+        return this.product;
     }
 
     @Override

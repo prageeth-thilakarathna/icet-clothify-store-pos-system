@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="294.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.place_order.CartHeaderController">
+   <children>
+      <Label text="Cart" textFill="#2f3548">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </Label>
+      <HBox alignment="CENTER_RIGHT" prefWidth="238.0">
+         <children>
+            <Label text="Invoice#:" textFill="#2f3548">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="dspInvoiceNumber" text="15" textFill="#2f3548">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</HBox>

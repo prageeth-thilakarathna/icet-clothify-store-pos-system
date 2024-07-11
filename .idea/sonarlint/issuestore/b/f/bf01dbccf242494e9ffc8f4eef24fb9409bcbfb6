@@ -1,6 +1,11 @@
 
 Ä
-java:S1192?"|Define a constant instead of duplicating this literal "-fx-background-color: #0c7675; -fx-background-radius: 10px;" 7 times.(‡·½ìûÿÿÿÿ8ÕÂƒ’ˆ2J$e3fca474-dd51-45fd-9d98-afe7285f0d11
+java:S1192D"|Define a constant instead of duplicating this literal "-fx-background-color: #0c7675; -fx-background-radius: 10px;" 7 times.(‡·½ìûÿÿÿÿ8Ô…õã‰2J$f9813325-c8a5-44eb-9367-28f598b2b7d4
 Å
-java:S1192@"}Define a constant instead of duplicating this literal "-fx-background-color: #159493; -fx-background-radius: 10px;" 42 times.(ä±¿ùÿÿÿÿ8ÕÂƒ’ˆ2J$993f2126-59a9-4aaa-8c1d-27ba3b541e9f
-„	java:S125Ÿ"<This block of commented-out lines of code should be removed.(ÖıÏ±ÿÿÿÿÿ8ÒÃƒ’ˆ2J$5bc32fcc-4d63-4b5c-9fee-9a520331ce64
+java:S1192E"}Define a constant instead of duplicating this literal "-fx-background-color: #159493; -fx-background-radius: 10px;" 42 times.(ä±¿ùÿÿÿÿ8Ô…õã‰2J$9302fd34-3fe3-45e2-a177-93f0445c4961
+„	java:S125¹"<This block of commented-out lines of code should be removed.(¤Ê¶×ûÿÿÿÿ8¢†õã‰2J$0c3bdb71-dfac-40f8-a24f-b2e8ec805658
+„	java:S125¼"<This block of commented-out lines of code should be removed.(ÖıÏ±ÿÿÿÿÿ8¢†õã‰2J$658dffa7-4edd-49ae-a5c0-96fd2c4cb52e
+
+java:S1128"URemove this unused import 'edu.icet.pos.controller.place_order.custom.PlaceOrderPay'.(Æ‚¤üÿÿÿÿÿ8 Ëüã‰2J$df33a1a3-ed2c-44ed-beba-91860ac69015
+†
+java:S1128">Remove this unused import 'javafx.geometry.VerticalDirection'.(ÈÌ‚¥ùÿÿÿÿ8 Ëüã‰2J$888ea1dc-1556-41f4-a4b2-3568e58a7e43

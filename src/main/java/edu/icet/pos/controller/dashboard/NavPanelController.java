@@ -9,6 +9,7 @@ import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.employee.EmployeeCenterController;
 import edu.icet.pos.controller.employee.custom.EmployeeView;
 import edu.icet.pos.controller.place_order.PlaceOrderCenterController;
+import edu.icet.pos.controller.place_order.custom.PlaceOrderPay;
 import edu.icet.pos.controller.place_order.custom.PlaceOrderView;
 import edu.icet.pos.controller.product.ProductCenterController;
 import edu.icet.pos.controller.product.custom.ProductView;
@@ -17,9 +18,13 @@ import edu.icet.pos.controller.supplier.custom.SupplierView;
 import edu.icet.pos.controller.user.UserCenterController;
 import edu.icet.pos.controller.user.custom.UserView;
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.geometry.VerticalDirection;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -263,6 +268,30 @@ public class NavPanelController implements DashboardNavPanel {
 
         VBox pageRight = CenterController.getInstance().getPageRight();
         pageRight.getChildren().clear();
+
+        BorderPane borderPane = new BorderPane();
+
+        HBox hBox = new HBox();
+        Separator separator = new Separator(Orientation.VERTICAL);
+        hBox.getChildren().add(separator);
+        hBox.getChildren().add(borderPane);
+
+        BorderPane borderPanePage = CenterController.getInstance().getPageBorderPane();
+        borderPanePage.setRight(hBox);
+
+        borderPane.setTop(PlaceOrderCenterController.getInstance().getParentCartHeader());
+
+        ScrollPane scrollPaneCart = new ScrollPane();
+        scrollPaneCart.setStyle("-fx-focus-color: transparent; -fx-background-color: transparent;");
+
+        VBox vBox = CenterController.getInstance().getPageRight();
+        vBox.setPrefWidth(279);
+        vBox.setPrefHeight(0);
+        vBox.setAlignment(Pos.TOP_CENTER);
+        scrollPaneCart.setContent(vBox);
+
+        borderPane.setCenter(scrollPaneCart);
+        borderPane.setBottom(PlaceOrderCenterController.getInstance().getParentPay());
     }
 
     @Override
@@ -281,8 +310,8 @@ public class NavPanelController implements DashboardNavPanel {
         VBox pageCenter = CenterController.getInstance().getPageCenter();
         borderPanePage.setCenter(pageCenter);
 
-        VBox pageRight = CenterController.getInstance().getPageRight();
-        borderPanePage.setRight(pageRight);
+        //VBox pageRight = CenterController.getInstance().getPageRight();
+        //borderPanePage.setRight(pageRight);
 
         //VBox pageBottom = CenterController.getInstance().getPageBottom();
         //borderPanePage.setBottom(pageBottom);

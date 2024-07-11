@@ -20,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -34,6 +35,7 @@ public class ViewController implements PlaceOrderView {
     private Pagination cardPagination;
 
     private final ProductBo productBo = BoFactory.getBo(BoType.PRODUCT);
+    private final List<PlaceOrderCard> placeOrderCardList = new ArrayList<>();
 
     @FXML
     private void optCategoryAction(ActionEvent actionEvent) {
@@ -50,6 +52,11 @@ public class ViewController implements PlaceOrderView {
     @Override
     public void loadCard() {
         cardPagination.setPageFactory(this::createTblPage);
+    }
+
+    @Override
+    public List<PlaceOrderCard> getCardList() {
+        return placeOrderCardList;
     }
 
     private int getPageCount(){
@@ -96,6 +103,7 @@ public class ViewController implements PlaceOrderView {
 
                 PlaceOrderCard placeOrderCard = fxmlLoaderCard.getController();
                 placeOrderCard.setDetail(productList.get(i));
+                placeOrderCardList.add(placeOrderCard);
 
                 gridPane.add(vBox, column++, row);
                 GridPane.setMargin(vBox, new Insets(20, 0, 0, 20));
