@@ -301,3 +301,7 @@ x
 Hsrc/main/java/edu/icet/pos/controller/dashboard/ReportNavController.java,3\6\36d84e58083126357498f7031c73c92fb914997a
 ~
 Nsrc/main/java/edu/icet/pos/controller/dashboard/custom/DashboardReportNav.java,9\d\9db788b74efe2978b29c306fafd13b78994853ba
+u
+Esrc/main/java/edu/icet/pos/controller/dashboard/HeaderController.java,1\e\1e6dd5c6782755655df0064e923ead5f71170bb7
+q
+Asrc/main/java/edu/icet/pos/controller/auth/custom/LoginPanel.java,6\9\696e6fa0b21ba0d8c65a5626627dc7d0c95108e0

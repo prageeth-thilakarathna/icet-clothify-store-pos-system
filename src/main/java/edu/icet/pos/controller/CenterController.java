@@ -1,6 +1,5 @@
 package edu.icet.pos.controller;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;

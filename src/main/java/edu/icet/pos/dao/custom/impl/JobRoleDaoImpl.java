@@ -2,7 +2,6 @@ package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.JobRoleDao;
 import edu.icet.pos.entity.JobRoleEntity;
-import edu.icet.pos.entity.SupplierEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

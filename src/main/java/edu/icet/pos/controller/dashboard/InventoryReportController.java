@@ -10,11 +10,15 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import lombok.Getter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +68,14 @@ public class InventoryReportController implements Initializable {
 
     @FXML
     private void btnGenReportAction(ActionEvent actionEvent) {
+        try {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("report/jasper_report_template.jrxml");
+            JasperCompileManager.compileReport(inputStream);
+        } catch (JRException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     private List<String> getMonth(){
@@ -86,7 +98,7 @@ public class InventoryReportController implements Initializable {
     private void setData(){
         chartSeries.setName("Stock");
         chartSeries.getData().add(new XYChart.Data<>(getMonth().get(0), 2500));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(1), 130000));
+        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(1), 1300));
         chartSeries.getData().add(new XYChart.Data<>(getMonth().get(2), 3500));
         chartSeries.getData().add(new XYChart.Data<>(getMonth().get(3), 1500));
         chartSeries.getData().add(new XYChart.Data<>(getMonth().get(4), 8500));

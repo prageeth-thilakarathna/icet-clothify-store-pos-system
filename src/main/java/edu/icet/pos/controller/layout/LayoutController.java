@@ -12,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import lombok.Getter;
 
 import java.net.URL;
 import java.util.Objects;

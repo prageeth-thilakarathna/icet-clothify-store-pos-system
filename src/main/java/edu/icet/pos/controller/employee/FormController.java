@@ -473,9 +473,9 @@ public class FormController implements EmployeeForm {
         assert jobRoleBo != null;
         if(jobRoleBo.getAllJobRole().isEmpty()){
             jobRoleRegister();
-        } else {
-            setJobRoles();
         }
+        setJobRoles();
+
         optTitle.setItems(getTitles());
         optStatus.setItems(getStatus());
         btnRegister.setDisable(true);

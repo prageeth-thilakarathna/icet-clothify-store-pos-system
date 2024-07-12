@@ -110,7 +110,7 @@ public class LoginPanelController implements LoginPanel {
     }
 
     @FXML
-    private void btnCancelAction() {
+    private void btnCancelOnAction() {
         cancel();
     }
 
@@ -134,40 +134,42 @@ public class LoginPanelController implements LoginPanel {
     }
 
     private void userRoleRegister() {
+        UserRole user = new UserRole();
+        user.setName("user");
+
+        UserRole admin = new UserRole();
+        admin.setName("admin");
+
         try {
-            UserRole user = new UserRole();
-            user.setName("user");
             assert userRoleBo != null;
             userRoleBo.userRoleRegister(user);
-            UserRole admin = userRoleBo.getUserRoleByName("admin");
-
+            userRoleBo.userRoleRegister(admin);
         } catch (Exception e) {
-            if (Objects.equals(e.getMessage(), "No result found for query [SELECT a FROM UserRoleEntity a WHERE name='admin']")) {
-                UserRole admin = new UserRole();
-                admin.setName("admin");
-                assert userRoleBo != null;
-                userRoleBo.userRoleRegister(admin);
-                mainAdminRegister();
-            }
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
         }
     }
 
-    private void mainAdminRegister() {
-        try {
-            User user = userBo.getUserByEmail("ygprageethchamara2002@gmail.com");
+    private void userRegister(){
+        User mainAdmin = new User();
+        mainAdmin.setEMail("admin@email.com");
+        mainAdmin.setPassword(CenterController.getInstance().encryptPassword("12345678"));
+        mainAdmin.setRegisterAt(new Date());
+        mainAdmin.setModifyAt(new Date());
+        mainAdmin.setIsActive(true);
 
-        } catch (Exception e) {
+        try{
+            assert userRoleBo != null;
             UserRole admin = userRoleBo.getUserRoleByName("admin");
 
-            User mainAdmin = new User();
-            mainAdmin.setEMail("ygprageethchamara2002@gmail.com");
-            mainAdmin.setPassword("123");
-            mainAdmin.setRegisterAt(new Date());
-            mainAdmin.setModifyAt(new Date());
-            mainAdmin.setIsActive(true);
             mainAdmin.setUserRole(new ModelMapper().map(admin, UserRoleEntity.class));
             assert userBo != null;
             userBo.userRegister(mainAdmin);
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
         }
     }
 
@@ -180,12 +182,13 @@ public class LoginPanelController implements LoginPanel {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnLogin.setDisable(true);
         btnCancel.setDisable(true);
-        try {
-            UserRole user = userRoleBo.getUserRoleByName("user");
-        } catch (Exception e) {
-            if (Objects.equals(e.getMessage(), "No result found for query [SELECT a FROM UserRoleEntity a WHERE name='user']")) {
-                userRoleRegister();
-            }
+        assert userRoleBo != null;
+        if(userRoleBo.getAllUserRole().isEmpty()){
+            userRoleRegister();
+        }
+        assert userBo != null;
+        if(userBo.getAllUser().isEmpty()){
+            userRegister();
         }
     }
 }

@@ -122,7 +122,7 @@ public class ForgotPasswordPanelController implements Initializable {
     }
 
     @FXML
-    private void btnCancelAction() {
+    private void btnCancelOnAction() {
         cancel();
         validateInputs();
     }
