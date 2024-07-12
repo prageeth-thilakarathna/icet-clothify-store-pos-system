@@ -6,6 +6,7 @@ import edu.icet.pos.controller.auth.custom.LoginPanel;
 import edu.icet.pos.controller.category.CategoryCenterController;
 import edu.icet.pos.controller.category.custom.CategoryView;
 import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
+import edu.icet.pos.controller.dashboard.custom.DashboardReportNav;
 import edu.icet.pos.controller.employee.EmployeeCenterController;
 import edu.icet.pos.controller.employee.custom.EmployeeView;
 import edu.icet.pos.controller.place_order.PlaceOrderCenterController;
@@ -18,9 +19,11 @@ import edu.icet.pos.controller.supplier.custom.SupplierView;
 import edu.icet.pos.controller.user.UserCenterController;
 import edu.icet.pos.controller.user.custom.UserView;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.VerticalDirection;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -109,14 +112,42 @@ public class NavPanelController implements DashboardNavPanel {
         pageHeader.setText("Dashboard");
         pageTop.getChildren().add(pageHeader);
 
+        BorderPane dashboardBorderPane = DashboardCenterController.getInstance().getDashboardBorderPane();
+
+        VBox dashboardNavPanel = DashboardCenterController.getInstance().getDashboardNavPanel();
+        dashboardNavPanel.getChildren().add(DashboardCenterController.getInstance().getParentReportNav());
+
+        Separator separator = new Separator(Orientation.HORIZONTAL);
+        dashboardNavPanel.getChildren().add(separator);
+        VBox.setMargin(separator, new Insets(0, 20, 0, 20));
+
+        dashboardBorderPane.setTop(dashboardNavPanel);
+
+        BorderPane borderPanePage = CenterController.getInstance().getPageBorderPane();
+        borderPanePage.setCenter(dashboardBorderPane);
+
+        ScrollPane scrollPaneDashboard = new ScrollPane();
+        scrollPaneDashboard.setStyle("-fx-focus-color: transparent; -fx-background-color: transparent;");
+
+        //BorderPane dashboardBorderPane = DashboardCenterController.getInstance().getDashboardBorderPane();
+        dashboardBorderPane.setCenter(scrollPaneDashboard);
+
         VBox pageCenter = CenterController.getInstance().getPageCenter();
         pageCenter.getChildren().clear();
+        pageCenter.setPrefWidth(896);
+        pageCenter.setPrefHeight(487);
+        pageCenter.setAlignment(Pos.TOP_CENTER);
+        scrollPaneDashboard.setContent(pageCenter);
 
-        VBox pageRight = CenterController.getInstance().getPageRight();
-        pageRight.getChildren().clear();
+        DashboardReportNav dashboardReportNav = DashboardCenterController.getInstance().getFxmlLoaderReportNav().getController();
+        dashboardReportNav.setInventory();
+        //System.out.println(pageCenter.getHeight());
 
-        VBox pageBottom = CenterController.getInstance().getPageBottom();
-        pageBottom.getChildren().clear();
+        //Parent parentInventory = DashboardCenterController.getInstance().getParentInventory();
+        //pageCenter.getChildren().add(DashboardCenterController.getInstance().getParentReportNav());
+        //VBox.setMargin(parentInventory, new Insets(0, 20, 0, 20));
+
+
     }
 
     @FXML
@@ -307,8 +338,8 @@ public class NavPanelController implements DashboardNavPanel {
         HBox pageTop = CenterController.getInstance().getPageTop();
         borderPanePage.setTop(pageTop);
 
-        VBox pageCenter = CenterController.getInstance().getPageCenter();
-        borderPanePage.setCenter(pageCenter);
+        //VBox pageCenter = CenterController.getInstance().getPageCenter();
+        //borderPanePage.setCenter(pageCenter);
 
         //VBox pageRight = CenterController.getInstance().getPageRight();
         //borderPanePage.setRight(pageRight);
@@ -323,6 +354,6 @@ public class NavPanelController implements DashboardNavPanel {
             navSectionVBox.setPrefHeight(278);
             scrollPane.setPrefHeight(280);
         }
-        btnOrderAction();
+        btnDashboardAction();
     }
 }

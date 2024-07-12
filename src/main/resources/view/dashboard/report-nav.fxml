@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox alignment="CENTER" prefHeight="52.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.ReportNavController">
+   <children>
+      <Button fx:id="btnInventory" alignment="BASELINE_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#btnInventoryAction" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Inventory" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
+               <image>
+                  <Image url="@../../img/inventory-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btnEmployee" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnEmployeeAction" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Employee" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
+               <image>
+                  <Image url="@../../img/employee-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <HBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </HBox.margin>
+      </Button>
+      <Button fx:id="btnSupplier" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="210.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSupplierAction" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Supplier" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
+               <image>
+                  <Image url="@../../img/supplier-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btnSales" alignment="BASELINE_LEFT" focusTraversable="false" layoutX="578.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnSalesAction" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Sales" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="18.0">
+               <image>
+                  <Image url="@../../img/sales.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </Button>
+   </children>
+</HBox>

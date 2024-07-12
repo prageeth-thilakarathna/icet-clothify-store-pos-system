@@ -49,8 +49,6 @@ Y
 )src/main/java/edu/icet/pos/main/Main.java,7\7\77434e78128cc19d2229fbc235c2529c69d9578c
 o
 ?src/main/java/edu/icet/pos/controller/auth/LoginController.java,a\5\a5348c33db38a3df73b55380754a481b4451e9d2
-s
-Csrc/main/java/edu/icet/pos/controller/dashboard/HomeController.java,3\f\3fb43d7f5425015bb8a698d1fcc46e35d94433f5
 t
 Dsrc/main/java/edu/icet/pos/controller/user/UserCenterController.java,d\8\d80431fd46b09f2eb1e0ac9ecd99b5ff160b24ed
 o
@@ -297,3 +295,9 @@ Lsrc/main/java/edu/icet/pos/controller/place_order/OrderDetailController.java,f
 Rsrc/main/java/edu/icet/pos/controller/place_order/custom/PlaceOrderDetailCart.java,9\1\9151789467cc39c63d0ec94ab41ff59e6cc45d7f
 m
 =src/main/java/edu/icet/pos/model/place_order/OrderDetail.java,e\2\e2085e459925334bcbcefbcd658748a31bb56b11
+~
+Nsrc/main/java/edu/icet/pos/controller/dashboard/InventoryReportController.java,e\2\e2f02df8e4d809db9bff1011878914f4993c467c
+x
+Hsrc/main/java/edu/icet/pos/controller/dashboard/ReportNavController.java,3\6\36d84e58083126357498f7031c73c92fb914997a
+~
+Nsrc/main/java/edu/icet/pos/controller/dashboard/custom/DashboardReportNav.java,9\d\9db788b74efe2978b29c306fafd13b78994853ba
