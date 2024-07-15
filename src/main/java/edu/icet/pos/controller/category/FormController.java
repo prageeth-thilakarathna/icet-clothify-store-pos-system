@@ -7,6 +7,7 @@ import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.category.custom.CategoryForm;
 import edu.icet.pos.controller.category.custom.CategorySearch;
 import edu.icet.pos.controller.category.custom.CategoryView;
+import edu.icet.pos.controller.dashboard.DashboardCenterController;
 import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.layout.LayoutCenterController;
 import edu.icet.pos.controller.layout.custom.Layout;
@@ -61,7 +62,7 @@ public class FormController implements CategoryForm {
             layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
         }
         if(dashboardNavPanel==null){
-            dashboardNavPanel = layout.getNavPanel().getController();
+            dashboardNavPanel = DashboardCenterController.getInstance().getFxmlLoaderNav().getController();
         }
         pageMainHeader.setOnAction(actionEvent1 -> dashboardNavPanel.loadCategory());
         pageTop.getChildren().add(pageMainHeader);

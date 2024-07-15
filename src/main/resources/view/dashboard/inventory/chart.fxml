@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox prefHeight="394.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.inventory.ChartController">
+   <children>
+      <BarChart fx:id="chart" prefHeight="394.0" prefWidth="896.0" title="Inventory Report">
+         <xAxis>
+            <CategoryAxis fx:id="chartCategory" animated="false" label="Months" prefHeight="60.0" prefWidth="766.0" side="BOTTOM" tickLabelFill="#2f3548">
+               <tickLabelFont>
+                  <Font size="10.0" />
+               </tickLabelFont>
+            </CategoryAxis>
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="chartNumber" animated="false" label="Quantity" prefHeight="238.0" prefWidth="60.0" side="LEFT" tickLabelFill="#2f3548" upperBound="10000.0">
+               <tickLabelFont>
+                  <Font size="10.0" />
+               </tickLabelFont>
+            </NumberAxis>
+         </yAxis>
+      </BarChart>
+   </children>
+</VBox>

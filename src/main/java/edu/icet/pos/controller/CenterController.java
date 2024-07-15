@@ -1,5 +1,8 @@
 package edu.icet.pos.controller;
 
+import edu.icet.pos.controller.custom.SuperController;
+import edu.icet.pos.controller.dashboard.DashboardCenterController;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
@@ -11,12 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import lombok.Getter;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class CenterController {
@@ -28,6 +29,7 @@ public class CenterController {
     private final VBox pageRight = new VBox();
     private final VBox pageBottom = new VBox();
     private final Hyperlink pageMainHeader = new Hyperlink();
+    private List<SuperController> superControllerList = new ArrayList<>();
 
     private CenterController(){
         pageTop.setPrefWidth(911);
@@ -84,21 +86,31 @@ public class CenterController {
         return null;
     }
 
-    public String getMACAddress(){
+    public List<SuperController> getSuperControllerList(){
+        if(superControllerList.isEmpty()){
+            setSuperController();
+        }
+        if(!superControllerList.isEmpty()){
+            superControllerList = new ArrayList<>();
+            setSuperController();
+        }
+        return superControllerList;
+    }
+
+    private void setSuperController(){
+        superControllerList.add(DashboardCenterController.getInstance().getFxmlLoaderHeader().getController());
+
+        FXMLLoader fxmlLoaderNav = new FXMLLoader(getClass().getResource("/view/dashboard/navPanel.fxml"));
+        DashboardCenterController.getInstance().setFxmlLoaderNav(fxmlLoaderNav);
         try{
-            InetAddress address = InetAddress.getLocalHost();
-            NetworkInterface networkInterface = NetworkInterface.getByInetAddress(address);
-            byte[] mac = networkInterface.getHardwareAddress();
-            StringBuilder stringBuilder = new StringBuilder();
-            for(int i=0; i<mac.length; i++){
-                stringBuilder.append(String.format("%02X%s", mac[i], (i<mac.length -1) ? "-":""));
-            }
-            return stringBuilder.toString();
-        } catch (UnknownHostException | SocketException e) {
+            DashboardCenterController.getInstance().setParentNav(fxmlLoaderNav.load());
+        } catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
-        return null;
+        superControllerList.add(DashboardCenterController.getInstance().getFxmlLoaderNav().getController());
+
+        superControllerList.add(DashboardCenterController.getInstance().getFxmlLoaderReportNav().getController());
     }
 }

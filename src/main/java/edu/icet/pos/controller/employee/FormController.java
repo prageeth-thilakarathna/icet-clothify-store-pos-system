@@ -142,7 +142,7 @@ public class FormController implements EmployeeForm {
 
         } catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.toString());
+            alert.setContentText("first"+e.getMessage());
             alert.show();
         }
     }
@@ -394,7 +394,7 @@ public class FormController implements EmployeeForm {
             setJobRoles();
         } catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.toString());
+            alert.setContentText("second"+e.getMessage());
             alert.show();
         }
     }
@@ -471,10 +471,10 @@ public class FormController implements EmployeeForm {
         optUser.setItems(getUsers());
         optUser.setVisibleRowCount(5);
         assert jobRoleBo != null;
-        if(jobRoleBo.getAllJobRole().isEmpty()){
-            jobRoleRegister();
-        }
-        setJobRoles();
+        /*if(jobRoleBo.getAllJobRole().isEmpty()){
+            //jobRoleRegister();
+        }*/
+        //setJobRoles();
 
         optTitle.setItems(getTitles());
         optStatus.setItems(getStatus());

@@ -1,16 +1,18 @@
 
 É
-java:S1186#"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ëì´§ÿÿÿÿÿ8áÚ¿šŠ2J$8ea3301e-b5a3-4c17-8604-d8388f07f085
+java:S1186#"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ëì´§ÿÿÿÿÿ8„Ï’‹2J$755dc3db-7046-4e9f-b028-6db5e32e0dbd
 É
-java:S1186'"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Å¡ÜÑüÿÿÿÿ8áÚ¿šŠ2J$9d7a7ff5-ad65-462a-afd3-06407d4af533
+java:S1186'"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Å¡ÜÑüÿÿÿÿ8„Ï’‹2J$aa4f262b-440f-4b9c-8723-79e5712c4ad9
 É
-java:S1186+"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(îíè‹ùÿÿÿÿ8áÚ¿šŠ2J$42f099ec-dbe1-4860-a83d-6cbe163feb61
-ƒ	java:S1255"<This block of commented-out lines of code should be removed.(´ò«Éûÿÿÿÿ8áÚ¿šŠ2J$04121547-c7b5-4eb3-89b8-f2abbf0cc9c3
-ƒ	java:S125B"<This block of commented-out lines of code should be removed.(«¶ÉØùÿÿÿÿ8áÚ¿šŠ2J$2af0a022-3f93-449f-b34b-bf40631f6983
+java:S1186+"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(îíè‹ùÿÿÿÿ8„Ï’‹2J$aeea910a-9ccd-4424-abd9-9d3daecf1e54
+ƒ	java:S1255"<This block of commented-out lines of code should be removed.(´ò«Éûÿÿÿÿ8Ï’‹2J$e9a36561-22b7-43a2-b97f-658ad3248172
+ƒ	java:S125B"<This block of commented-out lines of code should be removed.(«¶ÉØùÿÿÿÿ8Ï’‹2J$1e1b64cf-496e-40a0-a94f-55762d9756c9
+
+java:S1128"ERemove this unused import 'edu.icet.pos.controller.CenterController'.(›¼Î‡úÿÿÿÿ8Ï’‹2J$66c32747-ac59-4a84-a8e6-3d26299a60ce
 x
-java:S1128"0Remove this unused import 'javafx.geometry.Pos'.(ÌÆ÷Ùøÿÿÿÿ8§´ÆšŠ2J$2c290083-1a03-4f5d-91f7-f6eaf8978bf6
+java:S1128"0Remove this unused import 'javafx.geometry.Pos'.(ÌÆ÷Ùøÿÿÿÿ8Ï’‹2J$c80d1cd7-797f-44f7-bd60-5342d5de1f9a
 „
-java:S1128	"<Remove this unused import 'javafx.scene.control.ScrollPane'.( ––ùşÿÿÿÿ8§´ÆšŠ2J$47f24973-a74f-4fcd-bc84-101a8895bb82
+java:S1128	"<Remove this unused import 'javafx.scene.control.ScrollPane'.( ––ùşÿÿÿÿ8Ï’‹2J$2d176f1f-bee0-4455-bccc-af732ad06310
 ƒ
 java:S1128
-";Remove this unused import 'javafx.scene.layout.BorderPane'.(Îî¥üÿÿÿÿ8§´ÆšŠ2J$444a1688-2d4d-4111-bc01-0199b3d16fa8
+";Remove this unused import 'javafx.scene.layout.BorderPane'.(Îî¥üÿÿÿÿ8Ï’‹2J$9cc15ccd-b05f-4899-b8b4-61724b4aa64c

@@ -1,5 +1,7 @@
 package edu.icet.pos.controller.dashboard;
 
+import edu.icet.pos.bo.BoFactory;
+import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.auth.custom.LoginPanel;
@@ -10,7 +12,6 @@ import edu.icet.pos.controller.dashboard.custom.DashboardReportNav;
 import edu.icet.pos.controller.employee.EmployeeCenterController;
 import edu.icet.pos.controller.employee.custom.EmployeeView;
 import edu.icet.pos.controller.place_order.PlaceOrderCenterController;
-import edu.icet.pos.controller.place_order.custom.PlaceOrderPay;
 import edu.icet.pos.controller.place_order.custom.PlaceOrderView;
 import edu.icet.pos.controller.product.ProductCenterController;
 import edu.icet.pos.controller.product.custom.ProductView;
@@ -18,22 +19,17 @@ import edu.icet.pos.controller.supplier.SupplierCenterController;
 import edu.icet.pos.controller.supplier.custom.SupplierView;
 import edu.icet.pos.controller.user.UserCenterController;
 import edu.icet.pos.controller.user.custom.UserView;
+import edu.icet.pos.util.BoType;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.geometry.VerticalDirection;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class NavPanelController implements DashboardNavPanel {
@@ -58,13 +54,14 @@ public class NavPanelController implements DashboardNavPanel {
     @FXML
     private Button btnDashboard;
 
-    private final LoginPanel loginPanel = AuthCenterController.getInstance().getFxmlLoaderLoginPanel().getController();
-    private final UserView userView = UserCenterController.getInstance().getFxmlLoaderView().getController();
-    private final CategoryView categoryView = CategoryCenterController.getInstance().getFxmlLoaderView().getController();
+    //private final LoginPanel loginPanel = AuthCenterController.getInstance().getFxmlLoaderLoginPanel().getController();
+    //private final UserView userView = UserCenterController.getInstance().getFxmlLoaderView().getController();
+    /*private final CategoryView categoryView = CategoryCenterController.getInstance().getFxmlLoaderView().getController();
     private final SupplierView supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
     private final ProductView productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
     private final EmployeeView employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
     private final PlaceOrderView placeOrderView = PlaceOrderCenterController.getInstance().getFxmlLoaderView().getController();
+    private final UserBo userBo = BoFactory.getBo(BoType.USER);*/
 
     @FXML
     private void btnUserAction() {
@@ -76,11 +73,8 @@ public class NavPanelController implements DashboardNavPanel {
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
-        HBox pageTop = CenterController.getInstance().getPageTop();
-        pageTop.getChildren().clear();
-        Label pageHeader = CenterController.getInstance().getPageHeader();
-        pageHeader.setText("User");
-        pageTop.getChildren().add(pageHeader);
+        defaultPageLayoutLoad();
+        setPageHeader("User");
 
         VBox pageCenter = CenterController.getInstance().getPageCenter();
         pageCenter.getChildren().clear();
@@ -93,7 +87,7 @@ public class NavPanelController implements DashboardNavPanel {
         VBox pageBottom = CenterController.getInstance().getPageBottom();
         pageBottom.getChildren().clear();
         pageBottom.getChildren().add(UserCenterController.getInstance().getParentView());
-        userView.loadTable();
+        //userView.loadTable();
     }
 
     @FXML
@@ -106,48 +100,25 @@ public class NavPanelController implements DashboardNavPanel {
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
-        HBox pageTop = CenterController.getInstance().getPageTop();
-        pageTop.getChildren().clear();
-        Label pageHeader = CenterController.getInstance().getPageHeader();
-        pageHeader.setText("Dashboard");
-        pageTop.getChildren().add(pageHeader);
+        pageLayoutHeaderLoad();
+        setPageHeader("Dashboard");
 
         BorderPane dashboardBorderPane = DashboardCenterController.getInstance().getDashboardBorderPane();
 
         VBox dashboardNavPanel = DashboardCenterController.getInstance().getDashboardNavPanel();
+        dashboardNavPanel.getChildren().clear();
+
         dashboardNavPanel.getChildren().add(DashboardCenterController.getInstance().getParentReportNav());
 
         Separator separator = new Separator(Orientation.HORIZONTAL);
         dashboardNavPanel.getChildren().add(separator);
         VBox.setMargin(separator, new Insets(0, 20, 0, 20));
 
-        dashboardBorderPane.setTop(dashboardNavPanel);
-
         BorderPane borderPanePage = CenterController.getInstance().getPageBorderPane();
         borderPanePage.setCenter(dashboardBorderPane);
 
-        ScrollPane scrollPaneDashboard = new ScrollPane();
-        scrollPaneDashboard.setStyle("-fx-focus-color: transparent; -fx-background-color: transparent;");
-
-        //BorderPane dashboardBorderPane = DashboardCenterController.getInstance().getDashboardBorderPane();
-        dashboardBorderPane.setCenter(scrollPaneDashboard);
-
-        VBox pageCenter = CenterController.getInstance().getPageCenter();
-        pageCenter.getChildren().clear();
-        pageCenter.setPrefWidth(896);
-        pageCenter.setPrefHeight(487);
-        pageCenter.setAlignment(Pos.TOP_CENTER);
-        scrollPaneDashboard.setContent(pageCenter);
-
         DashboardReportNav dashboardReportNav = DashboardCenterController.getInstance().getFxmlLoaderReportNav().getController();
         dashboardReportNav.setInventory();
-        //System.out.println(pageCenter.getHeight());
-
-        //Parent parentInventory = DashboardCenterController.getInstance().getParentInventory();
-        //pageCenter.getChildren().add(DashboardCenterController.getInstance().getParentReportNav());
-        //VBox.setMargin(parentInventory, new Insets(0, 20, 0, 20));
-
-
     }
 
     @FXML
@@ -160,7 +131,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
-        HBox pageTop = CenterController.getInstance().getPageTop();
+        /*HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
         Label pageHeader = CenterController.getInstance().getPageHeader();
         pageHeader.setText("Category");
@@ -177,7 +148,7 @@ public class NavPanelController implements DashboardNavPanel {
         VBox pageBottom = CenterController.getInstance().getPageBottom();
         pageBottom.getChildren().clear();
         pageBottom.getChildren().add(CategoryCenterController.getInstance().getParentView());
-        categoryView.loadTable();
+        //categoryView.loadTable();*/
     }
 
     @FXML
@@ -190,7 +161,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
-        HBox pageTop = CenterController.getInstance().getPageTop();
+        /*HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
         Label pageHeader = CenterController.getInstance().getPageHeader();
         pageHeader.setText("Supplier");
@@ -207,7 +178,7 @@ public class NavPanelController implements DashboardNavPanel {
         VBox pageBottom = CenterController.getInstance().getPageBottom();
         pageBottom.getChildren().clear();
         pageBottom.getChildren().add(SupplierCenterController.getInstance().getParentView());
-        supplierView.loadTable();
+        //supplierView.loadTable();*/
     }
 
     @FXML
@@ -220,7 +191,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
-        HBox pageTop = CenterController.getInstance().getPageTop();
+        /*HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
         Label pageHeader = CenterController.getInstance().getPageHeader();
         pageHeader.setText("Product");
@@ -237,7 +208,7 @@ public class NavPanelController implements DashboardNavPanel {
         VBox pageBottom = CenterController.getInstance().getPageBottom();
         pageBottom.getChildren().clear();
         pageBottom.getChildren().add(ProductCenterController.getInstance().getParentView());
-        productView.loadCard();
+        //productView.loadCard();*/
     }
 
     @FXML
@@ -250,7 +221,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
-        HBox pageTop = CenterController.getInstance().getPageTop();
+        /*HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
         Label pageHeader = CenterController.getInstance().getPageHeader();
         pageHeader.setText("Employee");
@@ -273,7 +244,7 @@ public class NavPanelController implements DashboardNavPanel {
         scrollPaneView.setPrefHeight(273);
         scrollPaneView.setContent(EmployeeCenterController.getInstance().getParentView());
         pageBottom.getChildren().add(scrollPaneView);
-        employeeView.loadTable();
+        //employeeView.loadTable();*/
     }
 
     @FXML
@@ -286,7 +257,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnDashboard.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
-        HBox pageTop = CenterController.getInstance().getPageTop();
+        /*HBox pageTop = CenterController.getInstance().getPageTop();
         pageTop.getChildren().clear();
         Label pageHeader = CenterController.getInstance().getPageHeader();
         pageHeader.setText("Place Order");
@@ -295,7 +266,7 @@ public class NavPanelController implements DashboardNavPanel {
         VBox pageCenter = CenterController.getInstance().getPageCenter();
         pageCenter.getChildren().clear();
         pageCenter.getChildren().add(PlaceOrderCenterController.getInstance().getParentView());
-        placeOrderView.loadCard();
+        //placeOrderView.loadCard();
 
         VBox pageRight = CenterController.getInstance().getPageRight();
         pageRight.getChildren().clear();
@@ -322,7 +293,7 @@ public class NavPanelController implements DashboardNavPanel {
         scrollPaneCart.setContent(vBox);
 
         borderPane.setCenter(scrollPaneCart);
-        borderPane.setBottom(PlaceOrderCenterController.getInstance().getParentPay());
+        borderPane.setBottom(PlaceOrderCenterController.getInstance().getParentPay());*/
     }
 
     @Override
@@ -331,12 +302,57 @@ public class NavPanelController implements DashboardNavPanel {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        BorderPane borderPanePage = CenterController.getInstance().getPageBorderPane();
-        borderPanePage.getChildren().removeAll(borderPanePage.getChildren());
+    public void authNotify() {
+        if (AuthCenterController.isUser()) {
+            navSectionVBox.getChildren().remove(btnUser);
+            navSectionVBox.getChildren().remove(btnCategory);
+            navSectionVBox.getChildren().remove(btnEmployee);
+            navSectionVBox.setPrefHeight(278);
+            scrollPane.setPrefHeight(280);
+        }
+    }
+
+    private void defaultPageLayoutLoad() {
+        BorderPane pageBorderPane = CenterController.getInstance().getPageBorderPane();
+        pageBorderPane.getChildren().removeAll(pageBorderPane.getChildren());
 
         HBox pageTop = CenterController.getInstance().getPageTop();
-        borderPanePage.setTop(pageTop);
+        pageBorderPane.setTop(pageTop);
+
+        VBox pageCenter = CenterController.getInstance().getPageCenter();
+        pageBorderPane.setCenter(pageCenter);
+
+        VBox pageRight = CenterController.getInstance().getPageRight();
+        pageBorderPane.setRight(pageRight);
+
+        VBox pageBottom = CenterController.getInstance().getPageBottom();
+        pageBorderPane.setBottom(pageBottom);
+    }
+
+    private void pageLayoutHeaderLoad() {
+        BorderPane pageBorderPane = CenterController.getInstance().getPageBorderPane();
+        pageBorderPane.getChildren().removeAll(pageBorderPane.getChildren());
+
+        HBox pageTop = CenterController.getInstance().getPageTop();
+        pageBorderPane.setTop(pageTop);
+    }
+
+    private void setPageHeader(String header) {
+        HBox pageTop = CenterController.getInstance().getPageTop();
+        pageTop.getChildren().clear();
+        Label pageHeader = CenterController.getInstance().getPageHeader();
+        pageHeader.setText(header);
+        pageTop.getChildren().add(pageHeader);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnDashboardAction();
+        //BorderPane borderPanePage = CenterController.getInstance().getPageBorderPane();
+        //borderPanePage.getChildren().removeAll(borderPanePage.getChildren());
+
+        //HBox pageTop = CenterController.getInstance().getPageTop();
+        //borderPanePage.setTop(pageTop);
 
         //VBox pageCenter = CenterController.getInstance().getPageCenter();
         //borderPanePage.setCenter(pageCenter);
@@ -347,13 +363,6 @@ public class NavPanelController implements DashboardNavPanel {
         //VBox pageBottom = CenterController.getInstance().getPageBottom();
         //borderPanePage.setBottom(pageBottom);
 
-        if (loginPanel.getLoginUser() != null && Objects.equals(loginPanel.getLoginUser().getUserRole().getName(), "user")) {
-            navSectionVBox.getChildren().remove(btnUser);
-            navSectionVBox.getChildren().remove(btnCategory);
-            navSectionVBox.getChildren().remove(btnEmployee);
-            navSectionVBox.setPrefHeight(278);
-            scrollPane.setPrefHeight(280);
-        }
-        btnDashboardAction();
+        //btnDashboardAction();
     }
 }

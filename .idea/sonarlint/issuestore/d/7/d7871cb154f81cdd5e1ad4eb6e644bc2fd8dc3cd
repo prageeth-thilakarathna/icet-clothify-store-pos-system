@@ -1,5 +1,10 @@
 
 ‘
-java:S1192«"MDefine a constant instead of duplicating this literal "modification" 3 times.(¤Ïà€8Í˜ÃÄ‡2J$07670483-5d69-41c2-a6c2-8c8df72da6f3
+java:S1192«"MDefine a constant instead of duplicating this literal "modification" 3 times.(¤Ïà€8¾´Ò“‹2J$b5eb3ca1-1b42-426f-b51e-f037b2b49d6d
 …
-java:S1126¿"AReplace this if-then-else statement by a single return statement.(µÔñ£8…¤ÀÄ‡2J$b31170bc-9be0-4a72-bde2-2915dc2a2238
+java:S1126¿"AReplace this if-then-else statement by a single return statement.(µÔñ£8ÊµÒ“‹2J$0fb55b53-7269-4c60-998d-3debf3e5be4a
+~	java:S125Ú"<This block of commented-out lines of code should be removed.(¹¯š
+8ÚµÒ“‹2J$0dba1bcc-8e04-499a-affb-4af9c15a9e88
+~	java:S125Ý"<This block of commented-out lines of code should be removed.(²‡Í8ÚµÒ“‹2J$5c575b61-96ac-4e76-bde6-a63b48b68afa
+x
+java:S1144ÿ"4Remove this unused private "jobRoleRegister" method.(ë×á–8ÚµÒ“‹2J$95f4fbb8-88c5-4aad-8528-9e0b2ce229ff

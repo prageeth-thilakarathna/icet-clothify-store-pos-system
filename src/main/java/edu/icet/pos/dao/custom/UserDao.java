@@ -36,4 +36,8 @@ public interface UserDao extends SuperDao {
     int employeeCount();
 
     List<EmployeeEntity> getEmployeePerPage(int offset);
+
+    List<EmployeeEntity> getAllEmployee();
+
+    EmployeeEntity getEmployeeByUserId(Integer userId);
 }

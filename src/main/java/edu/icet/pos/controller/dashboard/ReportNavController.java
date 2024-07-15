@@ -1,19 +1,19 @@
 package edu.icet.pos.controller.dashboard;
 
-import edu.icet.pos.controller.CenterController;
+import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.dashboard.custom.DashboardReportNav;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ReportNavController implements DashboardReportNav {
+    @FXML
+    private HBox hBox;
     @FXML
     private Button btnInventory;
     @FXML
@@ -26,9 +26,11 @@ public class ReportNavController implements DashboardReportNav {
     @FXML
     private void btnInventoryAction() {
         btnInventory.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
-        VBox pageCenter = CenterController.getInstance().getPageCenter();
-        pageCenter.getChildren().clear();
-        pageCenter.getChildren().add(DashboardCenterController.getInstance().getParentInventory());
+        BorderPane reportBorderPane = DashboardCenterController.getInstance().getReportBorderPane();
+        reportBorderPane.getChildren().removeAll(reportBorderPane.getChildren());
+
+        reportBorderPane.setTop(DashboardCenterController.getInstance().getParentInventoryHeader());
+        reportBorderPane.setCenter(DashboardCenterController.getInstance().getParentInventoryChart());
     }
 
     @FXML
@@ -46,6 +48,13 @@ public class ReportNavController implements DashboardReportNav {
     @Override
     public void setInventory() {
         btnInventoryAction();
+    }
+
+    @Override
+    public void authNotify() {
+        if(!AuthCenterController.isAdmin()){
+            hBox.getChildren().remove(btnSales);
+        }
     }
 
     @Override

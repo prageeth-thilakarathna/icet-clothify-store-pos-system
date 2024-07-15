@@ -1,19 +1,50 @@
 
 Ä
-java:S1192G"|Define a constant instead of duplicating this literal "-fx-background-color: #0c7675; -fx-background-radius: 10px;" 7 times.(‡·½ìûÿÿÿÿ8Ø°Ñ›Š2J$44542abc-469e-42f3-aea8-5e305cf7de0a
-Ë
-java:S1192‚"Define a constant instead of duplicating this literal "-fx-focus-color: transparent; -fx-background-color: transparent;" 3 times.(ÍùÛ£ıÿÿÿÿ8Ø°Ñ›Š2J$8d5c8fcc-62e7-40a6-99fa-682eef5ffb68
+java:S1192D"|Define a constant instead of duplicating this literal "-fx-background-color: #0c7675; -fx-background-radius: 10px;" 7 times.(‡·½ìûÿÿÿÿ8¥”Ÿ”‹2J$131207c4-2290-4aa5-93a7-2430e870ad8a
 Å
-java:S1192H"}Define a constant instead of duplicating this literal "-fx-background-color: #159493; -fx-background-radius: 10px;" 42 times.(ä±¿ùÿÿÿÿ8Ø°Ñ›Š2J$02db3b8c-ec01-4fdc-89cb-90a6e1cf9add
-„	java:S125„"<This block of commented-out lines of code should be removed.(ÙûÔıüÿÿÿÿ8‡±Ñ›Š2J$3660408e-f6a6-4310-b38e-5c253baa0079
-	java:S125"<This block of commented-out lines of code should be removed.(»Å½±8‡±Ñ›Š2J$e3c12ab0-f13e-4e0b-a192-f14a1ccf0351
-„	java:S125’"<This block of commented-out lines of code should be removed.(ğë¾Õúÿÿÿÿ8‡±Ñ›Š2J$7724f547-d1eb-4e30-bb49-b4982c6f9e68
-„	java:S125Õ"<This block of commented-out lines of code should be removed.(’éÑºüÿÿÿÿ8¦±Ñ›Š2J$61b67230-dc9c-497f-a1a8-b834d3b61b65
-„	java:S125Ø"<This block of commented-out lines of code should be removed.(¤Ê¶×ûÿÿÿÿ8¦±Ñ›Š2J$ca740571-c4ca-45c4-a628-ee65a38a8eb7
-„	java:S125Û"<This block of commented-out lines of code should be removed.(ÖıÏ±ÿÿÿÿÿ8¦±Ñ›Š2J$41344866-817f-4369-ab01-6f0762fccc62
-w
-java:S1128"URemove this unused import 'edu.icet.pos.controller.place_order.custom.PlaceOrderPay'.(Æ‚¤üÿÿÿÿÿ8µ¬§¥Š2
-`
-java:S1128">Remove this unused import 'javafx.geometry.VerticalDirection'.(ÈÌ‚¥ùÿÿÿÿ8µ¬§¥Š2
-M
-java:S1128"0Remove this unused import 'javafx.scene.Parent'.(²ä¡È8µ¬§¥Š2
+java:S1192E"}Define a constant instead of duplicating this literal "-fx-background-color: #159493; -fx-background-radius: 10px;" 42 times.(ä±¿ùÿÿÿÿ8¥”Ÿ”‹2J$944fc5d7-5713-476b-ad56-f1804f93352e
+ƒ	java:S1259"<This block of commented-out lines of code should be removed.(ÆáÚêøÿÿÿÿ8Ä”Ÿ”‹2J$896ae8ce-bc06-4350-869b-f6d976eb0292
+~	java:S125Z"<This block of commented-out lines of code should be removed.(şî¨÷8Şè¶”‹2J$694e3972-a588-443d-9cdf-45058963cf5c
+	java:S125†"<This block of commented-out lines of code should be removed.(Ô«èë8Ô”Ÿ”‹2J$78bc79bc-dd9c-4cac-a456-a2ac3070b487
+	java:S125¤"<This block of commented-out lines of code should be removed.(Ô«èë8Ô”Ÿ”‹2J$df23d5a0-12dd-4dfb-9420-7da735b1926d
+	java:S125Â"<This block of commented-out lines of code should be removed.(Ô«èë8Ô”Ÿ”‹2J$e1caf195-97ae-4079-87c5-696f07613505
+	java:S125à"<This block of commented-out lines of code should be removed.(Ô«èë8Ô”Ÿ”‹2J$3de875e5-825d-43b6-ab25-8ce391ff94df
+	java:S125„"<This block of commented-out lines of code should be removed.(Ô«èë8Ô”Ÿ”‹2J$60fc3a15-4b5e-4f29-a58b-72873c6573b2
+„	java:S125ß"<This block of commented-out lines of code should be removed.(ÚºÇ­úÿÿÿÿ8Èö¿”‹2J$b9e9f164-5266-4aa1-9b62-68357e778ca6
+	java:S125â"<This block of commented-out lines of code should be removed.(İü‹Ó8ä”Ÿ”‹2J$f04a5aab-6faa-4711-8243-4efcb0b557d4
+„	java:S125å"<This block of commented-out lines of code should be removed.(’éÑºüÿÿÿÿ8ä”Ÿ”‹2J$d9125713-c4e3-4265-91af-508cb12f32b7
+„	java:S125è"<This block of commented-out lines of code should be removed.(¤Ê¶×ûÿÿÿÿ8ä”Ÿ”‹2J$ed5ee91b-9de1-4a3c-a5fc-3ac0316b012f
+„	java:S125ë"<This block of commented-out lines of code should be removed.(ÖıÏ±ÿÿÿÿÿ8ä”Ÿ”‹2J$c25c2f78-7707-4c25-a91e-1668c7952806
+	java:S125î"<This block of commented-out lines of code should be removed.(åÊ›è8õì¼”‹2J$0d5e7d6f-99ed-488f-be22-efc4cdf53e9a
+~
+java:S1128"6Remove this unused import 'edu.icet.pos.bo.BoFactory'.(õˆÈüÿÿÿÿ8Şè¶”‹2J$2a45d677-8420-4395-a00b-e58a84eab13a
+}
+java:S1128":Remove this unused import 'edu.icet.pos.bo.custom.UserBo'.(€õÔ8Şè¶”‹2J$ba96f00c-defa-4d20-b278-89295da62ba0
+
+java:S1128"KRemove this unused import 'edu.icet.pos.controller.auth.custom.LoginPanel'.(™„òİ8Şè¶”‹2J$06f83cef-6463-4951-bbb1-f22ffe4bab55
+™
+java:S1128"VRemove this unused import 'edu.icet.pos.controller.category.CategoryCenterController'.(¦°Óç8Şè¶”‹2J$f53bc7fc-bce2-44b2-a0ba-f3e2277cdcd8
+”
+java:S1128	"QRemove this unused import 'edu.icet.pos.controller.category.custom.CategoryView'.(ÏŠ«¬8Şè¶”‹2J$0260eb11-1cbb-4bf8-b3d5-b2f4b47f41e1
+™
+java:S1128"VRemove this unused import 'edu.icet.pos.controller.employee.EmployeeCenterController'.(ƒ‚Ô¨8Şè¶”‹2J$72786b78-5dfa-4b34-8f9c-dfd4999a71ed
+“
+java:S1128"QRemove this unused import 'edu.icet.pos.controller.employee.custom.EmployeeView'.(Óñ¯48Şè¶”‹2J$8c546348-0c88-4b35-b931-d835fa5ab4b0
+£
+java:S1128"[Remove this unused import 'edu.icet.pos.controller.place_order.PlaceOrderCenterController'.(£ñášûÿÿÿÿ8Şè¶”‹2J$bbfebe2f-716a-45e2-99d9-ccfea453e41e
+
+java:S1128"VRemove this unused import 'edu.icet.pos.controller.place_order.custom.PlaceOrderView'.(×ªå›øÿÿÿÿ8Şè¶”‹2J$73409910-a395-4d17-aa28-7af0fb8524aa
+—
+java:S1128"TRemove this unused import 'edu.icet.pos.controller.product.ProductCenterController'.(ûÖÜó8Şè¶”‹2J$2aa9915a-0d01-41b1-8568-07593d54b948
+—
+java:S1128"ORemove this unused import 'edu.icet.pos.controller.product.custom.ProductView'.(ªüº…şÿÿÿÿ8Şè¶”‹2J$50a723a4-12e4-4d05-8d8e-e5f9cbe347a7
+™
+java:S1128"VRemove this unused import 'edu.icet.pos.controller.supplier.SupplierCenterController'.(Ö¤•‚8Şè¶”‹2J$80c80f32-65b3-4751-81ed-cca0cbd2d194
+”
+java:S1128"QRemove this unused import 'edu.icet.pos.controller.supplier.custom.SupplierView'.(•Ü¼İ8Şè¶”‹2J$70dbb5d1-d61c-4abe-b585-439ea9b71420
+Œ
+java:S1128"IRemove this unused import 'edu.icet.pos.controller.user.custom.UserView'.(°¿µš8îè¶”‹2J$1340cf31-cbd5-44c8-b52f-626816972893
+}
+java:S1128"5Remove this unused import 'edu.icet.pos.util.BoType'.(Ê™°ÿûÿÿÿÿ8îè¶”‹2J$df5ee8f4-3927-48e0-a309-9665da1ebe48
+x
+java:S1128"0Remove this unused import 'javafx.geometry.Pos'.(ÌÆ÷Ùøÿÿÿÿ8îè¶”‹2J$5345fac5-15d8-4417-92ab-15d9a9acd399

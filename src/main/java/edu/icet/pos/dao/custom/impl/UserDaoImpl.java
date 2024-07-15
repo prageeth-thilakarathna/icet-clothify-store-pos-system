@@ -299,4 +299,40 @@ public class UserDaoImpl implements UserDao {
         session.close();
         return employeeEntityList;
     }
+
+    @Override
+    public List<EmployeeEntity> getAllEmployee() {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        List<EmployeeEntity> employeeEntityList;
+        try {
+            tx = session.beginTransaction();
+            employeeEntityList = session.createQuery("SELECT a FROM EmployeeEntity a", EmployeeEntity.class).getResultList();
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return employeeEntityList;
+    }
+
+    @Override
+    public EmployeeEntity getEmployeeByUserId(Integer userId) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        EmployeeEntity employeeEntity;
+        try{
+            tx = session.beginTransaction();
+            employeeEntity = session.createQuery("SELECT a FROM EmployeeEntity a WHERE userId="+userId, EmployeeEntity.class).getSingleResult();
+            tx.commit();
+        } catch (Exception e){
+            if(tx!=null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return employeeEntity;
+    }
 }

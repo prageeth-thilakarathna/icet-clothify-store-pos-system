@@ -1,82 +1,26 @@
-package edu.icet.pos.controller.dashboard;
+package edu.icet.pos.controller.dashboard.inventory;
 
-import com.jfoenix.controls.JFXComboBox;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import lombok.Getter;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class InventoryReportController implements Initializable {
-    @FXML
-    private TextField txtProductId;
-    @FXML
-    private Button btnSearch;
-    @FXML
-    private Button btnCancel;
-    @FXML
-    private JFXComboBox optYear;
-    @FXML
-    private JFXComboBox optMonth;
-    @FXML
-    private Button btnGenReport;
-    @FXML
-    private BarChart<String, Integer> chart;
+public class ChartController implements Initializable {
     @FXML
     private CategoryAxis chartCategory;
     @FXML
     private NumberAxis chartNumber;
+    @FXML
+    private BarChart<String, Integer> chart;
 
     private final XYChart.Series<String, Integer> chartSeries = new XYChart.Series<>();
-
-    @FXML
-    private void productIdKeyTyped(KeyEvent keyEvent) {
-    }
-
-    @FXML
-    private void btnSearchAction(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    private void btnCancelAction(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    private void optYearAction(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    private void optMonthAction(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    private void btnGenReportAction(ActionEvent actionEvent) {
-        try {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("report/jasper_report_template.jrxml");
-            JasperCompileManager.compileReport(inputStream);
-        } catch (JRException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.show();
-        }
-    }
 
     private List<String> getMonth(){
         List<String> monthList = new ArrayList<>();

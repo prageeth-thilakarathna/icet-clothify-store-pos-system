@@ -2,9 +2,9 @@
 ‘
 java:S1192¸"MDefine a constant instead of duplicating this literal "modification" 3 times.(©ªˆß8Ï«‰‡2J$fd5d2b0c-8306-4e16-885f-f665cfed0238
 ‘
-java:S2095ï"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8±Ú…‡2J$52309fae-19ca-4ed4-b312-26eb92718974
-‘
 java:S2095«"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8±Ú…‡2J$04e6c23f-8454-49fe-8ef7-2594c4fecead
+‘
+java:S2095ï"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(–³ ï8±Ú…‡2J$52309fae-19ca-4ed4-b312-26eb92718974
 ‹
 java:S1126£"BReplace this if-then-else statement by a single method invocation.(…ÀÌ¿ıÿÿÿÿ8ÌÚ…‡2J$f155c81c-a2e2-411f-8bb4-b2d1f2b40ab3
 …

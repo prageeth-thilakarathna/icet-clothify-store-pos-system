@@ -16,7 +16,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import lombok.Getter;
 import org.modelmapper.ModelMapper;
 
 import java.net.URL;
@@ -41,8 +40,6 @@ public class LoginPanelController implements LoginPanel {
     private final UserRoleBo userRoleBo = BoFactory.getBo(BoType.USER_ROLE);
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
     private Layout layout;
-    @Getter
-    private User loginUser;
 
     @FXML
     private void emailKeyTyped() {
@@ -51,7 +48,7 @@ public class LoginPanelController implements LoginPanel {
 
     @FXML
     private void passwordKeyTyped() {
-        if(passwordCheckBox.isSelected()){
+        if (passwordCheckBox.isSelected()) {
             dspPassword.setText(txtPassword.getText());
         } else {
             dspPassword.setText("");
@@ -61,7 +58,7 @@ public class LoginPanelController implements LoginPanel {
 
     @FXML
     private void passwordCheckBoxAction() {
-        if(passwordCheckBox.isSelected()){
+        if (passwordCheckBox.isSelected()) {
             dspPassword.setText(txtPassword.getText());
         } else {
             dspPassword.setText("");
@@ -70,7 +67,7 @@ public class LoginPanelController implements LoginPanel {
 
     @FXML
     private void forgotPasswordMouseClicked() {
-        if(layout ==null){
+        if (layout == null) {
             layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
         }
         cancel();
@@ -87,12 +84,12 @@ public class LoginPanelController implements LoginPanel {
 
     @FXML
     private void btnLoginAction() {
-        try{
+        try {
             assert userBo != null;
             User user = userBo.getUserByEmail(txtEmail.getText());
-            if(Objects.equals(user.getPassword(), CenterController.getInstance().encryptPassword(txtPassword.getText()))){
-                loginUser = user;
-                if(layout ==null){
+            if (Objects.equals(user.getPassword(), CenterController.getInstance().encryptPassword(txtPassword.getText()))) {
+                AuthCenterController.getInstance().setUserLogin(user);
+                if (layout == null) {
                     layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
                 }
                 cancel();
@@ -102,9 +99,9 @@ public class LoginPanelController implements LoginPanel {
                 alert.setContentText("Failed! Please input the correct password.");
                 alert.show();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.toString());
+            alert.setContentText(e.getMessage());
             alert.show();
         }
     }
@@ -119,7 +116,7 @@ public class LoginPanelController implements LoginPanel {
         System.exit(0);
     }
 
-    private void cancel(){
+    private void cancel() {
         btnLogin.setDisable(true);
         btnCancel.setDisable(true);
         txtPassword.setText("");
@@ -128,7 +125,7 @@ public class LoginPanelController implements LoginPanel {
         passwordCheckBox.setSelected(false);
     }
 
-    private void validateInputs(){
+    private void validateInputs() {
         btnLogin.setDisable(txtEmail.getLength() <= 4 || txtPassword.getLength() < 8);
         btnCancel.setDisable(txtEmail.getLength() <= 0 || txtPassword.getLength() <= 0);
     }
@@ -151,7 +148,7 @@ public class LoginPanelController implements LoginPanel {
         }
     }
 
-    private void userRegister(){
+    private void userRegister() {
         User mainAdmin = new User();
         mainAdmin.setEMail("admin@email.com");
         mainAdmin.setPassword(CenterController.getInstance().encryptPassword("12345678"));
@@ -159,14 +156,14 @@ public class LoginPanelController implements LoginPanel {
         mainAdmin.setModifyAt(new Date());
         mainAdmin.setIsActive(true);
 
-        try{
+        try {
             assert userRoleBo != null;
             UserRole admin = userRoleBo.getUserRoleByName("admin");
 
             mainAdmin.setUserRole(new ModelMapper().map(admin, UserRoleEntity.class));
             assert userBo != null;
             userBo.userRegister(mainAdmin);
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -174,20 +171,15 @@ public class LoginPanelController implements LoginPanel {
     }
 
     @Override
-    public void clearUser() {
-        loginUser = null;
-    }
-
-    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnLogin.setDisable(true);
         btnCancel.setDisable(true);
         assert userRoleBo != null;
-        if(userRoleBo.getAllUserRole().isEmpty()){
+        if (userRoleBo.getAllUserRole().isEmpty()) {
             userRoleRegister();
         }
         assert userBo != null;
-        if(userBo.getAllUser().isEmpty()){
+        if (userBo.getAllUser().isEmpty()) {
             userRegister();
         }
     }

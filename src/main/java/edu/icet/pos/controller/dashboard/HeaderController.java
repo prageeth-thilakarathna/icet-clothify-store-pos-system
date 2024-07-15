@@ -1,8 +1,6 @@
 package edu.icet.pos.controller.dashboard;
 
-import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.auth.AuthCenterController;
-import edu.icet.pos.controller.auth.custom.LoginPanel;
 import edu.icet.pos.controller.dashboard.custom.DashboardHeader;
 import edu.icet.pos.controller.layout.LayoutCenterController;
 import edu.icet.pos.controller.layout.custom.Layout;
@@ -11,26 +9,16 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HeaderController implements DashboardHeader {
-    @FXML
-    private Separator separatorDev;
-    @FXML
-    private Button btnSwitchToDev;
-    @FXML
-    private HBox hBox;
     @FXML
     private Label dspMode;
     @FXML
@@ -39,7 +27,6 @@ public class HeaderController implements DashboardHeader {
     private Label dspTime;
 
     private Layout layout;
-    private final LoginPanel loginPanel = AuthCenterController.getInstance().getFxmlLoaderLoginPanel().getController();
 
     // set data and time
     private void loadDateAndTime() {
@@ -62,20 +49,11 @@ public class HeaderController implements DashboardHeader {
 
     @FXML
     private void logOutAction() {
-        if(layout ==null){
+        if (layout == null) {
             layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
         }
-        loginPanel.clearUser();
+        AuthCenterController.getInstance().setUserLogin(null);
         layout.loadLogin();
-    }
-
-    @FXML
-    private void switchToDevAction() {
-        if(layout ==null){
-            layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
-        }
-        loginPanel.clearUser();
-        layout.loadDashboard();
     }
 
     @FXML
@@ -84,26 +62,23 @@ public class HeaderController implements DashboardHeader {
     }
 
     @Override
-    public void authHeader() {
-        if (loginPanel.getLoginUser() == null && (Objects.equals(CenterController.getInstance().getMACAddress(), "FC-77-74-7E-9C-4E"))) {
-            dspMode.setText("Developer");
-            btnSwitchToDev.setVisible(false);
-            separatorDev.setVisible(false);
-        } else {
-            dspMode.setText(loginPanel.getLoginUser().getUserRole().getName().substring(0, 1).toUpperCase() + loginPanel.getLoginUser().getUserRole().getName().substring(1));
-            if(Objects.equals(CenterController.getInstance().getMACAddress(), "FC-77-74-7E-9C-4E")){
-                btnSwitchToDev.setVisible(true);
-                separatorDev.setVisible(true);
-            } else {
-                btnSwitchToDev.setVisible(false);
-                separatorDev.setVisible(false);
-            }
+    public void authNotify() {
+        if (AuthCenterController.isUserAssistance()) {
+            dspMode.setText("User (Assistance)");
+        }
+
+        if (AuthCenterController.isUserCashier()) {
+            dspMode.setText("User (Cashier)");
+        }
+
+        if (AuthCenterController.isAdmin()) {
+            dspMode.setText("Admin");
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadDateAndTime();
-        authHeader();
+        authNotify();
     }
 }

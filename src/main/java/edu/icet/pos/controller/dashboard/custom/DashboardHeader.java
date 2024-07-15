@@ -1,7 +1,7 @@
 package edu.icet.pos.controller.dashboard.custom;
 
-import javafx.fxml.Initializable;
+import edu.icet.pos.controller.custom.SuperController;
 
-public interface DashboardHeader extends Initializable {
-    void authHeader();
+public interface DashboardHeader extends SuperController {
+
 }

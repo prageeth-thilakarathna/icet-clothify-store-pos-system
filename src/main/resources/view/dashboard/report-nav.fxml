@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox alignment="CENTER" prefHeight="52.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.ReportNavController">
+<HBox fx:id="hBox" alignment="CENTER" prefHeight="52.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.ReportNavController">
    <children>
       <Button fx:id="btnInventory" alignment="BASELINE_LEFT" focusTraversable="false" mnemonicParsing="false" onAction="#btnInventoryAction" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="       Inventory" textFill="WHITE">
          <font>

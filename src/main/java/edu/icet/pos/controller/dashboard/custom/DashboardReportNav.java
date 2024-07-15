@@ -1,7 +1,7 @@
 package edu.icet.pos.controller.dashboard.custom;
 
-import javafx.fxml.Initializable;
+import edu.icet.pos.controller.custom.SuperController;
 
-public interface DashboardReportNav extends Initializable {
+public interface DashboardReportNav extends SuperController {
     void setInventory();
 }

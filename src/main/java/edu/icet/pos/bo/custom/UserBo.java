@@ -36,4 +36,8 @@ public interface UserBo extends SuperBo {
     int getEmployeeCount();
 
     List<Employee> getEmployeePerPage(int offset);
+
+    List<Employee> getAllEmployee();
+
+    Employee getEmployeeByUserId(Integer userId);
 }
