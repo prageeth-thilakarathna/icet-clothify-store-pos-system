@@ -32,8 +32,8 @@ public class ProductDaoImpl implements ProductDao {
             tx = session.beginTransaction();
             productEntity = session.get(ProductEntity.class, id);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -43,33 +43,27 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void update(ProductEntity productEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.merge(productEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public void delete(ProductEntity productEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.remove(productEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -94,9 +88,9 @@ public class ProductDaoImpl implements ProductDao {
         List<ProductEntity> productEntityList = new ArrayList<>();
         session.doWork(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM product LIMIT "+limit+" OFFSET "+offset);
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM product LIMIT " + limit + " OFFSET " + offset);
 
-                while(resultSet.next()){
+                while (resultSet.next()) {
                     ProductEntity product = new ProductEntity();
 
                     SubCategoryEntity subCategoryEntity = new SubCategoryEntity();
@@ -113,8 +107,8 @@ public class ProductDaoImpl implements ProductDao {
                     product.setPrice(resultSet.getDouble("price"));
                     product.setQuantityOnHand(resultSet.getInt("quantityOnHand"));
                     product.setImage(resultSet.getBlob("image"));
-                    product.setRegisterAt(resultSet.getDate("registerAt"));
-                    product.setModifyAt(resultSet.getDate("modifyAt"));
+                    product.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    product.setModifyAt(resultSet.getTimestamp("modifyAt"));
                     product.setIsActive(resultSet.getBoolean("isActive"));
 
                     productEntityList.add(product);

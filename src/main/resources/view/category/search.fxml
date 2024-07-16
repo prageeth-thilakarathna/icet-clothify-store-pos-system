@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox prefHeight="274.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.category.SearchController">
    <children>
       <ScrollPane focusTraversable="false" prefHeight="278.0" prefWidth="300.0" style="-fx-focus-color: transparent; -fx-background-color: transparent;">
@@ -58,7 +57,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btnCancel" focusTraversable="false" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #353c52; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+                              <Button fx:id="btnCancel" focusTraversable="false" mnemonicParsing="false" onAction="#btnCancelOnAction" prefHeight="32.0" prefWidth="85.0" style="-fx-background-color: #353c52; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>

@@ -11,17 +11,14 @@ import java.util.List;
 public class UserRoleDaoImpl implements UserRoleDao {
     @Override
     public void save(UserRoleEntity userRoleEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.persist(userRoleEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -34,8 +31,8 @@ public class UserRoleDaoImpl implements UserRoleDao {
             tx = session.beginTransaction();
             userRoleEntity = session.get(UserRoleEntity.class, id);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -48,12 +45,12 @@ public class UserRoleDaoImpl implements UserRoleDao {
         Session session = HibernateUtil.getSession();
         Transaction tx = null;
         UserRoleEntity userRoleEntity;
-        try{
+        try {
             tx = session.beginTransaction();
-            userRoleEntity = session.createQuery("SELECT a FROM UserRoleEntity a WHERE name='"+name+"'", UserRoleEntity.class).getSingleResult();
+            userRoleEntity = session.createQuery("SELECT a FROM UserRoleEntity a WHERE name='" + name + "'", UserRoleEntity.class).getSingleResult();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -70,8 +67,8 @@ public class UserRoleDaoImpl implements UserRoleDao {
             tx = session.beginTransaction();
             userRoleEntityList = session.createQuery("SELECT a FROM UserRoleEntity a", UserRoleEntity.class).getResultList();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();

@@ -40,7 +40,7 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <Pagination fx:id="tblPagination" focusTraversable="false" pageCount="15" prefHeight="249.0" prefWidth="909.0" stylesheets="@../../style/paginationStyle.css">
+                  <Pagination fx:id="cardPagination" focusTraversable="false" pageCount="15" prefHeight="249.0" prefWidth="909.0" stylesheets="@../../style/paginationStyle.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

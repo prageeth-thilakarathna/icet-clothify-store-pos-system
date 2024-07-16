@@ -1,7 +1,6 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.SupplierDao;
-import edu.icet.pos.entity.CategoryEntity;
 import edu.icet.pos.entity.SupplierEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
@@ -16,17 +15,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SupplierDaoImpl implements SupplierDao {
     @Override
     public void save(SupplierEntity supplierEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.persist(supplierEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -39,8 +35,8 @@ public class SupplierDaoImpl implements SupplierDao {
             tx = session.beginTransaction();
             supplierEntity = session.get(SupplierEntity.class, id);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -50,33 +46,27 @@ public class SupplierDaoImpl implements SupplierDao {
 
     @Override
     public void update(SupplierEntity supplierEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.merge(supplierEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public void delete(SupplierEntity supplierEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.remove(supplierEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -101,9 +91,9 @@ public class SupplierDaoImpl implements SupplierDao {
         List<SupplierEntity> supplierEntityList = new ArrayList<>();
         session.doWork(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM supplier LIMIT 5 OFFSET "+offset);
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM supplier LIMIT 5 OFFSET " + offset);
 
-                while(resultSet.next()){
+                while (resultSet.next()) {
                     SupplierEntity supplier = new SupplierEntity();
                     supplier.setId(resultSet.getInt("id"));
                     supplier.setTitle(resultSet.getString("title"));
@@ -111,8 +101,8 @@ public class SupplierDaoImpl implements SupplierDao {
                     supplier.setLastName(resultSet.getString("lastName"));
                     supplier.setContact(resultSet.getString("contact"));
                     supplier.setAddress(resultSet.getString("address"));
-                    supplier.setRegisterAt(resultSet.getDate("registerAt"));
-                    supplier.setModifyAt(resultSet.getDate("modifyAt"));
+                    supplier.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    supplier.setModifyAt(resultSet.getTimestamp("modifyAt"));
                     supplier.setIsActive(resultSet.getBoolean("isActive"));
 
                     supplierEntityList.add(supplier);
@@ -132,8 +122,8 @@ public class SupplierDaoImpl implements SupplierDao {
             tx = session.beginTransaction();
             supplierEntityList = session.createQuery("SELECT a FROM SupplierEntity a", SupplierEntity.class).getResultList();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();

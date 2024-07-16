@@ -1,10 +1,12 @@
 package edu.icet.pos.controller.supplier.custom;
 
+import edu.icet.pos.controller.custom.SuperController;
 import edu.icet.pos.model.supplier.Supplier;
-import javafx.fxml.Initializable;
 
-public interface SupplierForm extends Initializable {
+public interface SupplierForm extends SuperController {
     void loadSupplierToForm(Supplier supplier);
 
     void clearSupplier();
+
+    void refreshForm();
 }

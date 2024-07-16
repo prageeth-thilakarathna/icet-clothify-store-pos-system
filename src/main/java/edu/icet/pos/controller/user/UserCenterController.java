@@ -29,7 +29,7 @@ public class UserCenterController {
     static {
         try {
             instance = new UserCenterController();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Exception occurred in creating UserCenterController singleton instance");
         }
     }

@@ -18,9 +18,9 @@ public class LayoutCenterController {
     }
 
     static {
-        try{
+        try {
             instance = new LayoutCenterController();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Exception occurred in creating LayoutCenterController singleton instance");
         }
     }

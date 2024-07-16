@@ -35,6 +35,7 @@ public class UserRoleBoImpl implements UserRoleBo {
     @Override
     public List<UserRole> getAllUserRole() {
         assert userRoleDao != null;
-        return new ModelMapper().map(userRoleDao.getAll(), new TypeToken<List<UserRole>>() {}.getType());
+        return new ModelMapper().map(userRoleDao.getAll(), new TypeToken<List<UserRole>>() {
+        }.getType());
     }
 }

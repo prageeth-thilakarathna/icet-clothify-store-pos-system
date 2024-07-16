@@ -9,17 +9,14 @@ import org.hibernate.Transaction;
 public class InventoryDaoImpl implements InventoryDao {
     @Override
     public void save(InventoryEntity inventoryEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.persist(inventoryEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 

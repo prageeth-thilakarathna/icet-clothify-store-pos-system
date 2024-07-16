@@ -7,4 +7,6 @@ public interface SubCategoryForm extends Initializable {
     void loadSubCategoryToForm(SubCategory subCategory);
 
     void clearSubCategory();
+
+    void refreshForm();
 }

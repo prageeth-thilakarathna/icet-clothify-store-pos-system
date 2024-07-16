@@ -35,14 +35,14 @@ public class ViewController implements SubCategoryView {
     private SubCategoryTable subCategoryTable;
     private static final String DELETION = "deletion";
 
-    private ObservableList<TblSubCategoryView> getSubCategoryTblPerPage(int pageIndex){
+    private ObservableList<TblSubCategoryView> getSubCategoryTblPerPage(int pageIndex) {
         ObservableList<TblSubCategoryView> subCategoryTblList = FXCollections.observableArrayList();
-        try{
+        try {
             assert subCategoryBo != null;
-            List<SubCategory> subCategoryList = subCategoryBo.getSubCategoryPerPage(pageIndex*5);
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            List<SubCategory> subCategoryList = subCategoryBo.getSubCategoryPerPage(pageIndex * 5);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-            for(SubCategory subCategory : subCategoryList){
+            for (SubCategory subCategory : subCategoryList) {
                 assert categoryBo != null;
                 TblSubCategoryView tblSubCategoryOb = new TblSubCategoryView(
                         String.valueOf(subCategory.getId()),
@@ -50,11 +50,11 @@ public class ViewController implements SubCategoryView {
                         subCategory.getName(),
                         dateFormat.format(subCategory.getRegisterAt()),
                         dateFormat.format(subCategory.getModifyAt()),
-                        Boolean.TRUE.equals(subCategory.getIsActive()) ? "Active":"Disable"
+                        Boolean.TRUE.equals(subCategory.getIsActive()) ? "Active" : "Disable"
                 );
                 subCategoryTblList.add(tblSubCategoryOb);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -62,19 +62,19 @@ public class ViewController implements SubCategoryView {
         return subCategoryTblList;
     }
 
-    private void subCategoryCountUpdate(){
-        try{
+    private void subCategoryCountUpdate() {
+        try {
             assert subCategoryBo != null;
             dspCount.setText(String.valueOf(subCategoryBo.getSubCategoryCount()));
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
     }
 
-    private Node createTblPage(int pageIndex){
-        if(subCategoryTable ==null){
+    private Node createTblPage(int pageIndex) {
+        if (subCategoryTable == null) {
             subCategoryTable = SubCategoryCenterController.getInstance().getFxmlLoaderTable().getController();
         }
         TableView<TblSubCategoryView> tableView = subCategoryTable.getTable();
@@ -82,24 +82,24 @@ public class ViewController implements SubCategoryView {
         return tableView;
     }
 
-    private int getPageCount(){
+    private int getPageCount() {
         int pageCount = 0;
-        try{
+        try {
             assert subCategoryBo != null;
             int subCategoryCount = subCategoryBo.getSubCategoryCount();
-            if(subCategoryCount>5){
-                int tempFirst = subCategoryCount/5;
-                int tempSecond = subCategoryCount%5;
+            if (subCategoryCount > 5) {
+                int tempFirst = subCategoryCount / 5;
+                int tempSecond = subCategoryCount % 5;
 
-                if(tempSecond!=0){
-                    pageCount = tempFirst+1;
+                if (tempSecond != 0) {
+                    pageCount = tempFirst + 1;
                 } else {
                     pageCount = tempFirst;
                 }
             } else {
                 pageCount = 1;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -107,16 +107,16 @@ public class ViewController implements SubCategoryView {
         return pageCount;
     }
 
-    private int getCurrentPageIndex(int pageIndex, String name){
-        if(Objects.equals(name, "registration")){
-            return getPageCount()-1;
-        } else if("modification".equals(name)){
+    private int getCurrentPageIndex(int pageIndex, String name) {
+        if (Objects.equals(name, "registration")) {
+            return getPageCount() - 1;
+        } else if ("modification".equals(name)) {
             return pageIndex;
-        } else if(DELETION.equals(name) && pageIndex==getPageCount()) {
-            return pageIndex-1;
-        } else if(DELETION.equals(name) && pageIndex<getPageCount()) {
+        } else if (DELETION.equals(name) && pageIndex == getPageCount()) {
+            return pageIndex - 1;
+        } else if (DELETION.equals(name) && pageIndex < getPageCount()) {
             return pageIndex;
-        } else if(DELETION.equals(name) && (pageIndex+1)==getPageCount()) {
+        } else if (DELETION.equals(name) && (pageIndex + 1) == getPageCount()) {
             return pageIndex;
         } else {
             return 0;

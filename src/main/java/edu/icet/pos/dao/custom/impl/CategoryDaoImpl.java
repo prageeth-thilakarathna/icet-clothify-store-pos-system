@@ -2,7 +2,6 @@ package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.CategoryDao;
 import edu.icet.pos.entity.CategoryEntity;
-import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,17 +15,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CategoryDaoImpl implements CategoryDao {
     @Override
     public void save(CategoryEntity categoryEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.persist(categoryEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -35,12 +31,12 @@ public class CategoryDaoImpl implements CategoryDao {
         Session session = HibernateUtil.getSession();
         Transaction tx = null;
         CategoryEntity categoryEntity;
-        try{
+        try {
             tx = session.beginTransaction();
-            categoryEntity = session.createQuery("SELECT a FROM CategoryEntity a WHERE name='"+name+"'", CategoryEntity.class).getSingleResult();
+            categoryEntity = session.createQuery("SELECT a FROM CategoryEntity a WHERE name='" + name + "'", CategoryEntity.class).getSingleResult();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -57,8 +53,8 @@ public class CategoryDaoImpl implements CategoryDao {
             tx = session.beginTransaction();
             categoryEntity = session.get(CategoryEntity.class, id);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -68,33 +64,27 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void delete(CategoryEntity categoryEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.remove(categoryEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public void update(CategoryEntity categoryEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.merge(categoryEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -119,14 +109,14 @@ public class CategoryDaoImpl implements CategoryDao {
         List<CategoryEntity> categoryEntityList = new ArrayList<>();
         session.doWork(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM category LIMIT 5 OFFSET "+offset);
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM category LIMIT 5 OFFSET " + offset);
 
-                while(resultSet.next()){
+                while (resultSet.next()) {
                     CategoryEntity category = new CategoryEntity();
                     category.setId(resultSet.getInt("id"));
                     category.setName(resultSet.getString("name"));
-                    category.setRegisterAt(resultSet.getDate("registerAt"));
-                    category.setModifyAt(resultSet.getDate("modifyAt"));
+                    category.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    category.setModifyAt(resultSet.getTimestamp("modifyAt"));
                     category.setIsActive(resultSet.getBoolean("isActive"));
 
                     categoryEntityList.add(category);
@@ -146,8 +136,8 @@ public class CategoryDaoImpl implements CategoryDao {
             tx = session.beginTransaction();
             categoryEntityList = session.createQuery("SELECT a FROM CategoryEntity a", CategoryEntity.class).getResultList();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();

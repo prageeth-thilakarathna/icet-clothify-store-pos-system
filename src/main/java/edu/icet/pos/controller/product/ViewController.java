@@ -26,45 +26,45 @@ public class ViewController implements ProductView {
     @FXML
     private Label dspCount;
     @FXML
-    private Pagination tblPagination;
+    private Pagination cardPagination;
 
     private final ProductBo productBo = BoFactory.getBo(BoType.PRODUCT);
     private static final String DELETION = "deletion";
 
-    private int getCurrentPageIndex(int pageIndex, String name){
-        if(Objects.equals(name, "registration")){
-            return getPageCount()-1;
-        } else if("modification".equals(name)){
+    private int getCurrentPageIndex(int pageIndex, String name) {
+        if (Objects.equals(name, "registration")) {
+            return getPageCount() - 1;
+        } else if ("modification".equals(name)) {
             return pageIndex;
-        } else if(DELETION.equals(name) && pageIndex==getPageCount()) {
-            return pageIndex-1;
-        } else if(DELETION.equals(name) && pageIndex<getPageCount()) {
+        } else if (DELETION.equals(name) && pageIndex == getPageCount()) {
+            return pageIndex - 1;
+        } else if (DELETION.equals(name) && pageIndex < getPageCount()) {
             return pageIndex;
-        } else if(DELETION.equals(name) && (pageIndex+1)==getPageCount()) {
+        } else if (DELETION.equals(name) && (pageIndex + 1) == getPageCount()) {
             return pageIndex;
         } else {
             return 0;
         }
     }
 
-    private int getPageCount(){
+    private int getPageCount() {
         int pageCount = 0;
-        try{
+        try {
             assert productBo != null;
             int productCount = productBo.getProductCount();
-            if(productCount>5){
-                int tempFirst = productCount/5;
-                int tempSecond = productCount%5;
+            if (productCount > 5) {
+                int tempFirst = productCount / 5;
+                int tempSecond = productCount % 5;
 
-                if(tempSecond!=0){
-                    pageCount = tempFirst+1;
+                if (tempSecond != 0) {
+                    pageCount = tempFirst + 1;
                 } else {
                     pageCount = tempFirst;
                 }
             } else {
                 pageCount = 1;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -72,18 +72,18 @@ public class ViewController implements ProductView {
         return pageCount;
     }
 
-    private void productCountUpdate(){
-        try{
+    private void productCountUpdate() {
+        try {
             assert productBo != null;
             dspCount.setText(String.valueOf(productBo.getProductCount()));
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
     }
 
-    private Node createTblPage(int pageIndex) {
+    private Node createCardPage(int pageIndex) {
         GridPane gridPane = new GridPane();
         try {
             assert productBo != null;
@@ -113,22 +113,22 @@ public class ViewController implements ProductView {
 
     @Override
     public void loadCard() {
-        tblPagination.setPageFactory(this::createTblPage);
+        cardPagination.setPageFactory(this::createCardPage);
     }
 
     @Override
     public void updatePanel(String name) {
-        int pageIndex = tblPagination.getCurrentPageIndex();
-        tblPagination.setPageCount(getPageCount());
-        tblPagination.setPageFactory(this::createTblPage);
-        tblPagination.setCurrentPageIndex(getCurrentPageIndex(pageIndex, name));
+        int pageIndex = cardPagination.getCurrentPageIndex();
+        cardPagination.setPageCount(getPageCount());
+        cardPagination.setPageFactory(this::createCardPage);
+        cardPagination.setCurrentPageIndex(getCurrentPageIndex(pageIndex, name));
         productCountUpdate();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         productCountUpdate();
-        tblPagination.setMaxPageIndicatorCount(10);
-        tblPagination.setPageCount(getPageCount());
+        cardPagination.setMaxPageIndicatorCount(10);
+        cardPagination.setPageCount(getPageCount());
     }
 }

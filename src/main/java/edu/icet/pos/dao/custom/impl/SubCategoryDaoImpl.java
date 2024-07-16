@@ -16,17 +16,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SubCategoryDaoImpl implements SubCategoryDao {
     @Override
     public void save(SubCategoryEntity subCategoryEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.persist(subCategoryEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -35,12 +32,12 @@ public class SubCategoryDaoImpl implements SubCategoryDao {
         Session session = HibernateUtil.getSession();
         Transaction tx = null;
         SubCategoryEntity subCategoryEntity;
-        try{
+        try {
             tx = session.beginTransaction();
-            subCategoryEntity = session.createQuery("SELECT a FROM SubCategoryEntity a WHERE name='"+name+"'", SubCategoryEntity.class).getSingleResult();
+            subCategoryEntity = session.createQuery("SELECT a FROM SubCategoryEntity a WHERE name='" + name + "'", SubCategoryEntity.class).getSingleResult();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -57,8 +54,8 @@ public class SubCategoryDaoImpl implements SubCategoryDao {
             tx = session.beginTransaction();
             subCategoryEntity = session.get(SubCategoryEntity.class, id);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -68,33 +65,27 @@ public class SubCategoryDaoImpl implements SubCategoryDao {
 
     @Override
     public void update(SubCategoryEntity subCategoryEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.merge(subCategoryEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public void delete(SubCategoryEntity subCategoryEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.remove(subCategoryEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -119,17 +110,17 @@ public class SubCategoryDaoImpl implements SubCategoryDao {
         List<SubCategoryEntity> subCategoryEntityList = new ArrayList<>();
         session.doWork(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM sub_category LIMIT 5 OFFSET "+offset);
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM sub_category LIMIT 5 OFFSET " + offset);
 
-                while(resultSet.next()){
+                while (resultSet.next()) {
                     CategoryEntity categoryEntity = new CategoryEntity();
                     categoryEntity.setId(resultSet.getInt("categoryId"));
 
                     SubCategoryEntity subCategory = new SubCategoryEntity();
                     subCategory.setId(resultSet.getInt("id"));
                     subCategory.setName(resultSet.getString("name"));
-                    subCategory.setRegisterAt(resultSet.getDate("registerAt"));
-                    subCategory.setModifyAt(resultSet.getDate("modifyAt"));
+                    subCategory.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    subCategory.setModifyAt(resultSet.getTimestamp("modifyAt"));
                     subCategory.setIsActive(resultSet.getBoolean("isActive"));
                     subCategory.setCategory(categoryEntity);
 

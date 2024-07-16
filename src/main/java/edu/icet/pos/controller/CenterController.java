@@ -2,8 +2,11 @@ package edu.icet.pos.controller;
 
 import edu.icet.pos.controller.custom.SuperController;
 import edu.icet.pos.controller.dashboard.DashboardCenterController;
+import edu.icet.pos.controller.product.ProductCenterController;
+import edu.icet.pos.controller.supplier.SupplierCenterController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -21,7 +24,8 @@ import java.util.List;
 
 @Getter
 public class CenterController {
-    private static CenterController instance;
+    @Getter
+    private static final CenterController instance;
     private final BorderPane pageBorderPane = new BorderPane();
     private final HBox pageTop = new HBox();
     private final Label pageHeader = new Label();
@@ -31,7 +35,7 @@ public class CenterController {
     private final Hyperlink pageMainHeader = new Hyperlink();
     private List<SuperController> superControllerList = new ArrayList<>();
 
-    private CenterController(){
+    private CenterController() {
         pageTop.setPrefWidth(911);
         pageTop.setPrefHeight(51);
         pageTop.setAlignment(Pos.BOTTOM_LEFT);
@@ -57,15 +61,16 @@ public class CenterController {
         pageMainHeader.setBorder(Border.EMPTY);
     }
 
-    public static CenterController getInstance() {
-        if(instance==null){
+    static {
+        try {
             instance = new CenterController();
+        } catch (Exception e) {
+            throw new RuntimeException("Exception occurred in creating CenterController singleton instance");
         }
-        return instance;
     }
 
     public String encryptPassword(String password) {
-        try{
+        try {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.update(password.getBytes());
 
@@ -73,12 +78,12 @@ public class CenterController {
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            for(int i=0; i<bytes.length; i++){
-                stringBuilder.append(Integer.toString((bytes[i] & 0xff) + 0*100, 16).substring(1));
+            for (int i = 0; i < bytes.length; i++) {
+                stringBuilder.append(Integer.toString((bytes[i] & 0xff) + 0 * 100, 16).substring(1));
             }
             return stringBuilder.toString();
 
-        } catch (NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -86,31 +91,66 @@ public class CenterController {
         return null;
     }
 
-    public List<SuperController> getSuperControllerList(){
-        if(superControllerList.isEmpty()){
+    public List<SuperController> getSuperControllerList() {
+        if (superControllerList.isEmpty()) {
             setSuperController();
         }
-        if(!superControllerList.isEmpty()){
+        if (!superControllerList.isEmpty()) {
             superControllerList = new ArrayList<>();
             setSuperController();
         }
         return superControllerList;
     }
 
-    private void setSuperController(){
+    private void setSuperController() {
         superControllerList.add(DashboardCenterController.getInstance().getFxmlLoaderHeader().getController());
 
         FXMLLoader fxmlLoaderNav = new FXMLLoader(getClass().getResource("/view/dashboard/navPanel.fxml"));
         DashboardCenterController.getInstance().setFxmlLoaderNav(fxmlLoaderNav);
-        try{
+
+        FXMLLoader fxmlLoaderReportNav = new FXMLLoader(getClass().getResource("/view/dashboard/report-nav.fxml"));
+        DashboardCenterController.getInstance().setFxmlLoaderReportNav(fxmlLoaderReportNav);
+
+        FXMLLoader fxmlLoaderSupplierForm = new FXMLLoader(getClass().getResource("/view/supplier/form.fxml"));
+        SupplierCenterController.getInstance().setFxmlLoaderForm(fxmlLoaderSupplierForm);
+
+        FXMLLoader fxmlLoaderProductForm = new FXMLLoader(getClass().getResource("/view/product/form.fxml"));
+        ProductCenterController.getInstance().setFxmlLoaderForm(fxmlLoaderProductForm);
+
+        try {
             DashboardCenterController.getInstance().setParentNav(fxmlLoaderNav.load());
-        } catch (Exception e){
+            DashboardCenterController.getInstance().setParentReportNav(fxmlLoaderReportNav.load());
+            SupplierCenterController.getInstance().setParentForm(fxmlLoaderSupplierForm.load());
+            ProductCenterController.getInstance().setParentForm(fxmlLoaderProductForm.load());
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
-        superControllerList.add(DashboardCenterController.getInstance().getFxmlLoaderNav().getController());
 
+        superControllerList.add(DashboardCenterController.getInstance().getFxmlLoaderNav().getController());
         superControllerList.add(DashboardCenterController.getInstance().getFxmlLoaderReportNav().getController());
+        superControllerList.add(SupplierCenterController.getInstance().getFxmlLoaderForm().getController());
+        superControllerList.add(ProductCenterController.getInstance().getFxmlLoaderForm().getController());
+    }
+
+    public void defaultPageLayoutLoad(Node center, Node right, Node bottom) {
+        pageBorderPane.getChildren().removeAll(pageBorderPane.getChildren());
+
+        pageBorderPane.setTop(pageTop);
+
+        pageBorderPane.setCenter(center);
+        pageBorderPane.setRight(right);
+        pageBorderPane.setBottom(bottom);
+    }
+
+    public void setPageHeader(String mainHeader, String subHeader){
+        pageTop.getChildren().clear();
+
+        pageMainHeader.setText(mainHeader);
+        pageHeader.setText(subHeader);
+
+        pageTop.getChildren().add(pageMainHeader);
+        pageTop.getChildren().add(pageHeader);
     }
 }

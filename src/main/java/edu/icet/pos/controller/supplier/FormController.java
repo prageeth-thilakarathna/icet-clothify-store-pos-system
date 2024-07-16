@@ -3,6 +3,7 @@ package edu.icet.pos.controller.supplier;
 import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.SupplierBo;
+import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.supplier.custom.SupplierForm;
 import edu.icet.pos.controller.supplier.custom.SupplierSearch;
 import edu.icet.pos.controller.supplier.custom.SupplierView;
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.Date;
@@ -22,6 +24,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class FormController implements SupplierForm {
+    @FXML
+    private VBox vBox;
     @FXML
     private JFXComboBox<String> optTitle;
     @FXML
@@ -57,6 +61,7 @@ public class FormController implements SupplierForm {
     private Supplier searchSupplier;
     private SupplierSearch supplierSearch;
     private SupplierView supplierView;
+    private static final String MODIFICATION = "modification";
 
     @FXML
     private void optTitleAction() {
@@ -138,7 +143,7 @@ public class FormController implements SupplierForm {
             if (supplierView == null) {
                 supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
             }
-            supplierView.updateTbl("modification");
+            supplierView.updateTbl(MODIFICATION);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(supplier.getTitle() + " " + supplier.getFirstName() + " " + supplier.getLastName() + " Supplier modification was successful.");
             alert.show();
@@ -173,7 +178,7 @@ public class FormController implements SupplierForm {
             if (supplierView == null) {
                 supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
             }
-            supplierView.updateTbl("modification");
+            supplierView.updateTbl(MODIFICATION);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(supplier.getTitle() + " " + supplier.getFirstName() + " " + supplier.getLastName() + " Supplier activation was successful.");
             alert.show();
@@ -203,7 +208,7 @@ public class FormController implements SupplierForm {
             if (supplierView == null) {
                 supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
             }
-            supplierView.updateTbl("modification");
+            supplierView.updateTbl(MODIFICATION);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(supplier.getTitle() + " " + supplier.getFirstName() + " " + supplier.getLastName() + " Supplier disable was successful.");
             alert.show();
@@ -274,6 +279,12 @@ public class FormController implements SupplierForm {
         btnDelete.setDisable(true);
         btnActive.setDisable(true);
         btnDisable.setDisable(true);
+    }
+
+    @Override
+    public void refreshForm() {
+        clearSupplier();
+        loadForm();
     }
 
     private void validateInputs() {
@@ -351,8 +362,7 @@ public class FormController implements SupplierForm {
         return titles;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void loadForm(){
         optTitle.setItems(getTitles());
         optStatus.setItems(getStatus());
         btnRegister.setDisable(true);
@@ -361,5 +371,39 @@ public class FormController implements SupplierForm {
         btnActive.setDisable(true);
         btnDisable.setDisable(true);
         btnDelete.setDisable(true);
+    }
+
+    @Override
+    public void authNotify() {
+        if(AuthCenterController.isUser()){
+            vBox.getChildren().remove(adminController);
+            vBox.setPrefHeight(311);
+        }
+
+        if(AuthCenterController.isAdmin()){
+            vBox.getChildren().remove(userController);
+            vBox.setPrefHeight(311);
+            txtDisable();
+        }
+
+        if(AuthCenterController.isUserCashier()){
+            userController.getChildren().remove(btnRegister);
+            userController.getChildren().remove(btnModify);
+            txtDisable();
+        }
+    }
+
+    private void txtDisable(){
+        optTitle.setDisable(true);
+        txtFirstName.setDisable(true);
+        txtLastName.setDisable(true);
+        txtContact.setDisable(true);
+        txtAddress.setDisable(true);
+        optStatus.setDisable(true);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadForm();
     }
 }

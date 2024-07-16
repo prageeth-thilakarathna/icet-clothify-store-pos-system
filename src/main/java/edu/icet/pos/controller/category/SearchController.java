@@ -35,21 +35,21 @@ public class SearchController implements CategorySearch {
 
     @FXML
     private void btnSearchAction() {
-        try{
+        try {
             assert categoryBo != null;
             Category category = categoryBo.getCategory(Integer.parseInt(txtCategoryId.getText()));
             searchCategory = category;
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             dspRegisterAt.setText(dateFormat.format(category.getRegisterAt()));
             dspModifyAt.setText(dateFormat.format(category.getModifyAt()));
 
-            if(categoryForm ==null){
+            if (categoryForm == null) {
                 categoryForm = CategoryCenterController.getInstance().getFxmlLoaderForm().getController();
             }
             categoryForm.loadCategoryToForm(category);
             validateInputs();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -57,7 +57,7 @@ public class SearchController implements CategorySearch {
     }
 
     @FXML
-    private void btnCancelAction() {
+    private void btnCancelOnAction() {
         clearForm();
     }
 
@@ -66,9 +66,9 @@ public class SearchController implements CategorySearch {
         validateInputs();
     }
 
-    private void validateInputs(){
+    private void validateInputs() {
         btnSearch.setDisable(txtCategoryId.getLength() <= 0 || searchCategory != null);
-        if(searchCategory!=null){
+        if (searchCategory != null) {
             btnCancel.setDisable(false);
             txtCategoryId.setDisable(true);
         } else {
@@ -76,7 +76,7 @@ public class SearchController implements CategorySearch {
         }
     }
 
-    private void clearForm(){
+    private void clearForm() {
         btnSearch.setDisable(true);
         btnCancel.setDisable(true);
         txtCategoryId.setDisable(false);
@@ -84,12 +84,22 @@ public class SearchController implements CategorySearch {
         dspRegisterAt.setText("");
         dspModifyAt.setText("");
         searchCategory = null;
+        if (categoryForm == null) {
+            categoryForm = CategoryCenterController.getInstance().getFxmlLoaderForm().getController();
+        }
         categoryForm.clearCategory();
     }
 
     @Override
     public void clearSearch() {
         clearForm();
+    }
+
+    @Override
+    public void refreshSearch() {
+        clearForm();
+        btnSearch.setDisable(true);
+        btnCancel.setDisable(true);
     }
 
     @Override

@@ -33,26 +33,26 @@ public class ViewController implements SupplierView {
     private SupplierTable supplierTable;
     private static final String DELETION = "deletion";
 
-    private ObservableList<TblSupplierView> getSupplierTblPerPage(int pageIndex){
+    private ObservableList<TblSupplierView> getSupplierTblPerPage(int pageIndex) {
         ObservableList<TblSupplierView> supplierTblList = FXCollections.observableArrayList();
-        try{
+        try {
             assert supplierBo != null;
-            List<Supplier> supplierList = supplierBo.getSupplierPerPage(pageIndex*5);
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            List<Supplier> supplierList = supplierBo.getSupplierPerPage(pageIndex * 5);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-            for(Supplier supplier : supplierList){
+            for (Supplier supplier : supplierList) {
                 TblSupplierView tblSupplierOb = new TblSupplierView(
                         String.valueOf(supplier.getId()),
-                        supplier.getTitle()+". "+supplier.getFirstName()+" "+supplier.getLastName(),
+                        supplier.getTitle() + ". " + supplier.getFirstName() + " " + supplier.getLastName(),
                         supplier.getContact(),
                         supplier.getAddress(),
                         dateFormat.format(supplier.getRegisterAt()),
                         dateFormat.format(supplier.getModifyAt()),
-                        Boolean.TRUE.equals(supplier.getIsActive()) ? "Active":"Disable"
+                        Boolean.TRUE.equals(supplier.getIsActive()) ? "Active" : "Disable"
                 );
                 supplierTblList.add(tblSupplierOb);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -60,19 +60,19 @@ public class ViewController implements SupplierView {
         return supplierTblList;
     }
 
-    private void supplierCountUpdate(){
-        try{
+    private void supplierCountUpdate() {
+        try {
             assert supplierBo != null;
             dspCount.setText(String.valueOf(supplierBo.getSupplierCount()));
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
     }
 
-    private Node createTblPage(int pageIndex){
-        if(supplierTable ==null){
+    private Node createTblPage(int pageIndex) {
+        if (supplierTable == null) {
             supplierTable = SupplierCenterController.getInstance().getFxmlLoaderTable().getController();
         }
         TableView<TblSupplierView> tableView = supplierTable.getTable();
@@ -80,24 +80,24 @@ public class ViewController implements SupplierView {
         return tableView;
     }
 
-    private int getPageCount(){
+    private int getPageCount() {
         int pageCount = 0;
-        try{
+        try {
             assert supplierBo != null;
             int supplierCount = supplierBo.getSupplierCount();
-            if(supplierCount>5){
-                int tempFirst = supplierCount/5;
-                int tempSecond = supplierCount%5;
+            if (supplierCount > 5) {
+                int tempFirst = supplierCount / 5;
+                int tempSecond = supplierCount % 5;
 
-                if(tempSecond!=0){
-                    pageCount = tempFirst+1;
+                if (tempSecond != 0) {
+                    pageCount = tempFirst + 1;
                 } else {
                     pageCount = tempFirst;
                 }
             } else {
                 pageCount = 1;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -105,16 +105,16 @@ public class ViewController implements SupplierView {
         return pageCount;
     }
 
-    private int getCurrentPageIndex(int pageIndex, String name){
-        if(Objects.equals(name, "registration")){
-            return getPageCount()-1;
-        } else if("modification".equals(name)){
+    private int getCurrentPageIndex(int pageIndex, String name) {
+        if (Objects.equals(name, "registration")) {
+            return getPageCount() - 1;
+        } else if ("modification".equals(name)) {
             return pageIndex;
-        } else if(DELETION.equals(name) && pageIndex==getPageCount()) {
-            return pageIndex-1;
-        } else if(DELETION.equals(name) && pageIndex<getPageCount()) {
+        } else if (DELETION.equals(name) && pageIndex == getPageCount()) {
+            return pageIndex - 1;
+        } else if (DELETION.equals(name) && pageIndex < getPageCount()) {
             return pageIndex;
-        } else if(DELETION.equals(name) && (pageIndex+1)==getPageCount()) {
+        } else if (DELETION.equals(name) && (pageIndex + 1) == getPageCount()) {
             return pageIndex;
         } else {
             return 0;

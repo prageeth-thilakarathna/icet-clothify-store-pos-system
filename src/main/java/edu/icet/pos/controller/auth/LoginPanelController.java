@@ -88,12 +88,18 @@ public class LoginPanelController implements LoginPanel {
             assert userBo != null;
             User user = userBo.getUserByEmail(txtEmail.getText());
             if (Objects.equals(user.getPassword(), CenterController.getInstance().encryptPassword(txtPassword.getText()))) {
-                AuthCenterController.getInstance().setUserLogin(user);
-                if (layout == null) {
-                    layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
+                if (Boolean.TRUE.equals(user.getIsActive())) {
+                    AuthCenterController.getInstance().setUserLogin(user);
+                    if (layout == null) {
+                        layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
+                    }
+                    cancel();
+                    layout.loadDashboard();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Failed! The user account is Disabled.");
+                    alert.show();
                 }
-                cancel();
-                layout.loadDashboard();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Failed! Please input the correct password.");

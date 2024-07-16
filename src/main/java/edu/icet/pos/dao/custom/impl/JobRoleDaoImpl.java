@@ -11,17 +11,14 @@ import java.util.List;
 public class JobRoleDaoImpl implements JobRoleDao {
     @Override
     public void save(JobRoleEntity jobRoleEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.persist(jobRoleEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -30,12 +27,12 @@ public class JobRoleDaoImpl implements JobRoleDao {
         Session session = HibernateUtil.getSession();
         Transaction tx = null;
         JobRoleEntity jobRoleEntity;
-        try{
+        try {
             tx = session.beginTransaction();
-            jobRoleEntity = session.createQuery("SELECT a FROM JobRoleEntity a WHERE name='"+name+"'", JobRoleEntity.class).getSingleResult();
+            jobRoleEntity = session.createQuery("SELECT a FROM JobRoleEntity a WHERE name='" + name + "'", JobRoleEntity.class).getSingleResult();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -52,8 +49,8 @@ public class JobRoleDaoImpl implements JobRoleDao {
             tx = session.beginTransaction();
             jobRoleEntityList = session.createQuery("SELECT a FROM JobRoleEntity a", JobRoleEntity.class).getResultList();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -70,8 +67,8 @@ public class JobRoleDaoImpl implements JobRoleDao {
             tx = session.beginTransaction();
             jobRoleEntity = session.get(JobRoleEntity.class, id);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();

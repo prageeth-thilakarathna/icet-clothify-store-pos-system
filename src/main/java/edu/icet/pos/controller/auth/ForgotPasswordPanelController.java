@@ -72,7 +72,7 @@ public class ForgotPasswordPanelController implements Initializable {
 
     @FXML
     private void newPasswordKeyTyped() {
-        if(newPasswordCheckBox.isSelected()){
+        if (newPasswordCheckBox.isSelected()) {
             dspNewPassword.setText(txtNewPassword.getText());
         } else {
             dspNewPassword.setText("");
@@ -82,7 +82,7 @@ public class ForgotPasswordPanelController implements Initializable {
 
     @FXML
     private void newPasswordCheckBoxAction() {
-        if(newPasswordCheckBox.isSelected()){
+        if (newPasswordCheckBox.isSelected()) {
             dspNewPassword.setText(txtNewPassword.getText());
         } else {
             dspNewPassword.setText("");
@@ -91,20 +91,20 @@ public class ForgotPasswordPanelController implements Initializable {
 
     @FXML
     private void btnResetPasswordAction() {
-        if(Objects.equals(otpValue, txtEnterOtp.getText())){
-            try{
+        if (Objects.equals(otpValue, txtEnterOtp.getText())) {
+            try {
                 assert userBo != null;
                 User user = userBo.getUserByEmail(txtEmail.getText());
                 user.setPassword(CenterController.getInstance().encryptPassword(txtNewPassword.getText()));
                 userBo.userUpdate(user);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(txtEmail.getText()+" User changing the password was successful.");
+                alert.setContentText(txtEmail.getText() + " User changing the password was successful.");
                 alert.show();
                 cancel();
                 backToLogin();
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText(e.getMessage());
                 alert.show();
@@ -127,16 +127,16 @@ public class ForgotPasswordPanelController implements Initializable {
         validateInputs();
     }
 
-    private String generateOTP(){
+    private String generateOTP() {
         String numbers = "0123456789";
         char[] otp = new char[4];
-        for(int i = 0; i<otp.length; i++){
+        for (int i = 0; i < otp.length; i++) {
             otp[i] = numbers.charAt(random.nextInt(numbers.length()));
         }
         return new String(otp);
     }
 
-    private void sendOTP(String to, String otp){
+    private void sendOTP(String to, String otp) {
         Properties prop = new Properties();
 
         prop.put("mail.smtp.auth", true);
@@ -152,13 +152,13 @@ public class ForgotPasswordPanelController implements Initializable {
             }
         });
 
-        try{
+        try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("developer.prageeth@gmail.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject("Clothify Store - Change Password");
 
-            String msg = "OTP - "+otp;
+            String msg = "OTP - " + otp;
 
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
             mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
@@ -180,7 +180,7 @@ public class ForgotPasswordPanelController implements Initializable {
         }
     }
 
-    private void cancel(){
+    private void cancel() {
         btnSendOtp.setDisable(false);
         btnCancel.setDisable(true);
         txtEmail.setDisable(false);
@@ -197,12 +197,12 @@ public class ForgotPasswordPanelController implements Initializable {
         newPasswordCheckBox.setSelected(false);
     }
 
-    private void validateInputs(){
+    private void validateInputs() {
         btnResetPassword.setDisable(txtEnterOtp.getLength() != 4 || txtNewPassword.getLength() < 8);
     }
 
-    private void backToLogin(){
-        if(layout ==null){
+    private void backToLogin() {
+        if (layout == null) {
             layout = LayoutCenterController.getInstance().getFxmlLoaderLayout().getController();
         }
 

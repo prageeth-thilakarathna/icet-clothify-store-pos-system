@@ -49,7 +49,8 @@ public class UserBoImpl implements UserBo {
     @Override
     public List<User> getAllUser() {
         assert userDao != null;
-        return new ModelMapper().map(userDao.getAll(), new TypeToken<List<User>>() {}.getType());
+        return new ModelMapper().map(userDao.getAll(), new TypeToken<List<User>>() {
+        }.getType());
     }
 
     @Override
@@ -61,13 +62,15 @@ public class UserBoImpl implements UserBo {
     @Override
     public List<User> getUserPerPage(int offset) {
         assert userDao != null;
-        return new ModelMapper().map(userDao.getPerPage(offset), new TypeToken<List<User>>() {}.getType());
+        return new ModelMapper().map(userDao.getPerPage(offset), new TypeToken<List<User>>() {
+        }.getType());
     }
 
     @Override
     public List<User> getUsersNotExistInEmployee() {
         assert userDao != null;
-        return new ModelMapper().map(userDao.getNotIsExist(), new TypeToken<List<User>>() {}.getType());
+        return new ModelMapper().map(userDao.getNotIsExist(), new TypeToken<List<User>>() {
+        }.getType());
     }
 
     @Override
@@ -103,13 +106,15 @@ public class UserBoImpl implements UserBo {
     @Override
     public List<Employee> getEmployeePerPage(int offset) {
         assert userDao != null;
-        return new ModelMapper().map(userDao.getEmployeePerPage(offset), new TypeToken<List<Employee>>() {}.getType());
+        return new ModelMapper().map(userDao.getEmployeePerPage(offset), new TypeToken<List<Employee>>() {
+        }.getType());
     }
 
     @Override
     public List<Employee> getAllEmployee() {
         assert userDao != null;
-        return new ModelMapper().map(userDao.getAllEmployee(), new TypeToken<List<Employee>>() {}.getType());
+        return new ModelMapper().map(userDao.getAllEmployee(), new TypeToken<List<Employee>>() {
+        }.getType());
     }
 
     @Override

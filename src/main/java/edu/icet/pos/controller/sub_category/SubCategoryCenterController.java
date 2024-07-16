@@ -27,9 +27,9 @@ public class SubCategoryCenterController {
     }
 
     static {
-        try{
+        try {
             instance = new SubCategoryCenterController();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Exception occurred in creating SubCategoryCenterController singleton instance");
         }
     }

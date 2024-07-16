@@ -4,4 +4,6 @@ import javafx.fxml.Initializable;
 
 public interface CategorySearch extends Initializable {
     void clearSearch();
+
+    void refreshSearch();
 }

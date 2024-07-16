@@ -44,7 +44,7 @@ public class SearchController implements SubCategorySearch {
             assert subCategoryBo != null;
             SubCategory subCategory = subCategoryBo.getSubCategory(Integer.parseInt(txtSubCategoryId.getText()));
             searchSubCategory = subCategory;
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             dspRegisterAt.setText(dateFormat.format(subCategory.getRegisterAt()));
             dspModifyAt.setText(dateFormat.format(subCategory.getModifyAt()));
 
@@ -62,7 +62,7 @@ public class SearchController implements SubCategorySearch {
     }
 
     @FXML
-    private void btnCancelAction() {
+    private void btnCancelOnAction() {
         clearForm();
     }
 
@@ -84,12 +84,22 @@ public class SearchController implements SubCategorySearch {
         dspRegisterAt.setText("");
         dspModifyAt.setText("");
         searchSubCategory = null;
+        if(subCategoryForm==null){
+            subCategoryForm = SubCategoryCenterController.getInstance().getFxmlLoaderForm().getController();
+        }
         subCategoryForm.clearSubCategory();
     }
 
     @Override
     public void clearSearch() {
         clearForm();
+    }
+
+    @Override
+    public void refreshSearch() {
+        clearForm();
+        btnSearch.setDisable(true);
+        btnCancel.setDisable(true);
     }
 
     @Override

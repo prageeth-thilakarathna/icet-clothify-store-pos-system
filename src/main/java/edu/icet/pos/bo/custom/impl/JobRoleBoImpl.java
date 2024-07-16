@@ -29,7 +29,8 @@ public class JobRoleBoImpl implements JobRoleBo {
     @Override
     public List<JobRole> getAllJobRole() {
         assert jobRoleDao != null;
-        return new ModelMapper().map(jobRoleDao.getAll(), new TypeToken<List<JobRole>>() {}.getType());
+        return new ModelMapper().map(jobRoleDao.getAll(), new TypeToken<List<JobRole>>() {
+        }.getType());
     }
 
     @Override

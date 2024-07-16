@@ -22,8 +22,11 @@ public class DashboardCenterController {
     @Setter
     private Parent parentNav;
 
-    private final FXMLLoader fxmlLoaderReportNav = new FXMLLoader(getClass().getResource("/view/dashboard/report-nav.fxml"));
-    private final Parent parentReportNav;
+    @Setter
+    private FXMLLoader fxmlLoaderReportNav;
+    @Setter
+    private Parent parentReportNav;
+
     private final BorderPane dashboardBorderPane = new BorderPane();
     private final VBox dashboardNavPanel = new VBox();
     private final BorderPane reportBorderPane = new BorderPane();
@@ -34,7 +37,6 @@ public class DashboardCenterController {
 
     private DashboardCenterController() throws IOException {
         parentHeader = fxmlLoaderHeader.load();
-        parentReportNav = fxmlLoaderReportNav.load();
         parentInventoryHeader = fxmlLoaderInventoryHeader.load();
         parentInventoryChart = fxmlLoaderInventoryChart.load();
 
@@ -50,9 +52,9 @@ public class DashboardCenterController {
     }
 
     static {
-        try{
+        try {
             instance = new DashboardCenterController();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Exception occurred in creating DashboardCenterController singleton instance");
         }
     }

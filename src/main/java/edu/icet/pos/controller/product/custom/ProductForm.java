@@ -1,10 +1,12 @@
 package edu.icet.pos.controller.product.custom;
 
+import edu.icet.pos.controller.custom.SuperController;
 import edu.icet.pos.model.product.Product;
-import javafx.fxml.Initializable;
 
-public interface ProductForm extends Initializable {
+public interface ProductForm extends SuperController {
     void loadProductToForm(Product product);
 
     void clearProduct();
+
+    void refreshForm();
 }

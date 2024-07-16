@@ -15,7 +15,7 @@
    <children>
       <ScrollPane focusTraversable="false" prefHeight="274.0" prefWidth="611.0" style="-fx-focus-color: transparent; -fx-background-color: transparent;">
          <content>
-            <VBox prefHeight="539.0" prefWidth="596.0">
+            <VBox fx:id="vBox" prefHeight="539.0" prefWidth="596.0">
                <children>
                   <HBox prefHeight="25.0" prefWidth="609.0">
                      <children>
@@ -189,7 +189,7 @@
                   </HBox>
                   <HBox layoutX="10.0" layoutY="361.0" prefHeight="25.0" prefWidth="609.0">
                      <children>
-                        <Label text="Image" textFill="#2f3548">
+                        <Label text="Status" textFill="#2f3548">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

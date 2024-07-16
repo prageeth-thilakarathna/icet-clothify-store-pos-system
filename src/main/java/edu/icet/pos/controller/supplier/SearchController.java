@@ -40,20 +40,18 @@ public class SearchController implements SupplierSearch {
 
     @FXML
     private void btnSearchAction() {
-        try{
+        try {
             assert supplierBo != null;
             searchSupplier = supplierBo.getSupplier(Integer.parseInt(txtSupplierId.getText()));
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             dspRegisterAt.setText(dateFormat.format(searchSupplier.getRegisterAt()));
             dspModifyAt.setText(dateFormat.format(searchSupplier.getModifyAt()));
 
-            if(supplierForm==null){
-                supplierForm = SupplierCenterController.getInstance().getFxmlLoaderForm().getController();
-            }
+            supplierForm = SupplierCenterController.getInstance().getFxmlLoaderForm().getController();
             supplierForm.loadSupplierToForm(searchSupplier);
             validateInputs();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -65,9 +63,9 @@ public class SearchController implements SupplierSearch {
         clearForm();
     }
 
-    private void validateInputs(){
+    private void validateInputs() {
         btnSearch.setDisable(txtSupplierId.getLength() <= 0 || searchSupplier != null);
-        if(searchSupplier!=null){
+        if (searchSupplier != null) {
             btnCancel.setDisable(false);
             txtSupplierId.setDisable(true);
         } else {
@@ -75,7 +73,7 @@ public class SearchController implements SupplierSearch {
         }
     }
 
-    private void clearForm(){
+    private void clearForm() {
         btnSearch.setDisable(true);
         btnCancel.setDisable(true);
         txtSupplierId.setDisable(false);
@@ -83,12 +81,20 @@ public class SearchController implements SupplierSearch {
         dspRegisterAt.setText("");
         dspModifyAt.setText("");
         searchSupplier = null;
+        supplierForm = SupplierCenterController.getInstance().getFxmlLoaderForm().getController();
         supplierForm.clearSupplier();
     }
 
     @Override
     public void clearSearch() {
         clearForm();
+    }
+
+    @Override
+    public void refreshSearch() {
+        clearForm();
+        btnSearch.setDisable(true);
+        btnCancel.setDisable(true);
     }
 
     @Override

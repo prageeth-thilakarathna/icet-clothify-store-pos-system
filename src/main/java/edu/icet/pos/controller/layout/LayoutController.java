@@ -1,10 +1,14 @@
 package edu.icet.pos.controller.layout;
 
+import edu.icet.pos.bo.BoFactory;
+import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.custom.SuperController;
 import edu.icet.pos.controller.dashboard.DashboardCenterController;
+import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.layout.custom.Layout;
+import edu.icet.pos.util.BoType;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -31,18 +35,20 @@ public class LayoutController implements Layout {
 
         borderPane.setTop(DashboardCenterController.getInstance().getParentHeader());
 
-        try{
+        try {
             borderPane.setLeft(DashboardCenterController.getInstance().getParentNav());
             borderPane.setCenter(CenterController.getInstance().getPageBorderPane());
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
 
-        for (SuperController superController : superControllerList){
+        for (SuperController superController : superControllerList) {
             superController.authNotify();
         }
+        DashboardNavPanel dashboardNavPanel = DashboardCenterController.getInstance().getFxmlLoaderNav().getController();
+        dashboardNavPanel.loadInitializer();
     }
 
     @Override
@@ -65,6 +71,10 @@ public class LayoutController implements Layout {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadLogin();
+        //loadLogin();
+        UserBo userBo = BoFactory.getBo(BoType.USER);
+        assert userBo != null;
+        AuthCenterController.getInstance().setUserLogin(userBo.getUserByEmail("admin@email.com"));
+        loadDashboard();
     }
 }

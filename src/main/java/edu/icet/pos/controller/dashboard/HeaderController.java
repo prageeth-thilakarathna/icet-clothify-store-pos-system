@@ -63,7 +63,7 @@ public class HeaderController implements DashboardHeader {
 
     @Override
     public void authNotify() {
-        if (AuthCenterController.isUserAssistance()) {
+        if (AuthCenterController.isUser()) {
             dspMode.setText("User (Assistance)");
         }
 

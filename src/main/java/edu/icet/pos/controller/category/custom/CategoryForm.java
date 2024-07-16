@@ -7,4 +7,6 @@ public interface CategoryForm extends Initializable {
     void loadCategoryToForm(Category category);
 
     void clearCategory();
+
+    void refreshForm();
 }

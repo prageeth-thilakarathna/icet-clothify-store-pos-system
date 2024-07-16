@@ -27,9 +27,9 @@ public class CategoryCenterController {
     }
 
     static {
-        try{
+        try {
             instance = new CategoryCenterController();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Exception occurred in creating CategoryCenterController singleton instance");
         }
     }

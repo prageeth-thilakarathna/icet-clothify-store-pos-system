@@ -35,21 +35,21 @@ public class SearchController implements UserSearch {
 
     @FXML
     private void btnSearchAction() {
-        try{
+        try {
             assert userBo != null;
             User user = userBo.getUser(Integer.parseInt(txtUserId.getText()));
             searchUser = user;
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             dspRegisterAt.setText(dateFormat.format(user.getRegisterAt()));
             dspModifyAt.setText(dateFormat.format(user.getModifyAt()));
 
-            if(userForm ==null){
+            if (userForm == null) {
                 userForm = UserCenterController.getInstance().getFxmlLoaderForm().getController();
             }
             userForm.loadUserToForm(user);
             validateInputs();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -57,11 +57,11 @@ public class SearchController implements UserSearch {
     }
 
     @FXML
-    private void btnCancelAction() {
+    private void btnCancelOnAction() {
         clearForm();
     }
 
-    private void clearForm(){
+    private void clearForm() {
         btnSearch.setDisable(true);
         btnCancel.setDisable(true);
         txtUserId.setDisable(false);
@@ -69,6 +69,9 @@ public class SearchController implements UserSearch {
         dspRegisterAt.setText("");
         dspModifyAt.setText("");
         searchUser = null;
+        if (userForm == null) {
+            userForm = UserCenterController.getInstance().getFxmlLoaderForm().getController();
+        }
         userForm.clearUser();
     }
 
@@ -77,10 +80,10 @@ public class SearchController implements UserSearch {
         validateInputs();
     }
 
-    private void validateInputs(){
+    private void validateInputs() {
         btnSearch.setDisable(txtUserId.getLength() <= 0 || searchUser != null);
 
-        if(searchUser!=null){
+        if (searchUser != null) {
             btnCancel.setDisable(false);
             txtUserId.setDisable(true);
         } else {
@@ -91,6 +94,13 @@ public class SearchController implements UserSearch {
     @Override
     public void clearSearch() {
         clearForm();
+    }
+
+    @Override
+    public void refreshSearch() {
+        clearForm();
+        btnSearch.setDisable(true);
+        btnCancel.setDisable(true);
     }
 
     @Override

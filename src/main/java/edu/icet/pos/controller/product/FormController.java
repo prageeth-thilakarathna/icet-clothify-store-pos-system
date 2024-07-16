@@ -3,6 +3,7 @@ package edu.icet.pos.controller.product;
 import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.*;
+import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.product.custom.ProductForm;
 import edu.icet.pos.controller.product.custom.ProductSearch;
 import edu.icet.pos.controller.product.custom.ProductView;
@@ -26,6 +27,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.modelmapper.ModelMapper;
@@ -41,6 +43,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class FormController implements ProductForm {
+    @FXML
+    private VBox vBox;
     @FXML
     private JFXComboBox<String> optCategory;
     @FXML
@@ -90,6 +94,7 @@ public class FormController implements ProductForm {
     private Image searchImage;
     private ProductSearch productSearch;
     private ProductView productView;
+    private static final String MODIFICATION = "modification";
 
     @FXML
     private void optCategoryAction() {
@@ -115,7 +120,14 @@ public class FormController implements ProductForm {
             assert subCategoryBo != null;
             List<SubCategory> subCategoryList = subCategoryBo.getSubCategoryByCategory(category);
             for (SubCategory subCategory : subCategoryList) {
-                subCategoryArrayList.add(subCategory.getName());
+                if (Boolean.TRUE.equals(subCategory.getIsActive())) {
+                    subCategoryArrayList.add(subCategory.getName());
+                }
+                if (searchProduct != null &&
+                        (Objects.equals(subCategory.getName(), searchProduct.getSubCategory().getName()) &&
+                                !searchProduct.getSubCategory().getIsActive())) {
+                    subCategoryArrayList.add(subCategory.getName());
+                }
             }
             optSubCategory.setItems(subCategoryArrayList);
         } catch (Exception e) {
@@ -160,11 +172,11 @@ public class FormController implements ProductForm {
             condition = false;
         }
 
-        if (length < 8 && condition && (ch.charAt(0) >= '0' && ch.charAt(0) <= '9') || keyEvent.getCode().getCode() == 8 || keyEvent.getCode().getCode() == 46) {
-            txtPrice.setEditable(true);
-        } else {
-            txtPrice.setEditable(false);
-        }
+        txtPrice.setEditable(length < 8 &&
+                condition &&
+                (ch.charAt(0) >= '0' && ch.charAt(0) <= '9') ||
+                keyEvent.getCode().getCode() == 8 ||
+                keyEvent.getCode().getCode() == 46);
     }
 
     @FXML
@@ -187,11 +199,10 @@ public class FormController implements ProductForm {
             condition = false;
         }
 
-        if (length < 5 && condition && (chInt >= 48 && chInt <= 57) || chInt == 8) {
-            txtQuantityOnHand.setEditable(true);
-        } else {
-            txtQuantityOnHand.setEditable(false);
-        }
+        txtQuantityOnHand.setEditable(length < 5 &&
+                condition &&
+                (chInt >= 48 && chInt <= 57) ||
+                chInt == 8);
     }
 
     @FXML
@@ -202,7 +213,9 @@ public class FormController implements ProductForm {
     @FXML
     private void btnChooseImageAction() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg"));
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg")
+        );
         Stage stage = new Stage();
         selectImage = fileChooser.showOpenDialog(stage);
         dspImageName.setText(selectImage.getName());
@@ -227,7 +240,10 @@ public class FormController implements ProductForm {
             Product product = new Product();
 
             assert subCategoryBo != null;
-            product.setSubCategory(new ModelMapper().map(subCategoryBo.getSubCategoryByName(optSubCategory.getValue()), SubCategoryEntity.class));
+            product.setSubCategory(
+                    new ModelMapper().map(subCategoryBo.getSubCategoryByName(optSubCategory.getValue()),
+                            SubCategoryEntity.class)
+            );
             int supplierId = Integer.parseInt(optSupplier.getValue().split("\\s")[0]);
             assert supplierBo != null;
             product.setSupplier(new ModelMapper().map(supplierBo.getSupplier(supplierId), SupplierEntity.class));
@@ -236,11 +252,13 @@ public class FormController implements ProductForm {
             product.setPrice(Double.parseDouble(txtPrice.getText()));
             product.setQuantityOnHand(Integer.parseInt(txtQuantityOnHand.getText()));
 
-            FileInputStream fileInputStream = new FileInputStream(selectImage);
-            byte[] bytes = new byte[(int) selectImage.length()];
-            fileInputStream.read(bytes);
-
-            product.setImage(new SerialBlob(bytes));
+            try (FileInputStream fileInputStream = new FileInputStream(selectImage)) {
+                byte[] bytes = new byte[(int) selectImage.length()];
+                int res = fileInputStream.read(bytes);
+                if (res != -1) {
+                    product.setImage(new SerialBlob(bytes));
+                }
+            }
 
             product.setRegisterAt(new Date());
             product.setModifyAt(new Date());
@@ -249,7 +267,7 @@ public class FormController implements ProductForm {
             assert productBo != null;
             Product productRes = productBo.productRegister(product);
             qtyOnHandRegister(productRes);
-            if(productView==null){
+            if (productView == null) {
                 productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
             }
             productView.updatePanel("registration");
@@ -287,7 +305,10 @@ public class FormController implements ProductForm {
             Product product = searchProduct;
 
             assert subCategoryBo != null;
-            product.setSubCategory(new ModelMapper().map(subCategoryBo.getSubCategoryByName(optSubCategory.getValue()), SubCategoryEntity.class));
+            product.setSubCategory(
+                    new ModelMapper().map(subCategoryBo.getSubCategoryByName(optSubCategory.getValue()),
+                            SubCategoryEntity.class)
+            );
             int supplierId = Integer.parseInt(optSupplier.getValue().split("\\s")[0]);
             assert supplierBo != null;
             product.setSupplier(new ModelMapper().map(supplierBo.getSupplier(supplierId), SupplierEntity.class));
@@ -296,20 +317,23 @@ public class FormController implements ProductForm {
             product.setPrice(Double.parseDouble(txtPrice.getText()));
 
             if (selectImage != null) {
-                FileInputStream fileInputStream = new FileInputStream(selectImage);
-                byte[] bytes = new byte[(int) selectImage.length()];
-                fileInputStream.read(bytes);
-                product.setImage(new SerialBlob(bytes));
+                try (FileInputStream fileInputStream = new FileInputStream(selectImage)) {
+                    byte[] bytes = new byte[(int) selectImage.length()];
+                    int res = fileInputStream.read(bytes);
+                    if (res != -1) {
+                        product.setImage(new SerialBlob(bytes));
+                    }
+                }
             }
             product.setModifyAt(new Date());
             product.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
 
             assert productBo != null;
             productBo.productUpdate(product);
-            if(productView==null){
+            if (productView == null) {
                 productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
             }
-            productView.updatePanel("modification");
+            productView.updatePanel(MODIFICATION);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(product.getId() + " Product modification was successful.");
             alert.show();
@@ -333,17 +357,17 @@ public class FormController implements ProductForm {
 
     @FXML
     private void btnActiveAction() {
-        try{
+        try {
             Product product = searchProduct;
             product.setIsActive(true);
             product.setModifyAt(new Date());
 
             assert productBo != null;
             productBo.productUpdate(product);
-            if(productView==null){
+            if (productView == null) {
                 productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
             }
-            productView.updatePanel("modification");
+            productView.updatePanel(MODIFICATION);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(product.getId() + " Product activation was successful.");
             alert.show();
@@ -353,7 +377,7 @@ public class FormController implements ProductForm {
             }
             productSearch.clearSearch();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -362,17 +386,17 @@ public class FormController implements ProductForm {
 
     @FXML
     private void btnDisableAction() {
-        try{
+        try {
             Product product = searchProduct;
             product.setIsActive(false);
             product.setModifyAt(new Date());
 
             assert productBo != null;
             productBo.productUpdate(product);
-            if(productView==null){
+            if (productView == null) {
                 productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
             }
-            productView.updatePanel("modification");
+            productView.updatePanel(MODIFICATION);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(product.getId() + " Product disable was successful.");
             alert.show();
@@ -382,7 +406,7 @@ public class FormController implements ProductForm {
             }
             productSearch.clearSearch();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -391,10 +415,10 @@ public class FormController implements ProductForm {
 
     @FXML
     private void btnDeleteAction() {
-        try{
+        try {
             assert productBo != null;
             productBo.productDelete(searchProduct);
-            if(productView==null){
+            if (productView == null) {
                 productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
             }
             productView.updatePanel("deletion");
@@ -407,7 +431,7 @@ public class FormController implements ProductForm {
             }
             productSearch.clearSearch();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -438,27 +462,23 @@ public class FormController implements ProductForm {
     }
 
     private boolean isInputEmpty() {
-        if (
-                optCategory.getValue() != null &&
-                        optSubCategory.getValue() != null &&
-                        optSupplier.getValue() != null &&
-                        txtDescription.getLength() > 0 &&
-                        optSize.getValue() != null &&
-                        txtPrice.getLength() > 0 &&
-                        txtQuantityOnHand.getLength() > 0 &&
-                        (selectImage != null || searchImage != null) &&
-                        optStatus.getValue() != null
-        ) {
-            return false;
-        } else {
-            return true;
-        }
+        return optCategory.getValue() == null ||
+                optSubCategory.getValue() == null ||
+                optSupplier.getValue() == null ||
+                txtDescription.getLength() <= 0 ||
+                optSize.getValue() == null ||
+                txtPrice.getLength() <= 0 ||
+                txtQuantityOnHand.getLength() <= 0 ||
+                (selectImage == null && searchImage == null) ||
+                optStatus.getValue() == null;
     }
 
     private void validateModify() {
         if (!Objects.equals(searchProduct.getSubCategory().getName(), optSubCategory.getValue())) {
             btnModify.setDisable(isInputEmpty());
-        } else if (searchProduct.getSupplier().getId() != Integer.parseInt(optSupplier.getValue().split("\\s")[0])) {
+        } else if (optSupplier.getValue() != null &&
+                (searchProduct.getSupplier().getId() !=
+                        Integer.parseInt(optSupplier.getValue().split("\\s")[0]))) {
             btnModify.setDisable(isInputEmpty());
         } else if (!Objects.equals(searchProduct.getDescription(), txtDescription.getText())) {
             btnModify.setDisable(isInputEmpty());
@@ -470,7 +490,8 @@ public class FormController implements ProductForm {
             btnModify.setDisable(isInputEmpty());
         } else if (selectImage != null) {
             btnModify.setDisable(isInputEmpty());
-        } else if (Boolean.TRUE.equals(searchProduct.getIsActive()) ? Objects.equals(optStatus.getValue(), DISABLE) : Objects.equals(optStatus.getValue(), ACTIVE)) {
+        } else if (Boolean.TRUE.equals(searchProduct.getIsActive()) ?
+                Objects.equals(optStatus.getValue(), DISABLE) : Objects.equals(optStatus.getValue(), ACTIVE)) {
             btnModify.setDisable(isInputEmpty());
         } else {
             btnModify.setDisable(true);
@@ -504,7 +525,14 @@ public class FormController implements ProductForm {
             assert categoryBo != null;
             List<Category> categoryList = categoryBo.getAllCategory();
             for (Category category : categoryList) {
-                categoryArrayList.add(category.getName());
+                if (Boolean.TRUE.equals(category.getIsActive())) {
+                    categoryArrayList.add(category.getName());
+                }
+                if (searchProduct != null &&
+                        (Objects.equals(category.getName(), searchProduct.getSubCategory().getCategory().getName()) &&
+                                !searchProduct.getSubCategory().getCategory().getIsActive())) {
+                    categoryArrayList.add(category.getName());
+                }
             }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -520,7 +548,18 @@ public class FormController implements ProductForm {
             assert supplierBo != null;
             List<Supplier> supplierList = supplierBo.getAllSupplier();
             for (Supplier supplier : supplierList) {
-                supplierArrayList.add(supplier.getId() + " - " + supplier.getTitle() + ". " + supplier.getFirstName() + " " + supplier.getLastName());
+                if (Boolean.TRUE.equals(supplier.getIsActive())) {
+                    supplierArrayList.add(supplier.getId() +
+                            " - " + supplier.getTitle() + ". " +
+                            supplier.getFirstName() + " " + supplier.getLastName());
+                }
+                if (searchProduct != null &&
+                        (Objects.equals(supplier.getId(), searchProduct.getSupplier().getId()) &&
+                                !searchProduct.getSupplier().getIsActive())) {
+                    supplierArrayList.add(supplier.getId() +
+                            " - " + supplier.getTitle() + ". " +
+                            supplier.getFirstName() + " " + supplier.getLastName());
+                }
             }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -555,6 +594,7 @@ public class FormController implements ProductForm {
     @Override
     public void loadProductToForm(Product product) {
         searchProduct = product;
+        loadForm();
         btnDelete.setDisable(false);
 
         if (Boolean.TRUE.equals(product.getIsActive())) {
@@ -565,7 +605,9 @@ public class FormController implements ProductForm {
 
         optCategory.setValue(product.getSubCategory().getCategory().getName());
         optSubCategory.setValue(product.getSubCategory().getName());
-        optSupplier.setValue(product.getSupplier().getId() + " - " + product.getSupplier().getTitle() + ". " + product.getSupplier().getFirstName() + " " + product.getSupplier().getLastName());
+        optSupplier.setValue(product.getSupplier().getId() +
+                " - " + product.getSupplier().getTitle() + ". " +
+                product.getSupplier().getFirstName() + " " + product.getSupplier().getLastName());
         txtDescription.setText(product.getDescription());
         optSize.setValue(product.getSize());
         txtPrice.setText(String.valueOf(product.getPrice()));
@@ -584,6 +626,7 @@ public class FormController implements ProductForm {
         dspImageName.setText("");
         txtQuantityOnHand.setDisable(true);
         validateInputs();
+        authNotify();
     }
 
     @Override
@@ -595,10 +638,17 @@ public class FormController implements ProductForm {
         btnActive.setDisable(true);
         btnDisable.setDisable(true);
         txtQuantityOnHand.setDisable(false);
+        loadForm();
+        authNotify();
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void refreshForm() {
+        clearProduct();
+        loadForm();
+    }
+
+    private void loadForm() {
         optCategory.setItems(getCategory());
         optCategory.setVisibleRowCount(5);
         optSubCategory.setDisable(true);
@@ -614,5 +664,43 @@ public class FormController implements ProductForm {
         optStatus.setItems(getStatus());
         optSize.setItems(getSize());
         optSize.setVisibleRowCount(5);
+    }
+
+    @Override
+    public void authNotify() {
+        if (AuthCenterController.isUser()) {
+            vBox.getChildren().remove(adminController);
+            vBox.setPrefHeight(477);
+        }
+
+        if (AuthCenterController.isAdmin()) {
+            vBox.getChildren().remove(userController);
+            vBox.setPrefHeight(477);
+            txtDisable();
+        }
+
+        if (AuthCenterController.isUserCashier()) {
+            userController.getChildren().remove(btnRegister);
+            userController.getChildren().remove(btnModify);
+            txtDisable();
+        }
+    }
+
+    private void txtDisable() {
+        optCategory.setDisable(true);
+        optSubCategory.setDisable(true);
+        optSupplier.setDisable(true);
+        txtDescription.setDisable(true);
+        optSize.setDisable(true);
+        txtPrice.setDisable(true);
+        txtQuantityOnHand.setDisable(true);
+        btnChooseImage.setDisable(true);
+        dspImageName.setDisable(true);
+        optStatus.setDisable(true);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadForm();
     }
 }

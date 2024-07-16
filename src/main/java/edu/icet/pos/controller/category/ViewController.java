@@ -33,24 +33,24 @@ public class ViewController implements CategoryView {
     private CategoryTable categoryTable;
     private static final String DELETION = "deletion";
 
-    private ObservableList<TblCategoryView> getCategoryTblPerPage(int pageIndex){
+    private ObservableList<TblCategoryView> getCategoryTblPerPage(int pageIndex) {
         ObservableList<TblCategoryView> categoryTblList = FXCollections.observableArrayList();
-        try{
+        try {
             assert categoryBo != null;
-            List<Category> categoryList = categoryBo.getCategoryPerPage(pageIndex*5);
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            List<Category> categoryList = categoryBo.getCategoryPerPage(pageIndex * 5);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-            for(Category category : categoryList){
+            for (Category category : categoryList) {
                 TblCategoryView tblCategoryOb = new TblCategoryView(
                         String.valueOf(category.getId()),
                         category.getName(),
                         dateFormat.format(category.getRegisterAt()),
                         dateFormat.format(category.getModifyAt()),
-                        Boolean.TRUE.equals(category.getIsActive()) ? "Active":"Disable"
+                        Boolean.TRUE.equals(category.getIsActive()) ? "Active" : "Disable"
                 );
                 categoryTblList.add(tblCategoryOb);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -58,19 +58,19 @@ public class ViewController implements CategoryView {
         return categoryTblList;
     }
 
-    private void categoryCountUpdate(){
-        try{
+    private void categoryCountUpdate() {
+        try {
             assert categoryBo != null;
             dspCount.setText(String.valueOf(categoryBo.getCategoryCount()));
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
     }
 
-    private Node createTblPage(int pageIndex){
-        if(categoryTable ==null){
+    private Node createTblPage(int pageIndex) {
+        if (categoryTable == null) {
             categoryTable = CategoryCenterController.getInstance().getFxmlLoaderTable().getController();
         }
         TableView<TblCategoryView> tableView = categoryTable.getTable();
@@ -78,24 +78,24 @@ public class ViewController implements CategoryView {
         return tableView;
     }
 
-    private int getPageCount(){
+    private int getPageCount() {
         int pageCount = 0;
-        try{
+        try {
             assert categoryBo != null;
             int categoryCount = categoryBo.getCategoryCount();
-            if(categoryCount>5){
-                int tempFirst = categoryCount/5;
-                int tempSecond = categoryCount%5;
+            if (categoryCount > 5) {
+                int tempFirst = categoryCount / 5;
+                int tempSecond = categoryCount % 5;
 
-                if(tempSecond!=0){
-                    pageCount = tempFirst+1;
+                if (tempSecond != 0) {
+                    pageCount = tempFirst + 1;
                 } else {
                     pageCount = tempFirst;
                 }
             } else {
                 pageCount = 1;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -103,16 +103,16 @@ public class ViewController implements CategoryView {
         return pageCount;
     }
 
-    private int getCurrentPageIndex(int pageIndex, String name){
-        if(Objects.equals(name, "registration")){
-            return getPageCount()-1;
-        } else if("modification".equals(name)){
+    private int getCurrentPageIndex(int pageIndex, String name) {
+        if (Objects.equals(name, "registration")) {
+            return getPageCount() - 1;
+        } else if ("modification".equals(name)) {
             return pageIndex;
-        } else if(DELETION.equals(name) && pageIndex==getPageCount()) {
-            return pageIndex-1;
-        } else if(DELETION.equals(name) && pageIndex<getPageCount()) {
+        } else if (DELETION.equals(name) && pageIndex == getPageCount()) {
+            return pageIndex - 1;
+        } else if (DELETION.equals(name) && pageIndex < getPageCount()) {
             return pageIndex;
-        } else if(DELETION.equals(name) && (pageIndex+1)==getPageCount()) {
+        } else if (DELETION.equals(name) && (pageIndex + 1) == getPageCount()) {
             return pageIndex;
         } else {
             return 0;

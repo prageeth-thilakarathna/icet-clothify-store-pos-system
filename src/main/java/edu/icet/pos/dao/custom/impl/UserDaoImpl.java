@@ -18,17 +18,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class UserDaoImpl implements UserDao {
     @Override
     public void save(UserEntity userEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.persist(userEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -37,12 +34,12 @@ public class UserDaoImpl implements UserDao {
         Session session = HibernateUtil.getSession();
         Transaction tx = null;
         UserEntity userEntity;
-        try{
+        try {
             tx = session.beginTransaction();
-            userEntity = session.createQuery("SELECT a FROM UserEntity a WHERE eMail='"+email+"'", UserEntity.class).getSingleResult();
+            userEntity = session.createQuery("SELECT a FROM UserEntity a WHERE eMail='" + email + "'", UserEntity.class).getSingleResult();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -59,8 +56,8 @@ public class UserDaoImpl implements UserDao {
             tx = session.beginTransaction();
             userEntity = session.get(UserEntity.class, id);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -70,33 +67,27 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(UserEntity userEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.merge(userEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public void delete(UserEntity userEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.remove(userEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -109,8 +100,8 @@ public class UserDaoImpl implements UserDao {
             tx = session.beginTransaction();
             userEntityList = session.createQuery("SELECT a FROM UserEntity a", UserEntity.class).getResultList();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -139,9 +130,9 @@ public class UserDaoImpl implements UserDao {
         List<UserEntity> userEntityList = new ArrayList<>();
         session.doWork(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM user LIMIT 5 OFFSET "+offset);
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM user LIMIT 5 OFFSET " + offset);
 
-                while(resultSet.next()){
+                while (resultSet.next()) {
                     UserEntity user = new UserEntity();
                     UserRoleEntity userRoleEntity = new UserRoleEntity();
                     userRoleEntity.setId(resultSet.getInt("userRoleId"));
@@ -149,8 +140,8 @@ public class UserDaoImpl implements UserDao {
                     user.setId(resultSet.getInt("id"));
                     user.setEMail(resultSet.getString("eMail"));
                     user.setPassword(resultSet.getString("password"));
-                    user.setRegisterAt(resultSet.getDate("registerAt"));
-                    user.setModifyAt(resultSet.getDate("modifyAt"));
+                    user.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    user.setModifyAt(resultSet.getTimestamp("modifyAt"));
                     user.setIsActive(resultSet.getBoolean("isActive"));
                     user.setUserRole(userRoleEntity);
 
@@ -171,7 +162,7 @@ public class UserDaoImpl implements UserDao {
                 ResultSet resultSet = statement.executeQuery("SELECT eMail FROM user " +
                         "WHERE NOT EXISTS (SELECT * FROM employee " +
                         "WHERE user.id = employee.userId)");
-                while(resultSet.next()){
+                while (resultSet.next()) {
                     UserEntity userEntity = new UserEntity();
                     userEntity.setEMail(resultSet.getString("eMail"));
                     userEntityList.add(userEntity);
@@ -184,17 +175,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void employeeSave(EmployeeEntity employeeEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.persist(employeeEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -207,8 +195,8 @@ public class UserDaoImpl implements UserDao {
             tx = session.beginTransaction();
             employeeEntity = session.get(EmployeeEntity.class, id);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -218,33 +206,27 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(EmployeeEntity employeeEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.merge(employeeEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public void delete(EmployeeEntity employeeEntity) {
-        Session session = HibernateUtil.getSession();
         Transaction tx = null;
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             tx = session.beginTransaction();
             session.remove(employeeEntity);
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -269,9 +251,9 @@ public class UserDaoImpl implements UserDao {
         List<EmployeeEntity> employeeEntityList = new ArrayList<>();
         session.doWork(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM employee LIMIT 5 OFFSET "+offset);
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM employee LIMIT 5 OFFSET " + offset);
 
-                while(resultSet.next()){
+                while (resultSet.next()) {
                     EmployeeEntity employee = new EmployeeEntity();
                     employee.setId(resultSet.getInt("id"));
 
@@ -288,8 +270,8 @@ public class UserDaoImpl implements UserDao {
                     employee.setLastName(resultSet.getString("lastName"));
                     employee.setContact(resultSet.getString("contact"));
                     employee.setAddress(resultSet.getString("address"));
-                    employee.setRegisterAt(resultSet.getDate("registerAt"));
-                    employee.setModifyAt(resultSet.getDate("modifyAt"));
+                    employee.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    employee.setModifyAt(resultSet.getTimestamp("modifyAt"));
                     employee.setIsActive(resultSet.getBoolean("isActive"));
 
                     employeeEntityList.add(employee);
@@ -309,8 +291,8 @@ public class UserDaoImpl implements UserDao {
             tx = session.beginTransaction();
             employeeEntityList = session.createQuery("SELECT a FROM EmployeeEntity a", EmployeeEntity.class).getResultList();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();
@@ -323,12 +305,12 @@ public class UserDaoImpl implements UserDao {
         Session session = HibernateUtil.getSession();
         Transaction tx = null;
         EmployeeEntity employeeEntity;
-        try{
+        try {
             tx = session.beginTransaction();
-            employeeEntity = session.createQuery("SELECT a FROM EmployeeEntity a WHERE userId="+userId, EmployeeEntity.class).getSingleResult();
+            employeeEntity = session.createQuery("SELECT a FROM EmployeeEntity a WHERE userId=" + userId, EmployeeEntity.class).getSingleResult();
             tx.commit();
-        } catch (Exception e){
-            if(tx!=null) tx.rollback();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
             throw e;
         } finally {
             session.close();

@@ -45,10 +45,10 @@ public class SearchController implements ProductSearch {
 
     @FXML
     private void btnSearchAction() {
-        try{
+        try {
             assert productBo != null;
             searchProduct = productBo.getProduct(Integer.parseInt(txtProductId.getText()));
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             dspRegisterAt.setText(dateFormat.format(searchProduct.getRegisterAt()));
             dspModifyAt.setText(dateFormat.format(searchProduct.getModifyAt()));
 
@@ -56,13 +56,11 @@ public class SearchController implements ProductSearch {
             Image image = new Image(inputStream);
             dspImage.setImage(image);
 
-            if (productForm==null){
-                productForm = ProductCenterController.getInstance().getFxmlLoaderForm().getController();
-            }
+            productForm = ProductCenterController.getInstance().getFxmlLoaderForm().getController();
             productForm.loadProductToForm(searchProduct);
             validateInputs();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -74,9 +72,9 @@ public class SearchController implements ProductSearch {
         clearForm();
     }
 
-    private void validateInputs(){
+    private void validateInputs() {
         btnSearch.setDisable(txtProductId.getLength() <= 0 || searchProduct != null);
-        if(searchProduct!=null){
+        if (searchProduct != null) {
             btnCancel.setDisable(false);
             txtProductId.setDisable(true);
         } else {
@@ -84,7 +82,7 @@ public class SearchController implements ProductSearch {
         }
     }
 
-    private void clearForm(){
+    private void clearForm() {
         btnSearch.setDisable(true);
         btnCancel.setDisable(true);
         txtProductId.setDisable(false);
@@ -93,12 +91,20 @@ public class SearchController implements ProductSearch {
         dspModifyAt.setText("");
         searchProduct = null;
         dspImage.setImage(null);
+        productForm = ProductCenterController.getInstance().getFxmlLoaderForm().getController();
         productForm.clearProduct();
     }
 
     @Override
     public void clearSearch() {
         clearForm();
+    }
+
+    @Override
+    public void refreshSearch() {
+        clearForm();
+        btnSearch.setDisable(true);
+        btnCancel.setDisable(true);
     }
 
     @Override

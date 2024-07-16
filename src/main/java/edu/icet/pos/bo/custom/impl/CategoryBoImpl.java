@@ -53,12 +53,14 @@ public class CategoryBoImpl implements CategoryBo {
     @Override
     public List<Category> getCategoryPerPage(int offset) {
         assert categoryDao != null;
-        return new ModelMapper().map(categoryDao.getPerPage(offset), new TypeToken<List<Category>>() {}.getType());
+        return new ModelMapper().map(categoryDao.getPerPage(offset), new TypeToken<List<Category>>() {
+        }.getType());
     }
 
     @Override
     public List<Category> getAllCategory() {
         assert categoryDao != null;
-        return new ModelMapper().map(categoryDao.getAll(), new TypeToken<List<Category>>() {}.getType());
+        return new ModelMapper().map(categoryDao.getAll(), new TypeToken<List<Category>>() {
+        }.getType());
     }
 }

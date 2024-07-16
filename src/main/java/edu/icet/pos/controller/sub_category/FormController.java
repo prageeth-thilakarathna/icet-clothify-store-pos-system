@@ -13,12 +13,10 @@ import edu.icet.pos.model.sub_category.SubCategory;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import org.modelmapper.ModelMapper;
 
 import java.net.URL;
@@ -52,24 +50,24 @@ public class FormController implements SubCategoryForm {
     private SubCategoryView subCategoryView;
 
     @FXML
-    private void nameKeyTyped(KeyEvent keyEvent) {
+    private void nameKeyTyped() {
         validateInputs();
     }
 
     @FXML
-    private void optCategoryAction(ActionEvent actionEvent) {
+    private void optCategoryAction() {
         validateInputs();
     }
 
     @FXML
-    private void optStatusAction(ActionEvent actionEvent) {
+    private void optStatusAction() {
         validateInputs();
     }
 
     @FXML
     private void btnRegisterAction() {
-        if(!doesSubCategoryAlreadyExist()){
-            try{
+        if (!doesSubCategoryAlreadyExist()) {
+            try {
                 SubCategory subCategory = new SubCategory();
                 subCategory.setName(txtName.getText());
                 assert categoryBo != null;
@@ -80,16 +78,16 @@ public class FormController implements SubCategoryForm {
 
                 assert subCategoryBo != null;
                 subCategoryBo.subCategoryRegister(subCategory);
-                if(subCategoryView==null){
+                if (subCategoryView == null) {
                     subCategoryView = SubCategoryCenterController.getInstance().getFxmlLoaderView().getController();
                 }
                 subCategoryView.updateTbl("registration");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(txtName.getText()+" Sub Category registration was successful.");
+                alert.setContentText(txtName.getText() + " Sub Category registration was successful.");
                 alert.show();
                 clearForm();
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText(e.getMessage());
                 alert.show();
@@ -104,7 +102,7 @@ public class FormController implements SubCategoryForm {
 
     @FXML
     private void btnModifyAction() {
-        try{
+        try {
             SubCategory subCategory = searchSubCategory;
 
             subCategory.setName(txtName.getText());
@@ -115,21 +113,21 @@ public class FormController implements SubCategoryForm {
 
             assert subCategoryBo != null;
             subCategoryBo.subCategoryUpdate(subCategory);
-            if(subCategoryView==null){
+            if (subCategoryView == null) {
                 subCategoryView = SubCategoryCenterController.getInstance().getFxmlLoaderView().getController();
             }
             subCategoryView.updateTbl("modification");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("The Sub Category ID = "+searchSubCategory.getId()+" modification was successful.");
+            alert.setContentText("The Sub Category ID = " + searchSubCategory.getId() + " modification was successful.");
             alert.show();
             searchSubCategory = null;
             clearForm();
-            if(subCategorySearch==null){
+            if (subCategorySearch == null) {
                 subCategorySearch = SubCategoryCenterController.getInstance().getFxmlLoaderSearch().getController();
             }
             subCategorySearch.clearSearch();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -138,24 +136,24 @@ public class FormController implements SubCategoryForm {
 
     @FXML
     private void btnDeleteAction() {
-        try{
+        try {
             assert subCategoryBo != null;
             subCategoryBo.subCategoryDelete(searchSubCategory);
-            if(subCategoryView==null){
+            if (subCategoryView == null) {
                 subCategoryView = SubCategoryCenterController.getInstance().getFxmlLoaderView().getController();
             }
             subCategoryView.updateTbl("deletion");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("The Sub Category ID = "+searchSubCategory.getId()+" deletion was successful.");
+            alert.setContentText("The Sub Category ID = " + searchSubCategory.getId() + " deletion was successful.");
             alert.show();
             searchSubCategory = null;
             clearForm();
-            if(subCategorySearch==null){
+            if (subCategorySearch == null) {
                 subCategorySearch = SubCategoryCenterController.getInstance().getFxmlLoaderSearch().getController();
             }
             subCategorySearch.clearSearch();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -167,22 +165,22 @@ public class FormController implements SubCategoryForm {
         clearForm();
     }
 
-    private boolean doesSubCategoryAlreadyExist(){
-        try{
+    private boolean doesSubCategoryAlreadyExist() {
+        try {
             assert subCategoryBo != null;
             SubCategory subCategory = subCategoryBo.getSubCategoryByName(txtName.getText());
-            if(subCategory!=null){
+            if (subCategory != null) {
                 return true;
             }
-        } catch (Exception e){
-            if(Objects.equals(e.getMessage(), "No result found for query [SELECT a FROM SubCategoryEntity a WHERE name='" + txtName.getText() + "']")){
+        } catch (Exception e) {
+            if (Objects.equals(e.getMessage(), "No result found for query [SELECT a FROM SubCategoryEntity a WHERE name='" + txtName.getText() + "']")) {
                 return false;
             }
         }
         return true;
     }
 
-    private void clearForm(){
+    private void clearForm() {
         txtName.setText("");
         optCategory.setValue(null);
         optCategory.setPromptText("   Select a Category");
@@ -191,46 +189,44 @@ public class FormController implements SubCategoryForm {
         validateInputs();
     }
 
-    private void validateInputs(){
-        if(txtName.getLength()>0 && optCategory.getValue()!=null && optStatus.getValue()!=null && searchSubCategory==null){
+    private void validateInputs() {
+        if (txtName.getLength() > 0 && optCategory.getValue() != null && optStatus.getValue() != null && searchSubCategory == null) {
             btnRegister.setDisable(false);
         } else {
             btnRegister.setDisable(true);
-            if(searchSubCategory!=null){
+            if (searchSubCategory != null) {
                 validateModify();
             } else {
                 btnModify.setDisable(true);
             }
         }
 
-        if(txtName.getLength()>0 || optCategory.getValue()!=null || optStatus.getValue()!=null){
-            btnCancel.setDisable(false);
-        } else {
-            btnCancel.setDisable(true);
-        }
+        btnCancel.setDisable(txtName.getLength() <= 0 && optCategory.getValue() == null && optStatus.getValue() == null);
     }
 
-    private void validateModify(){
-        if(!Objects.equals(searchSubCategory.getName(), txtName.getText())){
+    private void validateModify() {
+        if (!Objects.equals(searchSubCategory.getName(), txtName.getText())) {
             btnModify.setDisable(txtName.getLength() <= 0 || optCategory.getValue() == null || optStatus.getValue() == null);
-        } else if(!Objects.equals(searchSubCategory.getCategory().getName(), optCategory.getValue())){
+        } else if (!Objects.equals(searchSubCategory.getCategory().getName(), optCategory.getValue())) {
             btnModify.setDisable(txtName.getLength() <= 0 || optCategory.getValue() == null || optStatus.getValue() == null);
-        } else if(Boolean.TRUE.equals(searchSubCategory.getIsActive()) ? Objects.equals(optStatus.getValue(), DISABLE) : Objects.equals(optStatus.getValue(), ACTIVE)){
+        } else if (Boolean.TRUE.equals(searchSubCategory.getIsActive()) ? Objects.equals(optStatus.getValue(), DISABLE) : Objects.equals(optStatus.getValue(), ACTIVE)) {
             btnModify.setDisable(txtName.getLength() <= 0 || optCategory.getValue() == null || optStatus.getValue() == null);
         } else {
             btnModify.setDisable(true);
         }
     }
 
-    private ObservableList<String> getCategory(){
+    private ObservableList<String> getCategory() {
         ObservableList<String> categories = FXCollections.observableArrayList();
-        try{
+        try {
             assert categoryBo != null;
             List<Category> categoryList = categoryBo.getAllCategory();
-            for(Category category : categoryList){
-                categories.add(category.getName());
+            for (Category category : categoryList) {
+                if (Boolean.TRUE.equals(category.getIsActive())) {
+                    categories.add(category.getName());
+                }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -238,7 +234,7 @@ public class FormController implements SubCategoryForm {
         return categories;
     }
 
-    private ObservableList<String> getStatus(){
+    private ObservableList<String> getStatus() {
         ObservableList<String> statusList = FXCollections.observableArrayList();
         statusList.add(ACTIVE);
         statusList.add(DISABLE);
@@ -251,7 +247,7 @@ public class FormController implements SubCategoryForm {
         btnDelete.setDisable(false);
         txtName.setText(subCategory.getName());
         optCategory.setValue(subCategory.getCategory().getName());
-        optStatus.setValue(Boolean.TRUE.equals(subCategory.getIsActive()) ? ACTIVE:DISABLE);
+        optStatus.setValue(Boolean.TRUE.equals(subCategory.getIsActive()) ? ACTIVE : DISABLE);
         validateModify();
     }
 
@@ -263,7 +259,12 @@ public class FormController implements SubCategoryForm {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void refreshForm() {
+        clearSubCategory();
+        loadForm();
+    }
+
+    private void loadForm() {
         optCategory.setItems(getCategory());
         optCategory.setVisibleRowCount(5);
         optStatus.setItems(getStatus());
@@ -271,5 +272,10 @@ public class FormController implements SubCategoryForm {
         btnCancel.setDisable(true);
         btnModify.setDisable(true);
         btnDelete.setDisable(true);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadForm();
     }
 }

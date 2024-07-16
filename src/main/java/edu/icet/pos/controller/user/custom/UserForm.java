@@ -7,4 +7,6 @@ public interface UserForm extends Initializable {
     void loadUserToForm(User user);
 
     void clearUser();
+
+    void refreshForm();
 }

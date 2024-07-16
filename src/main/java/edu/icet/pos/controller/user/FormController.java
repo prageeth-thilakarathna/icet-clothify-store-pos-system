@@ -217,7 +217,7 @@ public class FormController implements UserForm {
     }
 
     @FXML
-    private void btnCancelAction() {
+    private void btnCancelOnAction() {
         clearForm();
     }
 
@@ -305,7 +305,12 @@ public class FormController implements UserForm {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void refreshForm() {
+        clearUser();
+        loadForm();
+    }
+
+    private void loadForm(){
         Tooltip tooltip = new Tooltip("8 characters or more.\nincluding numbers, letters, and symbols.");
         tooltip.setStyle("-fx-font-size: 14px");
         infoPassword.setTooltip(tooltip);
@@ -317,5 +322,10 @@ public class FormController implements UserForm {
         btnCancel.setDisable(true);
         btnModify.setDisable(true);
         btnDelete.setDisable(true);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadForm();
     }
 }

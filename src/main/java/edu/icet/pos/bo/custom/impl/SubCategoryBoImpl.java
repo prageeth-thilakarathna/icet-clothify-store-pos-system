@@ -55,12 +55,14 @@ public class SubCategoryBoImpl implements SubCategoryBo {
     @Override
     public List<SubCategory> getSubCategoryPerPage(int offset) {
         assert subCategoryDao != null;
-        return new ModelMapper().map(subCategoryDao.getPerPage(offset), new TypeToken<List<SubCategory>>() {}.getType());
+        return new ModelMapper().map(subCategoryDao.getPerPage(offset), new TypeToken<List<SubCategory>>() {
+        }.getType());
     }
 
     @Override
     public List<SubCategory> getSubCategoryByCategory(Category category) {
         assert subCategoryDao != null;
-        return new ModelMapper().map(subCategoryDao.getByCategory(new ModelMapper().map(category, CategoryEntity.class)), new TypeToken<List<SubCategory>>() {}.getType());
+        return new ModelMapper().map(subCategoryDao.getByCategory(new ModelMapper().map(category, CategoryEntity.class)), new TypeToken<List<SubCategory>>() {
+        }.getType());
     }
 }

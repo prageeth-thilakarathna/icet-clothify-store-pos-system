@@ -4,4 +4,6 @@ import edu.icet.pos.controller.custom.SuperController;
 
 public interface DashboardNavPanel extends SuperController {
     void loadCategory();
+
+    void loadInitializer();
 }
