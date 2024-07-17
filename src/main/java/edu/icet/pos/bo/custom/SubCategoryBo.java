@@ -9,8 +9,6 @@ import java.util.List;
 public interface SubCategoryBo extends SuperBo {
     void subCategoryRegister(SubCategory subCategory);
 
-    SubCategory getSubCategoryByName(String name);
-
     SubCategory getSubCategory(Integer id);
 
     void subCategoryUpdate(SubCategory subCategory);
@@ -22,4 +20,6 @@ public interface SubCategoryBo extends SuperBo {
     List<SubCategory> getSubCategoryPerPage(int offset);
 
     List<SubCategory> getSubCategoryByCategory(Category category);
+
+    SubCategory getSubCategoryByName(String name, Category category);
 }

@@ -240,8 +240,10 @@ public class FormController implements ProductForm {
             Product product = new Product();
 
             assert subCategoryBo != null;
+            assert categoryBo != null;
             product.setSubCategory(
-                    new ModelMapper().map(subCategoryBo.getSubCategoryByName(optSubCategory.getValue()),
+                    new ModelMapper().map(subCategoryBo.getSubCategoryByName(optSubCategory.getValue(),
+                                    categoryBo.getCategoryByName(optCategory.getValue())),
                             SubCategoryEntity.class)
             );
             int supplierId = Integer.parseInt(optSupplier.getValue().split("\\s")[0]);
@@ -305,8 +307,10 @@ public class FormController implements ProductForm {
             Product product = searchProduct;
 
             assert subCategoryBo != null;
+            assert categoryBo != null;
             product.setSubCategory(
-                    new ModelMapper().map(subCategoryBo.getSubCategoryByName(optSubCategory.getValue()),
+                    new ModelMapper().map(subCategoryBo.getSubCategoryByName(optSubCategory.getValue(),
+                                    categoryBo.getCategoryByName(optCategory.getValue())),
                             SubCategoryEntity.class)
             );
             int supplierId = Integer.parseInt(optSupplier.getValue().split("\\s")[0]);

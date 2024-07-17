@@ -40,20 +40,20 @@ public class SearchController implements EmployeeSearch {
 
     @FXML
     private void btnSearchAction() {
-        try{
+        try {
             assert userBo != null;
             searchEmployee = userBo.getEmployeeById(Integer.parseInt(txtEmployeeId.getText()));
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             dspRegisterAt.setText(dateFormat.format(searchEmployee.getRegisterAt()));
             dspModifyAt.setText(dateFormat.format(searchEmployee.getModifyAt()));
 
-            if(employeeForm==null){
+            if (employeeForm == null) {
                 employeeForm = EmployeeCenterController.getInstance().getFxmlLoaderForm().getController();
             }
             employeeForm.loadEmployeeToForm(searchEmployee);
             validateInputs();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -65,9 +65,9 @@ public class SearchController implements EmployeeSearch {
         clearForm();
     }
 
-    private void validateInputs(){
+    private void validateInputs() {
         btnSearch.setDisable(txtEmployeeId.getLength() <= 0 || searchEmployee != null);
-        if(searchEmployee!=null){
+        if (searchEmployee != null) {
             btnCancel.setDisable(false);
             txtEmployeeId.setDisable(true);
         } else {
@@ -75,7 +75,7 @@ public class SearchController implements EmployeeSearch {
         }
     }
 
-    private void clearForm(){
+    private void clearForm() {
         btnSearch.setDisable(true);
         btnCancel.setDisable(true);
         txtEmployeeId.setDisable(false);
@@ -83,12 +83,22 @@ public class SearchController implements EmployeeSearch {
         dspRegisterAt.setText("");
         dspModifyAt.setText("");
         searchEmployee = null;
+        if (employeeForm == null) {
+            employeeForm = EmployeeCenterController.getInstance().getFxmlLoaderForm().getController();
+        }
         employeeForm.clearEmployee();
     }
 
     @Override
     public void clearSearch() {
         clearForm();
+    }
+
+    @Override
+    public void refreshSearch() {
+        clearForm();
+        btnSearch.setDisable(true);
+        btnCancel.setDisable(true);
     }
 
     @Override

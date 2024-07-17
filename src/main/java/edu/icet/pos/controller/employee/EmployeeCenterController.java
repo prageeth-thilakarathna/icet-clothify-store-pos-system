@@ -27,9 +27,9 @@ public class EmployeeCenterController {
     }
 
     static {
-        try{
+        try {
             instance = new EmployeeCenterController();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Exception occurred in creating EmployeeCenterController singleton instance");
         }
     }

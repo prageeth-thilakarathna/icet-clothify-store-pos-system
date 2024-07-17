@@ -4,4 +4,6 @@ import javafx.fxml.Initializable;
 
 public interface EmployeeSearch extends Initializable {
     void clearSearch();
+
+    void refreshSearch();
 }

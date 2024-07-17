@@ -168,12 +168,14 @@ public class FormController implements SubCategoryForm {
     private boolean doesSubCategoryAlreadyExist() {
         try {
             assert subCategoryBo != null;
-            SubCategory subCategory = subCategoryBo.getSubCategoryByName(txtName.getText());
+            assert categoryBo != null;
+            SubCategory subCategory = subCategoryBo.getSubCategoryByName(txtName.getText(),
+                    categoryBo.getCategoryByName(optCategory.getValue()));
             if (subCategory != null) {
                 return true;
             }
         } catch (Exception e) {
-            if (Objects.equals(e.getMessage(), "No result found for query [SELECT a FROM SubCategoryEntity a WHERE name='" + txtName.getText() + "']")) {
+            if (Objects.equals(e.getMessage(), "No result found for query [FROM SubCategoryEntity S WHERE S.name = :name AND S.category = :categoryEntity]")) {
                 return false;
             }
         }

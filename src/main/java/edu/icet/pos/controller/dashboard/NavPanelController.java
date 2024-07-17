@@ -12,6 +12,8 @@ import edu.icet.pos.controller.category.custom.CategoryView;
 import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.dashboard.custom.DashboardReportNav;
 import edu.icet.pos.controller.employee.EmployeeCenterController;
+import edu.icet.pos.controller.employee.custom.EmployeeForm;
+import edu.icet.pos.controller.employee.custom.EmployeeSearch;
 import edu.icet.pos.controller.employee.custom.EmployeeView;
 import edu.icet.pos.controller.place_order.PlaceOrderCenterController;
 import edu.icet.pos.controller.place_order.custom.PlaceOrderView;
@@ -221,30 +223,21 @@ public class NavPanelController implements DashboardNavPanel {
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
-        /*HBox pageTop = CenterController.getInstance().getPageTop();
-        pageTop.getChildren().clear();
-        Label pageHeader = CenterController.getInstance().getPageHeader();
-        pageHeader.setText("Employee");
-        pageTop.getChildren().add(pageHeader);
+        CenterController.getInstance().defaultPageLayoutLoad(
+                EmployeeCenterController.getInstance().getParentForm(),
+                EmployeeCenterController.getInstance().getParentSearch(),
+                EmployeeCenterController.getInstance().getParentView()
+        );
+        setPageHeader("Employee");
 
-        VBox pageCenter = CenterController.getInstance().getPageCenter();
-        pageCenter.getChildren().clear();
-        pageCenter.getChildren().add(EmployeeCenterController.getInstance().getParentForm());
+        EmployeeForm employeeForm = EmployeeCenterController.getInstance().getFxmlLoaderForm().getController();
+        employeeForm.refreshForm();
 
-        VBox pageRight = CenterController.getInstance().getPageRight();
-        pageRight.getChildren().clear();
-        pageRight.getChildren().add(EmployeeCenterController.getInstance().getParentSearch());
+        EmployeeSearch employeeSearch = EmployeeCenterController.getInstance().getFxmlLoaderSearch().getController();
+        employeeSearch.refreshSearch();
 
-        VBox pageBottom = CenterController.getInstance().getPageBottom();
-        pageBottom.getChildren().clear();
-
-        ScrollPane scrollPaneView = new ScrollPane();
-        scrollPaneView.setStyle("-fx-focus-color: transparent; -fx-background-color: transparent;");
-        scrollPaneView.setFocusTraversable(false);
-        scrollPaneView.setPrefHeight(273);
-        scrollPaneView.setContent(EmployeeCenterController.getInstance().getParentView());
-        pageBottom.getChildren().add(scrollPaneView);
-        //employeeView.loadTable();*/
+        EmployeeView employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
+        employeeView.loadTable();
     }
 
     @FXML
@@ -303,7 +296,7 @@ public class NavPanelController implements DashboardNavPanel {
 
     @Override
     public void loadInitializer() {
-        btnProductAction();
+        btnEmployeeAction();
     }
 
     @Override

@@ -28,24 +28,6 @@ public class SubCategoryDaoImpl implements SubCategoryDao {
     }
 
     @Override
-    public SubCategoryEntity getByName(String name) {
-        Session session = HibernateUtil.getSession();
-        Transaction tx = null;
-        SubCategoryEntity subCategoryEntity;
-        try {
-            tx = session.beginTransaction();
-            subCategoryEntity = session.createQuery("SELECT a FROM SubCategoryEntity a WHERE name='" + name + "'", SubCategoryEntity.class).getSingleResult();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-            throw e;
-        } finally {
-            session.close();
-        }
-        return subCategoryEntity;
-    }
-
-    @Override
     public SubCategoryEntity get(Integer id) {
         Session session = HibernateUtil.getSession();
         Transaction tx = null;
@@ -151,5 +133,28 @@ public class SubCategoryDaoImpl implements SubCategoryDao {
             session.close();
         }
         return subCategoryEntityList;
+    }
+
+    @Override
+    public SubCategoryEntity getByName(String name, CategoryEntity categoryEntity) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        SubCategoryEntity subCategoryEntity;
+        try {
+            tx = session.beginTransaction();
+            String sql = "FROM SubCategoryEntity S WHERE S.name = :name AND " +
+                    "S.category = :categoryEntity";
+            subCategoryEntity = session.createQuery(sql, SubCategoryEntity.class)
+                    .setParameter("name", name)
+                    .setParameter("categoryEntity", categoryEntity)
+                    .getSingleResult();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return subCategoryEntity;
     }
 }

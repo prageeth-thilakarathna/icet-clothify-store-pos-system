@@ -7,4 +7,6 @@ public interface EmployeeForm extends Initializable {
     void loadEmployeeToForm(Employee employee);
 
     void clearEmployee();
+
+    void refreshForm();
 }

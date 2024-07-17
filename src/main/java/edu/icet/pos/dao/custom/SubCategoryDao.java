@@ -9,8 +9,6 @@ import java.util.List;
 public interface SubCategoryDao extends SuperDao {
     void save(SubCategoryEntity subCategoryEntity);
 
-    SubCategoryEntity getByName(String name);
-
     SubCategoryEntity get(Integer id);
 
     void update(SubCategoryEntity subCategoryEntity);
@@ -22,4 +20,6 @@ public interface SubCategoryDao extends SuperDao {
     List<SubCategoryEntity> getPerPage(int offset);
 
     List<SubCategoryEntity> getByCategory(CategoryEntity categoryEntity);
+
+    SubCategoryEntity getByName(String name, CategoryEntity categoryEntity);
 }

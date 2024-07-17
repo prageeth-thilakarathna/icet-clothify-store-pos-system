@@ -35,32 +35,32 @@ public class ViewController implements EmployeeView {
     private EmployeeTable employeeTable;
     private static final String DELETION = "deletion";
 
-    private ObservableList<TblEmployeeView> getEmployeeTblPerPage(int pageIndex){
+    private ObservableList<TblEmployeeView> getEmployeeTblPerPage(int pageIndex) {
         ObservableList<TblEmployeeView> employeeViewObservableList = FXCollections.observableArrayList();
 
-        try{
+        try {
             assert userBo != null;
-            List<Employee> employeeList = userBo.getEmployeePerPage(pageIndex*5);
+            List<Employee> employeeList = userBo.getEmployeePerPage(pageIndex * 5);
 
-            for(Employee employee : employeeList){
+            for (Employee employee : employeeList) {
                 assert jobRoleBo != null;
                 String role = jobRoleBo.getJobRole(employee.getJobRole().getId()).getName();
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
                 TblEmployeeView tblEmployeeView = new TblEmployeeView(
                         String.valueOf(employee.getId()),
-                        employee.getTitle()+". "+employee.getFirstName()+" "+employee.getLastName(),
+                        employee.getTitle() + ". " + employee.getFirstName() + " " + employee.getLastName(),
                         userBo.getUser(employee.getUser().getId()).getEMail(),
                         role.substring(0, 1).toUpperCase() + role.substring(1),
                         employee.getContact(),
                         employee.getAddress(),
                         dateFormat.format(employee.getRegisterAt()),
                         dateFormat.format(employee.getModifyAt()),
-                        Boolean.TRUE.equals(employee.getIsActive()) ? "Active":"Disable"
+                        Boolean.TRUE.equals(employee.getIsActive()) ? "Active" : "Disable"
                 );
                 employeeViewObservableList.add(tblEmployeeView);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -68,19 +68,19 @@ public class ViewController implements EmployeeView {
         return employeeViewObservableList;
     }
 
-    private void employeeCountUpdate(){
-        try{
+    private void employeeCountUpdate() {
+        try {
             assert userBo != null;
             dspCount.setText(String.valueOf(userBo.getEmployeeCount()));
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
     }
 
-    private Node createTblPage(int pageIndex){
-        if(employeeTable == null){
+    private Node createTblPage(int pageIndex) {
+        if (employeeTable == null) {
             employeeTable = EmployeeCenterController.getInstance().getFxmlLoaderTable().getController();
         }
         TableView<TblEmployeeView> tableView = employeeTable.getTable();
@@ -88,24 +88,24 @@ public class ViewController implements EmployeeView {
         return tableView;
     }
 
-    private int getPageCount(){
+    private int getPageCount() {
         int pageCount = 0;
-        try{
+        try {
             assert userBo != null;
             int employeeCount = userBo.getEmployeeCount();
-            if(employeeCount>5){
-                int tempFirst = employeeCount/5;
-                int tempSecond = employeeCount%5;
+            if (employeeCount > 5) {
+                int tempFirst = employeeCount / 5;
+                int tempSecond = employeeCount % 5;
 
-                if(tempSecond!=0){
-                    pageCount = tempFirst+1;
+                if (tempSecond != 0) {
+                    pageCount = tempFirst + 1;
                 } else {
                     pageCount = tempFirst;
                 }
             } else {
                 pageCount = 1;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -113,16 +113,16 @@ public class ViewController implements EmployeeView {
         return pageCount;
     }
 
-    private int getCurrentPageIndex(int pageIndex, String name){
-        if(Objects.equals(name, "registration")){
-            return getPageCount()-1;
-        } else if("modification".equals(name)){
+    private int getCurrentPageIndex(int pageIndex, String name) {
+        if (Objects.equals(name, "registration")) {
+            return getPageCount() - 1;
+        } else if ("modification".equals(name)) {
             return pageIndex;
-        } else if(DELETION.equals(name) && pageIndex==getPageCount()) {
-            return pageIndex-1;
-        } else if(DELETION.equals(name) && pageIndex<getPageCount()) {
+        } else if (DELETION.equals(name) && pageIndex == getPageCount()) {
+            return pageIndex - 1;
+        } else if (DELETION.equals(name) && pageIndex < getPageCount()) {
             return pageIndex;
-        } else if(DELETION.equals(name) && (pageIndex+1)==getPageCount()) {
+        } else if (DELETION.equals(name) && (pageIndex + 1) == getPageCount()) {
             return pageIndex;
         } else {
             return 0;

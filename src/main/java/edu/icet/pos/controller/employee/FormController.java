@@ -19,14 +19,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import org.modelmapper.ModelMapper;
 
 import java.net.URL;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class FormController implements EmployeeForm {
     @FXML
@@ -46,19 +42,11 @@ public class FormController implements EmployeeForm {
     @FXML
     private JFXComboBox<String> optStatus;
     @FXML
-    private HBox userController;
-    @FXML
     private Button btnRegister;
     @FXML
     private Button btnModify;
     @FXML
     private Button btnCancel;
-    @FXML
-    private HBox adminController;
-    @FXML
-    private Button btnActive;
-    @FXML
-    private Button btnDisable;
     @FXML
     private Button btnDelete;
 
@@ -112,7 +100,7 @@ public class FormController implements EmployeeForm {
 
     @FXML
     private void btnRegisterAction() {
-        try{
+        try {
             Employee employee = new Employee();
 
             assert userBo != null;
@@ -130,7 +118,7 @@ public class FormController implements EmployeeForm {
             employee.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
 
             userBo.employeeRegister(employee);
-            if (employeeView==null){
+            if (employeeView == null) {
                 employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
             }
             employeeView.updateTbl("registration");
@@ -140,16 +128,16 @@ public class FormController implements EmployeeForm {
             clearForm();
             optUser.setItems(getUsers());
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("first"+e.getMessage());
+            alert.setContentText("first" + e.getMessage());
             alert.show();
         }
     }
 
     @FXML
     private void btnModifyAction() {
-        try{
+        try {
             Employee employee = searchEmployee;
 
             String roleName = optJobRole.getValue().substring(0, 1).toLowerCase() + optJobRole.getValue().substring(1);
@@ -165,7 +153,7 @@ public class FormController implements EmployeeForm {
 
             assert userBo != null;
             userBo.employeeUpdate(employee);
-            if (employeeView==null){
+            if (employeeView == null) {
                 employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
             }
             employeeView.updateTbl("modification");
@@ -173,12 +161,12 @@ public class FormController implements EmployeeForm {
             alert.setContentText(employee.getTitle() + " " + employee.getFirstName() + " " + employee.getLastName() + " Employee modification was successful.");
             alert.show();
             clearEmployee();
-            if(employeeSearch==null){
+            if (employeeSearch == null) {
                 employeeSearch = EmployeeCenterController.getInstance().getFxmlLoaderSearch().getController();
             }
             employeeSearch.clearSearch();
 
-        } catch(Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -191,69 +179,11 @@ public class FormController implements EmployeeForm {
     }
 
     @FXML
-    private void btnActiveAction() {
-        try{
-            Employee employee = searchEmployee;
-            employee.setIsActive(true);
-            employee.setModifyAt(new Date());
-
-            assert userBo != null;
-            userBo.employeeUpdate(employee);
-            if (employeeView==null){
-                employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
-            }
-            employeeView.updateTbl("modification");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(employee.getTitle() + " " + employee.getFirstName() + " " + employee.getLastName() + " Employee activation was successful.");
-            alert.show();
-            clearEmployee();
-            if(employeeSearch==null){
-                employeeSearch = EmployeeCenterController.getInstance().getFxmlLoaderSearch().getController();
-            }
-            employeeSearch.clearSearch();
-
-        } catch (Exception e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.show();
-        }
-    }
-
-    @FXML
-    private void btnDisableAction() {
-        try{
-            Employee employee = searchEmployee;
-            employee.setIsActive(false);
-            employee.setModifyAt(new Date());
-
-            assert userBo != null;
-            userBo.employeeUpdate(employee);
-            if (employeeView==null){
-                employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
-            }
-            employeeView.updateTbl("modification");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(employee.getTitle() + " " + employee.getFirstName() + " " + employee.getLastName() + " Employee disable was successful.");
-            alert.show();
-            clearEmployee();
-            if(employeeSearch==null){
-                employeeSearch = EmployeeCenterController.getInstance().getFxmlLoaderSearch().getController();
-            }
-            employeeSearch.clearSearch();
-
-        } catch (Exception e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.show();
-        }
-    }
-
-    @FXML
     private void btnDeleteAction() {
-        try{
+        try {
             assert userBo != null;
             userBo.employeeDelete(searchEmployee);
-            if (employeeView==null){
+            if (employeeView == null) {
                 employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
             }
             employeeView.updateTbl("deletion");
@@ -261,24 +191,24 @@ public class FormController implements EmployeeForm {
             alert.setContentText(searchEmployee.getTitle() + " " + searchEmployee.getFirstName() + " " + searchEmployee.getLastName() + " Employee deletion was successful.");
             alert.show();
             clearEmployee();
-            if(employeeSearch==null){
+            if (employeeSearch == null) {
                 employeeSearch = EmployeeCenterController.getInstance().getFxmlLoaderSearch().getController();
             }
             employeeSearch.clearSearch();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
     }
 
-    private void validateInputs(){
-        if(!isInputEmpty() && searchEmployee==null){
+    private void validateInputs() {
+        if (!isInputEmpty() && searchEmployee == null) {
             btnRegister.setDisable(false);
         } else {
             btnRegister.setDisable(true);
-            if(searchEmployee!=null){
+            if (searchEmployee != null) {
                 validateModify();
             } else {
                 btnModify.setDisable(true);
@@ -295,10 +225,10 @@ public class FormController implements EmployeeForm {
                 optStatus.getValue() == null);
     }
 
-    private void validateModify(){
-        if(!searchEmployee.getJobRole().getName().equalsIgnoreCase(optJobRole.getValue())){
+    private void validateModify() {
+        if (!searchEmployee.getJobRole().getName().equalsIgnoreCase(optJobRole.getValue())) {
             btnModify.setDisable(isInputEmpty());
-        } else if(!Objects.equals(searchEmployee.getTitle(), optTitle.getValue())){
+        } else if (!Objects.equals(searchEmployee.getTitle(), optTitle.getValue())) {
             btnModify.setDisable(isInputEmpty());
         } else if (!Objects.equals(txtFirstName.getText(), searchEmployee.getFirstName())) {
             btnModify.setDisable(isInputEmpty());
@@ -315,24 +245,18 @@ public class FormController implements EmployeeForm {
         }
     }
 
-    private boolean isInputEmpty(){
-        if(
-                optUser.getValue()!=null &&
-                        optJobRole.getValue()!=null &&
-                        optTitle.getValue()!=null &&
-                        txtFirstName.getLength() > 0 &&
-                        txtLastName.getLength() > 0 &&
-                        txtContact.getLength() >=10 &&
-                        txtAddress.getLength() > 0 &&
-                        optStatus.getValue()!=null
-        ){
-            return false;
-        } else {
-            return true;
-        }
+    private boolean isInputEmpty() {
+        return optUser.getValue() == null ||
+                optJobRole.getValue() == null ||
+                optTitle.getValue() == null ||
+                txtFirstName.getLength() <= 0 ||
+                txtLastName.getLength() <= 0 ||
+                txtContact.getLength() < 10 ||
+                txtAddress.getLength() <= 0 ||
+                optStatus.getValue() == null;
     }
 
-    private void clearForm(){
+    private void clearForm() {
         optUser.setValue(null);
         optUser.setPromptText("   Select a User");
         optJobRole.setValue(null);
@@ -348,15 +272,28 @@ public class FormController implements EmployeeForm {
         validateInputs();
     }
 
-    private ObservableList<String> getUsers(){
+    private ObservableList<String> getUsers() {
         ObservableList<String> userList = FXCollections.observableArrayList();
-        try{
+        try {
             assert userBo != null;
-            List<User> users = userBo.getUsersNotExistInEmployee();
-            for(User user : users){
-                userList.add(user.getEMail());
+            List<User> users = new ArrayList<>();
+            if (searchEmployee == null) {
+                users = userBo.getUsersNotExistInEmployee();
             }
-        } catch (Exception e){
+            if (searchEmployee != null) {
+                users = userBo.getAllUser();
+            }
+            for (User user : users) {
+                if (Boolean.TRUE.equals(user.getIsActive())) {
+                    userList.add(user.getEMail());
+                }
+                if (searchEmployee != null &&
+                        (Objects.equals(searchEmployee.getUser().getId(), user.getId()) &&
+                                !user.getIsActive())) {
+                    userList.add(user.getEMail());
+                }
+            }
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -364,24 +301,8 @@ public class FormController implements EmployeeForm {
         return userList;
     }
 
-    private ObservableList<String> getAllUser(){
-        ObservableList<String> userList = FXCollections.observableArrayList();
-        try{
-            assert userBo != null;
-            List<User> users = userBo.getAllUser();
-            for(User user : users){
-                userList.add(user.getEMail());
-            }
-        } catch (Exception e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.show();
-        }
-        return userList;
-    }
-
-    private void jobRoleRegister(){
-        try{
+    private void jobRoleRegister() {
+        try {
             JobRole assistance = new JobRole();
             assistance.setName("assistance");
             assert jobRoleBo != null;
@@ -392,15 +313,15 @@ public class FormController implements EmployeeForm {
             jobRoleBo.jobRoleRegister(cashier);
 
             setJobRoles();
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("second"+e.getMessage());
+            alert.setContentText("second" + e.getMessage());
             alert.show();
         }
     }
 
-    private void setJobRoles(){
-        try{
+    private void setJobRoles() {
+        try {
             assert jobRoleBo != null;
             List<JobRole> jobRoleList = jobRoleBo.getAllJobRole();
 
@@ -408,7 +329,7 @@ public class FormController implements EmployeeForm {
             roles.add(jobRoleList.get(0).getName().substring(0, 1).toUpperCase() + jobRoleList.get(0).getName().substring(1));
             roles.add(jobRoleList.get(1).getName().substring(0, 1).toUpperCase() + jobRoleList.get(1).getName().substring(1));
             optJobRole.setItems(roles);
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
@@ -436,13 +357,7 @@ public class FormController implements EmployeeForm {
         searchEmployee = employee;
         btnDelete.setDisable(false);
 
-        if (Boolean.TRUE.equals(employee.getIsActive())) {
-            btnDisable.setDisable(false);
-        } else {
-            btnActive.setDisable(false);
-        }
-
-        optUser.setItems(getAllUser());
+        optUser.setItems(getUsers());
         optUser.setValue(employee.getUser().getEMail());
         optUser.setDisable(true);
         optJobRole.setValue(employee.getJobRole().getName().substring(0, 1).toUpperCase() + employee.getJobRole().getName().substring(1));
@@ -462,27 +377,33 @@ public class FormController implements EmployeeForm {
         optUser.setItems(getUsers());
         optUser.setDisable(false);
         btnDelete.setDisable(true);
-        btnActive.setDisable(true);
-        btnDisable.setDisable(true);
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void refreshForm() {
+        clearEmployee();
+        loadForm();
+    }
+
+    private void loadForm() {
         optUser.setItems(getUsers());
         optUser.setVisibleRowCount(5);
         assert jobRoleBo != null;
-        /*if(jobRoleBo.getAllJobRole().isEmpty()){
-            //jobRoleRegister();
-        }*/
-        //setJobRoles();
+        if (jobRoleBo.getAllJobRole().isEmpty()) {
+            jobRoleRegister();
+        }
+        setJobRoles();
 
         optTitle.setItems(getTitles());
         optStatus.setItems(getStatus());
         btnRegister.setDisable(true);
         btnModify.setDisable(true);
         btnCancel.setDisable(true);
-        btnActive.setDisable(true);
-        btnDisable.setDisable(true);
         btnDelete.setDisable(true);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadForm();
     }
 }

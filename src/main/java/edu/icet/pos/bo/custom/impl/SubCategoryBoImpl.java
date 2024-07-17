@@ -23,12 +23,6 @@ public class SubCategoryBoImpl implements SubCategoryBo {
     }
 
     @Override
-    public SubCategory getSubCategoryByName(String name) {
-        assert subCategoryDao != null;
-        return new ModelMapper().map(subCategoryDao.getByName(name), SubCategory.class);
-    }
-
-    @Override
     public SubCategory getSubCategory(Integer id) {
         assert subCategoryDao != null;
         return new ModelMapper().map(subCategoryDao.get(id), SubCategory.class);
@@ -64,5 +58,11 @@ public class SubCategoryBoImpl implements SubCategoryBo {
         assert subCategoryDao != null;
         return new ModelMapper().map(subCategoryDao.getByCategory(new ModelMapper().map(category, CategoryEntity.class)), new TypeToken<List<SubCategory>>() {
         }.getType());
+    }
+
+    @Override
+    public SubCategory getSubCategoryByName(String name, Category category) {
+        assert subCategoryDao != null;
+        return new ModelMapper().map(subCategoryDao.getByName(name, new ModelMapper().map(category, CategoryEntity.class)), SubCategory.class);
     }
 }

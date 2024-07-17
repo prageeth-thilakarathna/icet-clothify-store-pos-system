@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class UserDaoImpl implements UserDao {
+    private static final String IS_ACTIVE = "isActive";
+
     @Override
     public void save(UserEntity userEntity) {
         Transaction tx = null;
@@ -142,7 +144,7 @@ public class UserDaoImpl implements UserDao {
                     user.setPassword(resultSet.getString("password"));
                     user.setRegisterAt(resultSet.getTimestamp("registerAt"));
                     user.setModifyAt(resultSet.getTimestamp("modifyAt"));
-                    user.setIsActive(resultSet.getBoolean("isActive"));
+                    user.setIsActive(resultSet.getBoolean(IS_ACTIVE));
                     user.setUserRole(userRoleEntity);
 
                     userEntityList.add(user);
@@ -159,12 +161,13 @@ public class UserDaoImpl implements UserDao {
         List<UserEntity> userEntityList = new ArrayList<>();
         session.doWork(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT eMail FROM user " +
+                ResultSet resultSet = statement.executeQuery("SELECT eMail,isActive FROM user " +
                         "WHERE NOT EXISTS (SELECT * FROM employee " +
                         "WHERE user.id = employee.userId)");
                 while (resultSet.next()) {
                     UserEntity userEntity = new UserEntity();
                     userEntity.setEMail(resultSet.getString("eMail"));
+                    userEntity.setIsActive(resultSet.getBoolean(IS_ACTIVE));
                     userEntityList.add(userEntity);
                 }
             }
@@ -272,7 +275,7 @@ public class UserDaoImpl implements UserDao {
                     employee.setAddress(resultSet.getString("address"));
                     employee.setRegisterAt(resultSet.getTimestamp("registerAt"));
                     employee.setModifyAt(resultSet.getTimestamp("modifyAt"));
-                    employee.setIsActive(resultSet.getBoolean("isActive"));
+                    employee.setIsActive(resultSet.getBoolean(IS_ACTIVE));
 
                     employeeEntityList.add(employee);
                 }
