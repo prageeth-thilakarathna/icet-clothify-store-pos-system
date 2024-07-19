@@ -8,6 +8,7 @@ import edu.icet.pos.entity.UserRoleEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.modelmapper.ModelMapper;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -304,20 +305,35 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public EmployeeEntity getEmployeeByUserId(Integer userId) {
+    public EmployeeEntity getEmployeeByUserId(Integer id) {
         Session session = HibernateUtil.getSession();
-        Transaction tx = null;
-        EmployeeEntity employeeEntity;
-        try {
-            tx = session.beginTransaction();
-            employeeEntity = session.createQuery("SELECT a FROM EmployeeEntity a WHERE userId=" + userId, EmployeeEntity.class).getSingleResult();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-            throw e;
-        } finally {
-            session.close();
-        }
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM employee WHERE userId=" + id);
+
+                while (resultSet.next()) {
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.setId(resultSet.getInt("userId"));
+
+                    JobRoleEntity jobRoleEntity = new JobRoleEntity();
+                    jobRoleEntity.setId(resultSet.getInt("jobRoleId"));
+
+                    employeeEntity.setId(resultSet.getInt("id"));
+                    employeeEntity.setUser(userEntity);
+                    employeeEntity.setJobRole(jobRoleEntity);
+                    employeeEntity.setTitle(resultSet.getString("title"));
+                    employeeEntity.setFirstName(resultSet.getString("firstName"));
+                    employeeEntity.setLastName(resultSet.getString("lastName"));
+                    employeeEntity.setContact(resultSet.getString("contact"));
+                    employeeEntity.setAddress(resultSet.getString("address"));
+                    employeeEntity.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    employeeEntity.setModifyAt(resultSet.getTimestamp("modifyAt"));
+                    employeeEntity.setIsActive(resultSet.getBoolean(IS_ACTIVE));
+                }
+            }
+        });
+        session.close();
         return employeeEntity;
     }
 }

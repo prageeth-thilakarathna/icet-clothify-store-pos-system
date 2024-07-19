@@ -7,7 +7,6 @@ import edu.icet.pos.model.user.User;
 import edu.icet.pos.util.BoType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,18 +44,15 @@ public class AuthCenterController {
     public static boolean isUserAssistance() {
         try {
             assert AuthCenterController.getInstance().userBo != null;
-            if (isUser() &&
-                    !AuthCenterController.getInstance().userBo.getAllEmployee().isEmpty() &&
-                    AuthCenterController.getInstance().userBo.getEmployeeByUserId(AuthCenterController.getInstance().userLogin.getId()) != null
-            ) {
+            if (isUser() && !AuthCenterController.getInstance().userBo.getAllEmployee().isEmpty()) {
                 Employee employee = AuthCenterController.getInstance().userBo.getEmployeeByUserId(AuthCenterController.getInstance().userLogin.getId());
                 return Objects.equals(employee.getJobRole().getName(), "assistance");
             }
             return false;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.show();
+            if (e.getMessage() == null) {
+                return false;
+            }
         }
         return false;
     }
@@ -64,18 +60,15 @@ public class AuthCenterController {
     public static boolean isUserCashier() {
         try {
             assert AuthCenterController.getInstance().userBo != null;
-            if (isUser() &&
-                    !AuthCenterController.getInstance().userBo.getAllEmployee().isEmpty() &&
-                    AuthCenterController.getInstance().userBo.getEmployeeByUserId(AuthCenterController.getInstance().userLogin.getId()) != null
-            ) {
+            if (isUser() && !AuthCenterController.getInstance().userBo.getAllEmployee().isEmpty()) {
                 Employee employee = AuthCenterController.getInstance().userBo.getEmployeeByUserId(AuthCenterController.getInstance().userLogin.getId());
                 return Objects.equals(employee.getJobRole().getName(), "cashier");
             }
             return false;
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
-            alert.show();
+            if (e.getMessage() == null) {
+                return false;
+            }
         }
         return false;
     }

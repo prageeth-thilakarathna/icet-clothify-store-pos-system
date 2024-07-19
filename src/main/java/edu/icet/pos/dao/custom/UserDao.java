@@ -39,5 +39,5 @@ public interface UserDao extends SuperDao {
 
     List<EmployeeEntity> getAllEmployee();
 
-    EmployeeEntity getEmployeeByUserId(Integer userId);
+    EmployeeEntity getEmployeeByUserId(Integer id);
 }

@@ -39,5 +39,5 @@ public interface UserBo extends SuperBo {
 
     List<Employee> getAllEmployee();
 
-    Employee getEmployeeByUserId(Integer userId);
+    Employee getEmployeeByUserId(Integer id);
 }

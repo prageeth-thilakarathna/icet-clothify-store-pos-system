@@ -2,11 +2,17 @@ package edu.icet.pos.controller.place_order;
 
 import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
+import edu.icet.pos.bo.custom.CategoryBo;
 import edu.icet.pos.bo.custom.ProductBo;
+import edu.icet.pos.bo.custom.SubCategoryBo;
 import edu.icet.pos.controller.place_order.custom.PlaceOrderCard;
 import edu.icet.pos.controller.place_order.custom.PlaceOrderView;
+import edu.icet.pos.model.category.Category;
 import edu.icet.pos.model.product.Product;
+import edu.icet.pos.model.sub_category.SubCategory;
 import edu.icet.pos.util.BoType;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,9 +32,9 @@ import java.util.ResourceBundle;
 
 public class ViewController implements PlaceOrderView {
     @FXML
-    private JFXComboBox optCategory;
+    private JFXComboBox<String> optCategory;
     @FXML
-    private JFXComboBox optSubCategory;
+    private JFXComboBox<String> optSubCategory;
     @FXML
     private Button btnCancel;
     @FXML
@@ -36,9 +42,41 @@ public class ViewController implements PlaceOrderView {
 
     private final ProductBo productBo = BoFactory.getBo(BoType.PRODUCT);
     private final List<PlaceOrderCard> placeOrderCardList = new ArrayList<>();
+    private final CategoryBo categoryBo = BoFactory.getBo(BoType.CATEGORY);
+    private final SubCategoryBo subCategoryBo = BoFactory.getBo(BoType.SUB_CATEGORY);
 
     @FXML
-    private void optCategoryAction(ActionEvent actionEvent) {
+    private void optCategoryAction() {
+        try {
+            if (optCategory.getValue() != null) {
+                assert categoryBo != null;
+                Category category = categoryBo.getCategoryByName(optCategory.getValue());
+                setSubCategory(category);
+            }
+            optSubCategory.setDisable(false);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+    }
+
+    private void setSubCategory(Category category) {
+        ObservableList<String> subCategoryArrayList = FXCollections.observableArrayList();
+        try {
+            assert subCategoryBo != null;
+            List<SubCategory> subCategoryList = subCategoryBo.getSubCategoryByCategory(category);
+            for (SubCategory subCategory : subCategoryList) {
+                if (Boolean.TRUE.equals(subCategory.getIsActive())) {
+                    subCategoryArrayList.add(subCategory.getName());
+                }
+            }
+            optSubCategory.setItems(subCategoryArrayList);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     @FXML
@@ -50,13 +88,26 @@ public class ViewController implements PlaceOrderView {
     }
 
     @Override
-    public void loadCard() {
-        cardPagination.setPageFactory(this::createTblPage);
-    }
-
-    @Override
     public List<PlaceOrderCard> getCardList() {
         return placeOrderCardList;
+    }
+
+    private ObservableList<String> getCategory() {
+        ObservableList<String> categoryArrayList = FXCollections.observableArrayList();
+        try {
+            assert categoryBo != null;
+            List<Category> categoryList = categoryBo.getAllCategory();
+            for (Category category : categoryList) {
+                if (Boolean.TRUE.equals(category.getIsActive())) {
+                    categoryArrayList.add(category.getName());
+                }
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+        return categoryArrayList;
     }
 
     private int getPageCount(){
@@ -93,7 +144,7 @@ public class ViewController implements PlaceOrderView {
             int row = 1;
             int column = 0;
 
-            for (int i = 0; i < productList.size(); i++) {
+            for (Product product : productList) {
                 FXMLLoader fxmlLoaderCard = new FXMLLoader(getClass().getResource("/view/place-order/card.fxml"));
                 VBox vBox = fxmlLoaderCard.load();
                 vBox.setStyle("-fx-border-color: #353c52;");
@@ -102,13 +153,13 @@ public class ViewController implements PlaceOrderView {
                 vBox.setPrefHeight(196);
 
                 PlaceOrderCard placeOrderCard = fxmlLoaderCard.getController();
-                placeOrderCard.setDetail(productList.get(i));
+                placeOrderCard.setDetail(product);
                 placeOrderCardList.add(placeOrderCard);
 
                 gridPane.add(vBox, column++, row);
                 GridPane.setMargin(vBox, new Insets(20, 0, 0, 20));
 
-                if(column>2){
+                if (column > 2) {
                     column = 0;
                     row++;
                 }
@@ -119,6 +170,13 @@ public class ViewController implements PlaceOrderView {
             alert.show();
         }
         return gridPane;
+    }
+
+    @Override
+    public void loadView(){
+        cardPagination.setPageFactory(this::createTblPage);
+        optCategory.setItems(getCategory());
+        optCategory.setVisibleRowCount(5);
     }
 
     @Override

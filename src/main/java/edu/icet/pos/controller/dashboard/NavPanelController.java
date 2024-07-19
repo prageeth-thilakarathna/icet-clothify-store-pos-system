@@ -15,6 +15,8 @@ import edu.icet.pos.controller.employee.EmployeeCenterController;
 import edu.icet.pos.controller.employee.custom.EmployeeForm;
 import edu.icet.pos.controller.employee.custom.EmployeeSearch;
 import edu.icet.pos.controller.employee.custom.EmployeeView;
+import edu.icet.pos.controller.order.OrderCenterController;
+import edu.icet.pos.controller.order.custom.OrderView;
 import edu.icet.pos.controller.place_order.PlaceOrderCenterController;
 import edu.icet.pos.controller.place_order.custom.PlaceOrderView;
 import edu.icet.pos.controller.product.ProductCenterController;
@@ -250,43 +252,21 @@ public class NavPanelController implements DashboardNavPanel {
         btnDashboard.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
-        /*HBox pageTop = CenterController.getInstance().getPageTop();
-        pageTop.getChildren().clear();
-        Label pageHeader = CenterController.getInstance().getPageHeader();
-        pageHeader.setText("Place Order");
-        pageTop.getChildren().add(pageHeader);
+        BorderPane pageBorderPane = CenterController.getInstance().getPageBorderPane();
+        pageBorderPane.getChildren().removeAll(pageBorderPane.getChildren());
 
-        VBox pageCenter = CenterController.getInstance().getPageCenter();
-        pageCenter.getChildren().clear();
-        pageCenter.getChildren().add(PlaceOrderCenterController.getInstance().getParentView());
-        //placeOrderView.loadCard();
+        HBox pageTop = CenterController.getInstance().getPageTop();
+        pageBorderPane.setTop(pageTop);
 
-        VBox pageRight = CenterController.getInstance().getPageRight();
-        pageRight.getChildren().clear();
+        setPageHeader("Order");
 
-        BorderPane borderPane = new BorderPane();
+        pageBorderPane.setCenter(OrderCenterController.getInstance().getPageView());
+        OrderView orderView = OrderCenterController.getInstance().getFxmlLoaderView().getController();
+        orderView.loadPlaceOrder();
+        //pageBorderPane.setRight(right);
+        //pageBorderPane.setBottom(bottom);
 
-        HBox hBox = new HBox();
-        Separator separator = new Separator(Orientation.VERTICAL);
-        hBox.getChildren().add(separator);
-        hBox.getChildren().add(borderPane);
 
-        BorderPane borderPanePage = CenterController.getInstance().getPageBorderPane();
-        borderPanePage.setRight(hBox);
-
-        borderPane.setTop(PlaceOrderCenterController.getInstance().getParentCartHeader());
-
-        ScrollPane scrollPaneCart = new ScrollPane();
-        scrollPaneCart.setStyle("-fx-focus-color: transparent; -fx-background-color: transparent;");
-
-        VBox vBox = CenterController.getInstance().getPageRight();
-        vBox.setPrefWidth(279);
-        vBox.setPrefHeight(0);
-        vBox.setAlignment(Pos.TOP_CENTER);
-        scrollPaneCart.setContent(vBox);
-
-        borderPane.setCenter(scrollPaneCart);
-        borderPane.setBottom(PlaceOrderCenterController.getInstance().getParentPay());*/
     }
 
     @Override
@@ -296,7 +276,12 @@ public class NavPanelController implements DashboardNavPanel {
 
     @Override
     public void loadInitializer() {
-        btnEmployeeAction();
+        btnProductAction();
+    }
+
+    @Override
+    public void loadOrder() {
+        btnOrderAction();
     }
 
     @Override

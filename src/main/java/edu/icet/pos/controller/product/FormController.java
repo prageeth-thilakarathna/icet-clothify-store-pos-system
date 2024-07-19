@@ -20,11 +20,9 @@ import edu.icet.pos.util.HibernateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -33,16 +31,16 @@ import javafx.stage.Stage;
 import org.modelmapper.ModelMapper;
 
 import javax.sql.rowset.serial.SerialBlob;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.sql.Blob;
+import java.util.*;
 
 public class FormController implements ProductForm {
+    @FXML
+    private ImageView dspImage;
+    @FXML
+    private Label dspImgMessage;
     @FXML
     private VBox vBox;
     @FXML
@@ -61,8 +59,6 @@ public class FormController implements ProductForm {
     private TextField txtQuantityOnHand;
     @FXML
     private Button btnChooseImage;
-    @FXML
-    private TextField dspImageName;
     @FXML
     private JFXComboBox<String> optStatus;
     @FXML
@@ -89,9 +85,9 @@ public class FormController implements ProductForm {
     private static final String DISABLE = "Disable";
     private final ProductBo productBo = BoFactory.getBo(BoType.PRODUCT);
     private final InventoryBo inventoryBo = BoFactory.getBo(BoType.INVENTORY);
-    private File selectImage;
+    private byte[] selectImage;
+    private byte[] searchImage;
     private Product searchProduct;
-    private Image searchImage;
     private ProductSearch productSearch;
     private ProductView productView;
     private static final String MODIFICATION = "modification";
@@ -214,18 +210,29 @@ public class FormController implements ProductForm {
     private void btnChooseImageAction() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg")
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg", "*.bmp")
         );
         Stage stage = new Stage();
-        selectImage = fileChooser.showOpenDialog(stage);
-        dspImageName.setText(selectImage.getName());
-        Tooltip tooltip = new Tooltip(selectImage.getName());
-        dspImageName.setTooltip(tooltip);
-        validateInputs();
-    }
+        File imageFile = fileChooser.showOpenDialog(stage);
 
-    @FXML
-    private void dspImageNameKeyTyped() {
+        if (imageFile != null) {
+            try (FileInputStream fileInputStream = new FileInputStream(imageFile)) {
+                byte[] bytes = new byte[(int) imageFile.length()];
+                int res = fileInputStream.read(bytes);
+                if (res != -1) {
+                    selectImage = bytes;
+                    Blob blob = new SerialBlob(bytes);
+                    Image image = new Image(blob.getBinaryStream());
+                    dspImage.setImage(image);
+                    dspImgMessage.setStyle("-fx-text-fill: #159493;");
+                    dspImgMessage.setText("Success!");
+                }
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(e.getMessage());
+                alert.show();
+            }
+        }
         validateInputs();
     }
 
@@ -253,15 +260,7 @@ public class FormController implements ProductForm {
             product.setSize(optSize.getValue());
             product.setPrice(Double.parseDouble(txtPrice.getText()));
             product.setQuantityOnHand(Integer.parseInt(txtQuantityOnHand.getText()));
-
-            try (FileInputStream fileInputStream = new FileInputStream(selectImage)) {
-                byte[] bytes = new byte[(int) selectImage.length()];
-                int res = fileInputStream.read(bytes);
-                if (res != -1) {
-                    product.setImage(new SerialBlob(bytes));
-                }
-            }
-
+            product.setImage(new SerialBlob(selectImage));
             product.setRegisterAt(new Date());
             product.setModifyAt(new Date());
             product.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
@@ -319,16 +318,7 @@ public class FormController implements ProductForm {
             product.setDescription(txtDescription.getText());
             product.setSize(optSize.getValue());
             product.setPrice(Double.parseDouble(txtPrice.getText()));
-
-            if (selectImage != null) {
-                try (FileInputStream fileInputStream = new FileInputStream(selectImage)) {
-                    byte[] bytes = new byte[(int) selectImage.length()];
-                    int res = fileInputStream.read(bytes);
-                    if (res != -1) {
-                        product.setImage(new SerialBlob(bytes));
-                    }
-                }
-            }
+            product.setImage(new SerialBlob(selectImage != null ? selectImage:searchImage));
             product.setModifyAt(new Date());
             product.setIsActive(Objects.equals(optStatus.getValue(), ACTIVE));
 
@@ -461,8 +451,8 @@ public class FormController implements ProductForm {
                 optSize.getValue() == null &&
                 txtPrice.getLength() <= 0 &&
                 txtQuantityOnHand.getLength() <= 0 &&
-                dspImageName.getLength() <= 4 &&
-                optStatus.getValue() == null);
+                selectImage == null &&
+                Objects.equals(optStatus.getValue(), ""));
     }
 
     private boolean isInputEmpty() {
@@ -473,8 +463,8 @@ public class FormController implements ProductForm {
                 optSize.getValue() == null ||
                 txtPrice.getLength() <= 0 ||
                 txtQuantityOnHand.getLength() <= 0 ||
-                (selectImage == null && searchImage == null) ||
-                optStatus.getValue() == null;
+                dspImage.getImage() == null ||
+                Objects.equals(optStatus.getValue(), "");
     }
 
     private void validateModify() {
@@ -492,7 +482,7 @@ public class FormController implements ProductForm {
             btnModify.setDisable(isInputEmpty());
         } else if (!Objects.equals(String.valueOf(searchProduct.getQuantityOnHand()), txtQuantityOnHand.getText())) {
             btnModify.setDisable(isInputEmpty());
-        } else if (selectImage != null) {
+        } else if (selectImage != null && !isImageEqual()) {
             btnModify.setDisable(isInputEmpty());
         } else if (Boolean.TRUE.equals(searchProduct.getIsActive()) ?
                 Objects.equals(optStatus.getValue(), DISABLE) : Objects.equals(optStatus.getValue(), ACTIVE)) {
@@ -500,6 +490,15 @@ public class FormController implements ProductForm {
         } else {
             btnModify.setDisable(true);
         }
+    }
+
+    private boolean isImageEqual() {
+        for (int i = 0; i < searchImage.length; i++) {
+            if (searchImage[i] != selectImage[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void clearForm() {
@@ -515,12 +514,14 @@ public class FormController implements ProductForm {
         optSize.setPromptText("   Select a Size");
         txtPrice.setText("");
         txtQuantityOnHand.setText("");
-        dspImageName.setText("");
         optStatus.setValue("");
         optStatus.setPromptText("   Select a Status");
         btnRegister.setDisable(true);
         btnCancel.setDisable(true);
         selectImage = null;
+        dspImgMessage.setStyle("-fx-fill: #ea3e43;");
+        dspImgMessage.setText("Not Selected!");
+        dspImage.setImage(null);
     }
 
     private ObservableList<String> getCategory() {
@@ -618,16 +619,23 @@ public class FormController implements ProductForm {
         txtQuantityOnHand.setText(String.valueOf(product.getQuantityOnHand()));
 
         try {
-            InputStream inputStream = product.getImage().getBinaryStream();
-            searchImage = new Image(inputStream);
+            Blob blob = product.getImage();
+            InputStream in = blob.getBinaryStream();
+            byte[] bytes = new byte[(int) blob.length()];
+            int res = in.read(bytes);
+            if (res != -1) {
+                searchImage = bytes;
+                dspImage.setImage(new Image(new SerialBlob(bytes).getBinaryStream()));
+                dspImgMessage.setStyle("-fx-text-fill: #159493;");
+                dspImgMessage.setText("Success!");
+            }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(e.getMessage());
+            alert.setContentText(e.toString());
             alert.show();
         }
+
         optStatus.setValue(Boolean.TRUE.equals(product.getIsActive()) ? ACTIVE : DISABLE);
-        selectImage = null;
-        dspImageName.setText("");
         txtQuantityOnHand.setDisable(true);
         validateInputs();
         authNotify();
@@ -638,7 +646,6 @@ public class FormController implements ProductForm {
         searchProduct = null;
         clearForm();
         btnDelete.setDisable(true);
-        searchImage = null;
         btnActive.setDisable(true);
         btnDisable.setDisable(true);
         txtQuantityOnHand.setDisable(false);
@@ -668,6 +675,10 @@ public class FormController implements ProductForm {
         optStatus.setItems(getStatus());
         optSize.setItems(getSize());
         optSize.setVisibleRowCount(5);
+        selectImage = null;
+        searchImage = null;
+        dspImgMessage.setStyle("-fx-fill: #ea3e43;");
+        dspImgMessage.setText("Not Selected!");
     }
 
     @Override
@@ -699,7 +710,6 @@ public class FormController implements ProductForm {
         txtPrice.setDisable(true);
         txtQuantityOnHand.setDisable(true);
         btnChooseImage.setDisable(true);
-        dspImageName.setDisable(true);
         optStatus.setDisable(true);
     }
 

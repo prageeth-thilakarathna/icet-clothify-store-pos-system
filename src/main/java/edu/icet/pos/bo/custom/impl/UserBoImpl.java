@@ -2,6 +2,7 @@ package edu.icet.pos.bo.custom.impl;
 
 import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.dao.DaoFactory;
+import edu.icet.pos.dao.custom.JobRoleDao;
 import edu.icet.pos.dao.custom.UserDao;
 import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.entity.UserEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class UserBoImpl implements UserBo {
     private final UserDao userDao = DaoFactory.getDao(DaoType.USER);
+    private final JobRoleDao jobRoleDao = DaoFactory.getDao(DaoType.JOB_ROLE);
 
     @Override
     public void userRegister(User user) {
@@ -118,8 +120,14 @@ public class UserBoImpl implements UserBo {
     }
 
     @Override
-    public Employee getEmployeeByUserId(Integer userId) {
+    public Employee getEmployeeByUserId(Integer id) {
         assert userDao != null;
-        return new ModelMapper().map(userDao.getEmployeeByUserId(userId), Employee.class);
+        EmployeeEntity employeeEntity = userDao.getEmployeeByUserId(id);
+
+        employeeEntity.setUser(userDao.get(employeeEntity.getUser().getId()));
+        assert jobRoleDao != null;
+        employeeEntity.setJobRole(jobRoleDao.get(employeeEntity.getJobRole().getId()));
+
+        return new ModelMapper().map(employeeEntity, Employee.class);
     }
 }

@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import java.util.List;
 
 public interface PlaceOrderView extends Initializable {
-    void loadCard();
+    void loadView();
 
     List<PlaceOrderCard> getCardList();
 }

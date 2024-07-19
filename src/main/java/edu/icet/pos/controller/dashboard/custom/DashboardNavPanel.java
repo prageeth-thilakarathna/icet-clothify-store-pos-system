@@ -6,4 +6,6 @@ public interface DashboardNavPanel extends SuperController {
     void loadCategory();
 
     void loadInitializer();
+
+    void loadOrder();
 }

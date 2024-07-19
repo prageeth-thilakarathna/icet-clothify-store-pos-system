@@ -7,11 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class CartController {
     }
 
     private void addToCart() {
-        VBox vBox = CenterController.getInstance().getPageRight();
+        VBox vBox = PlaceOrderCenterController.getInstance().getCartItem();
         double height = ((73 * orderDetailList.size()) + (11 * orderDetailList.size())) - (double) 11;
         vBox.setPrefHeight(height);
 
@@ -58,7 +57,9 @@ public class CartController {
                 VBox.setMargin(parent, new Insets(5, 10, 0, 10));
             }
         } catch (Exception e) {
-
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
         }
     }
 }
