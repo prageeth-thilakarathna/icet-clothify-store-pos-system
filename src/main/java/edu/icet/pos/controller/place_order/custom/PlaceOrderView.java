@@ -8,4 +8,6 @@ public interface PlaceOrderView extends Initializable {
     void loadView();
 
     List<PlaceOrderCard> getCardList();
+
+    void cancelView();
 }

@@ -30,6 +30,11 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
+            <Label fx:id="dspOutOfStocks" focusTraversable="false" layoutX="74.0" layoutY="86.0" style="-fx-background-color: #FFFFFF;" text="Out of Stocks!" textFill="#ea3e43" visible="false">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
          </children>
          <VBox.margin>
             <Insets left="3.0" right="5.0" />

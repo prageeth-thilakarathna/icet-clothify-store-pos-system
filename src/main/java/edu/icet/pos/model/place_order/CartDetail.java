@@ -1,17 +1,16 @@
 package edu.icet.pos.model.place_order;
 
 import edu.icet.pos.model.product.Product;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class OrderDetail {
-    private Integer id;
-    private Integer orderId;
+@AllArgsConstructor
+public class CartDetail {
     private Product product;
     private Integer quantity;
+    private Double price;
     private Double total;
 }

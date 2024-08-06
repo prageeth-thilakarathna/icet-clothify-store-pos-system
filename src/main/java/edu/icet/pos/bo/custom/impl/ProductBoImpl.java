@@ -39,15 +39,34 @@ public class ProductBoImpl implements ProductBo {
     }
 
     @Override
-    public int getProductCount() {
+    public int getProductCount(boolean filter) {
         assert productDao != null;
-        return productDao.count();
+        return productDao.count(filter);
     }
 
     @Override
-    public List<Product> getProductPerPage(int limit, int offset) {
+    public List<Product> getProductPerPage(boolean filter, int limit, int offset) {
         assert productDao != null;
-        return new ModelMapper().map(productDao.getPerPage(limit, offset), new TypeToken<List<Product>>() {
+        return new ModelMapper().map(productDao.getPerPage(filter, limit, offset), new TypeToken<List<Product>>() {
         }.getType());
+    }
+
+    @Override
+    public List<Product> getProductPerPage(String ids, int limit, int offset) {
+        assert productDao != null;
+        return new ModelMapper().map(productDao.getPerPage(ids, limit, offset), new TypeToken<List<Product>>() {
+        }.getType());
+    }
+
+    @Override
+    public int getProductCountByFilter(String ids) {
+        assert productDao != null;
+        return productDao.countByFilter(ids);
+    }
+
+    @Override
+    public void productAvaQtyUpdate(Product product) {
+        assert productDao != null;
+        productDao.updateAvaQty(new ModelMapper().map(product, ProductEntity.class));
     }
 }

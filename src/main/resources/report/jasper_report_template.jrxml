@@ -1,102 +1,104 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN"
-        "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
-   http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-              name="jasper_report_template" language="groovy" pageWidth="595"
-              pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20"
-              topMargin="20" bottomMargin="20">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jasper_report_template" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f24e6e3e-fb48-4278-82f8-3e4e5ff36266">
     <queryString>
         <![CDATA[]]>
     </queryString>
-
     <field name="country" class="java.lang.String">
         <fieldDescription><![CDATA[country]]></fieldDescription>
     </field>
-
     <field name="name" class="java.lang.String">
         <fieldDescription><![CDATA[name]]></fieldDescription>
     </field>
-
+    <field name="emp_id" class="java.lang.String">
+        <fieldDescription><![CDATA[emp_Id]]></fieldDescription>
+    </field>
+    <field name="salary" class="java.lang.String">
+        <fieldDescription><![CDATA[salary]]></fieldDescription>
+    </field>
+    <field name="position" class="java.lang.String">
+        <fieldDescription><![CDATA[position]]></fieldDescription>
+    </field>
     <columnHeader>
-        <band height="23">
-
+        <band height="23" splitType="Stretch">
             <staticText>
-                <reportElement mode="Opaque" x="0" y="3"
-                               width="535" height="15" backcolor="#70A9A9"/>
-
+                <reportElement mode="Opaque" x="0" y="3" width="535" height="15" backcolor="#70A9A9" uuid="cb0f0fc2-3271-4e5c-97da-05653672c8a9"/>
                 <box>
                     <bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
                 </box>
-
-                <textElement/>
-                <text><![CDATA[]]> </text>
+                <text><![CDATA[ ]]></text>
             </staticText>
-
             <staticText>
-                <reportElement x="414" y="3" width="121" height="15"/>
-
+                <reportElement x="0" y="3" width="90" height="15" uuid="d75d5779-651c-4e9f-a462-7785c4ba6d21"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font isBold="true"/>
                 </textElement>
-
-                <text><![CDATA[Country]]></text>
+                <text><![CDATA[Emp_Id]]></text>
             </staticText>
-
             <staticText>
-                <reportElement x="0" y="3" width="136" height="15"/>
-
+                <reportElement x="90" y="3" width="90" height="15" uuid="84f1a035-124c-443f-bd4f-8aae9c6d98ed"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font isBold="true"/>
                 </textElement>
-
                 <text><![CDATA[Name]]></text>
             </staticText>
-
+            <staticText>
+                <reportElement x="180" y="3" width="90" height="15" uuid="8961a102-615f-4d01-8210-b1f6f10d7f7a"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Country]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="270" y="3" width="90" height="15" uuid="130c0dad-52d3-4d60-a75d-99d2778e0158"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Salary]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="360" y="3" width="175" height="15" uuid="8698dd2b-a711-42a6-a148-976c7b3e57f8"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Position]]></text>
+            </staticText>
         </band>
     </columnHeader>
-
     <detail>
-        <band height="16">
-
+        <band height="16" splitType="Stretch">
             <staticText>
-                <reportElement mode="Opaque" x="0" y="0"
-                               width="535" height="14" backcolor="#E5ECF9"/>
-
+                <reportElement mode="Opaque" x="0" y="0" width="535" height="14" backcolor="#E5ECF9" uuid="317dcdb6-a557-40da-9b84-09b46cdabe7b"/>
                 <box>
                     <bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
                 </box>
-
-                <textElement/>
-                <text><![CDATA[]]> </text>
+                <text><![CDATA[ ]]></text>
             </staticText>
-
             <textField>
-                <reportElement x="414" y="0" width="121" height="15"/>
-
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="9"/>
-                </textElement>
-
-                <textFieldExpression class="java.lang.String">
-                    <![CDATA[$F{country}]]>
-                </textFieldExpression>
-            </textField>
-
-            <textField>
-                <reportElement x="0" y="0" width="136" height="15"/>
+                <reportElement x="0" y="0" width="90" height="15" uuid="82e56399-1fc5-436e-b274-daeb7c05eee6"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle"/>
-
-                <textFieldExpression class="java.lang.String">
-                    <![CDATA[$F{name}]]>
-                </textFieldExpression>
+                <textFieldExpression><![CDATA[$F{emp_id}]]></textFieldExpression>
             </textField>
-
+            <textField>
+                <reportElement x="90" y="0" width="90" height="15" uuid="47ef5ad7-fab8-42ac-8ddd-558d32762f74"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="180" y="0" width="90" height="15" uuid="0b635e85-020e-4280-9e71-3ca85a95aa6b"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="270" y="0" width="90" height="15" uuid="9c3c46ac-2fad-4eb2-bbaa-42dfe081addd"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{salary}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="360" y="0" width="175" height="15" uuid="c33481e1-359e-4eb5-9139-2b660c96e64c"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{position}]]></textFieldExpression>
+            </textField>
         </band>
     </detail>
-
 </jasperReport>

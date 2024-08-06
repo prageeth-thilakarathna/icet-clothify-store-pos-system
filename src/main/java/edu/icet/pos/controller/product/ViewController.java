@@ -51,7 +51,7 @@ public class ViewController implements ProductView {
         int pageCount = 0;
         try {
             assert productBo != null;
-            int productCount = productBo.getProductCount();
+            int productCount = productBo.getProductCount(false);
             if (productCount > 5) {
                 int tempFirst = productCount / 5;
                 int tempSecond = productCount % 5;
@@ -75,7 +75,7 @@ public class ViewController implements ProductView {
     private void productCountUpdate() {
         try {
             assert productBo != null;
-            dspCount.setText(String.valueOf(productBo.getProductCount()));
+            dspCount.setText(String.valueOf(productBo.getProductCount(false)));
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
@@ -87,7 +87,7 @@ public class ViewController implements ProductView {
         GridPane gridPane = new GridPane();
         try {
             assert productBo != null;
-            List<Product> productList = productBo.getProductPerPage(5, pageIndex * 5);
+            List<Product> productList = productBo.getProductPerPage(false, 5, pageIndex * 5);
 
             for (int i = 0; i < productList.size(); i++) {
                 FXMLLoader fxmlLoaderCard = new FXMLLoader(getClass().getResource("/view/product/card.fxml"));
@@ -113,6 +113,8 @@ public class ViewController implements ProductView {
 
     @Override
     public void loadCard() {
+        productCountUpdate();
+        cardPagination.setPageCount(getPageCount());
         cardPagination.setPageFactory(this::createCardPage);
     }
 

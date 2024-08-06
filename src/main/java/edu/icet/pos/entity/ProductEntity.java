@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Blob;
 import java.util.Date;
@@ -23,12 +21,10 @@ public class ProductEntity {
 
     @ManyToOne
     @JoinColumn(name = "subCategoryId", foreignKey = @ForeignKey(name = "fk_sub_category_product"))
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private SubCategoryEntity subCategory;
 
     @ManyToOne
     @JoinColumn(name = "supplierId", foreignKey = @ForeignKey(name = "fk_supplier_product"))
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private SupplierEntity supplier;
 
     private String description;
@@ -42,4 +38,7 @@ public class ProductEntity {
 
     @OneToMany(mappedBy = "product")
     private List<InventoryEntity> inventory;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderDetailEntity> orderDetail;
 }

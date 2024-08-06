@@ -132,6 +132,8 @@ public class ViewController implements SupplierView {
 
     @Override
     public void loadTable() {
+        supplierCountUpdate();
+        tblPagination.setPageCount(getPageCount());
         tblPagination.setPageFactory(this::createTblPage);
     }
 

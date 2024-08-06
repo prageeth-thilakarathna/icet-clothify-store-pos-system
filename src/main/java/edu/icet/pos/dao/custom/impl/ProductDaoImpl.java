@@ -68,12 +68,17 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public int count() {
+    public int count(boolean filter) {
         Session session = HibernateUtil.getSession();
         AtomicInteger count = new AtomicInteger();
         session.doWork(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) AS row_count FROM product");
+                ResultSet resultSet;
+                if (!filter) {
+                    resultSet = statement.executeQuery("SELECT COUNT(*) AS row_count FROM product");
+                } else {
+                    resultSet = statement.executeQuery("SELECT COUNT(*) AS row_count FROM product WHERE isActive=" + true);
+                }
                 resultSet.next();
                 count.set(resultSet.getInt("row_count"));
             }
@@ -83,12 +88,53 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<ProductEntity> getPerPage(int limit, int offset) {
+    public List<ProductEntity> getPerPage(boolean filter, int limit, int offset) {
         Session session = HibernateUtil.getSession();
         List<ProductEntity> productEntityList = new ArrayList<>();
         session.doWork(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM product LIMIT " + limit + " OFFSET " + offset);
+                ResultSet resultSet;
+                if (!filter) {
+                    resultSet = statement.executeQuery("SELECT * FROM product LIMIT " + limit + " OFFSET " + offset);
+                } else {
+                    resultSet = statement.executeQuery("SELECT * FROM product WHERE isActive=" + true + " LIMIT " + limit + " OFFSET " + offset);
+                }
+                while (resultSet.next()) {
+                    ProductEntity product = new ProductEntity();
+
+                    SubCategoryEntity subCategoryEntity = new SubCategoryEntity();
+                    subCategoryEntity.setId(resultSet.getInt("subCategoryId"));
+
+                    SupplierEntity supplierEntity = new SupplierEntity();
+                    supplierEntity.setId(resultSet.getInt("supplierId"));
+
+                    product.setId(resultSet.getInt("id"));
+                    product.setSubCategory(subCategoryEntity);
+                    product.setSupplier(supplierEntity);
+                    product.setDescription(resultSet.getString("description"));
+                    product.setSize(resultSet.getString("size"));
+                    product.setPrice(resultSet.getDouble("price"));
+                    product.setQuantityOnHand(resultSet.getInt("quantityOnHand"));
+                    product.setImage(resultSet.getBlob("image"));
+                    product.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    product.setModifyAt(resultSet.getTimestamp("modifyAt"));
+                    product.setIsActive(resultSet.getBoolean("isActive"));
+
+                    productEntityList.add(product);
+                }
+            }
+        });
+        session.close();
+        return productEntityList;
+    }
+
+    @Override
+    public List<ProductEntity> getPerPage(String ids, int limit, int offset) {
+        Session session = HibernateUtil.getSession();
+        List<ProductEntity> productEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM product WHERE subCategoryId IN (" + ids + ") AND isActive=" + true + " LIMIT " + limit + " OFFSET " + offset);
 
                 while (resultSet.next()) {
                     ProductEntity product = new ProductEntity();
@@ -117,5 +163,26 @@ public class ProductDaoImpl implements ProductDao {
         });
         session.close();
         return productEntityList;
+    }
+
+    @Override
+    public int countByFilter(String ids) {
+        Session session = HibernateUtil.getSession();
+        AtomicInteger count = new AtomicInteger();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) AS row_count FROM product WHERE subCategoryId IN (" + ids + ") AND isActive=" + true);
+                resultSet.next();
+                count.set(resultSet.getInt("row_count"));
+            }
+        });
+        session.close();
+        return count.get();
+    }
+
+    @Override
+    public void updateAvaQty(ProductEntity productEntity) {
+        Session session = HibernateUtil.getSingletonSession();
+        session.merge(productEntity);
     }
 }

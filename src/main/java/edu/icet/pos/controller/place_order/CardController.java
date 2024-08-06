@@ -1,7 +1,7 @@
 package edu.icet.pos.controller.place_order;
 
 import edu.icet.pos.controller.place_order.custom.PlaceOrderCard;
-import edu.icet.pos.model.place_order.OrderDetail;
+import edu.icet.pos.model.place_order.CartDetail;
 import edu.icet.pos.model.product.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,11 +11,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class CardController implements PlaceOrderCard {
+    @FXML
+    private Label dspOutOfStocks;
     @FXML
     private ImageView dspImage;
     @FXML
@@ -35,11 +35,14 @@ public class CardController implements PlaceOrderCard {
 
     @FXML
     private void btnAddToCartAction() {
-        OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setProduct(this.product);
-        orderDetail.setQuantity(1);
-        orderDetail.setTotal(product.getPrice());
-        CartController.getInstance().setOrderDetail(orderDetail);
+        CartDetail cartDetail = new CartDetail(
+                this.product,
+                1,
+                product.getPrice(),
+                product.getPrice()
+        );
+        CartController.getCART_DETAIL_LIST().add(cartDetail);
+        CartController.addToCart();
         btnAddToCart.setDisable(true);
     }
 
@@ -51,6 +54,11 @@ public class CardController implements PlaceOrderCard {
         Image image = new Image(inputStream);
         dspImage.setImage(image);
         dspDescription.setText(product.getDescription());
+        dspPrice.setText(String.valueOf(product.getPrice()));
+        if(product.getQuantityOnHand()==0){
+            dspOutOfStocks.setVisible(true);
+            btnAddToCart.setDisable(true);
+        }
     }
 
     @Override
@@ -59,7 +67,12 @@ public class CardController implements PlaceOrderCard {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void setBtnAddToCartDisable() {
+        btnAddToCart.setDisable(true);
+    }
 
+    @Override
+    public void setBtnAddToCartActive() {
+        btnAddToCart.setDisable(false);
     }
 }

@@ -14,7 +14,13 @@ public interface ProductBo extends SuperBo {
 
     void productDelete(Product product);
 
-    int getProductCount();
+    int getProductCount(boolean filter);
 
-    List<Product> getProductPerPage(int limit, int offset);
+    List<Product> getProductPerPage(boolean filter, int limit, int offset);
+
+    List<Product> getProductPerPage(String ids, int limit, int offset);
+
+    int getProductCountByFilter(String ids);
+
+    void productAvaQtyUpdate(Product product);
 }

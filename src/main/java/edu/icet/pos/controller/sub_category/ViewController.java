@@ -134,6 +134,8 @@ public class ViewController implements SubCategoryView {
 
     @Override
     public void loadTable() {
+        subCategoryCountUpdate();
+        tblPagination.setPageCount(getPageCount());
         tblPagination.setPageFactory(this::createTblPage);
     }
 

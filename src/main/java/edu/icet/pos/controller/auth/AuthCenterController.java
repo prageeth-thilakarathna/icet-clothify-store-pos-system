@@ -38,15 +38,18 @@ public class AuthCenterController {
     }
 
     public static boolean isUser() {
-        return AuthCenterController.getInstance().userLogin != null && Objects.equals(AuthCenterController.getInstance().userLogin.getUserRole().getName(), "user");
+        return AuthCenterController.getInstance().userLogin != null &&
+                Objects.equals(AuthCenterController.getInstance().userLogin.getUserRole().getName(), "user");
     }
 
     public static boolean isUserAssistance() {
         try {
             assert AuthCenterController.getInstance().userBo != null;
             if (isUser() && !AuthCenterController.getInstance().userBo.getAllEmployee().isEmpty()) {
-                Employee employee = AuthCenterController.getInstance().userBo.getEmployeeByUserId(AuthCenterController.getInstance().userLogin.getId());
-                return Objects.equals(employee.getJobRole().getName(), "assistance");
+                Employee employee = AuthCenterController.getInstance()
+                        .userBo.getEmployeeByUserId(AuthCenterController.getInstance().userLogin.getId());
+                return Objects.equals(employee.getJobRole().getName(), "assistance") &&
+                        employee.getIsActive();
             }
             return false;
         } catch (Exception e) {
@@ -61,8 +64,10 @@ public class AuthCenterController {
         try {
             assert AuthCenterController.getInstance().userBo != null;
             if (isUser() && !AuthCenterController.getInstance().userBo.getAllEmployee().isEmpty()) {
-                Employee employee = AuthCenterController.getInstance().userBo.getEmployeeByUserId(AuthCenterController.getInstance().userLogin.getId());
-                return Objects.equals(employee.getJobRole().getName(), "cashier");
+                Employee employee = AuthCenterController.getInstance()
+                        .userBo.getEmployeeByUserId(AuthCenterController.getInstance().userLogin.getId());
+                return Objects.equals(employee.getJobRole().getName(), "cashier") &&
+                        employee.getIsActive();
             }
             return false;
         } catch (Exception e) {
@@ -74,7 +79,16 @@ public class AuthCenterController {
     }
 
     public static boolean isAdmin() {
-        return AuthCenterController.getInstance().userLogin != null && Objects.equals(AuthCenterController.getInstance().userLogin.getUserRole().getName(), "admin");
+        return AuthCenterController.getInstance().userLogin != null &&
+                Objects.equals(AuthCenterController.getInstance().userLogin.getUserRole().getName(), "admin");
+    }
+
+    public Employee getEmployee() {
+        if (isUserCashier()) {
+            assert userBo != null;
+            return userBo.getEmployeeByUserId(userLogin.getId());
+        }
+        return new Employee();
     }
 
     static {

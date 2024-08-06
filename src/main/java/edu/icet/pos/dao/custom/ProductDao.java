@@ -14,7 +14,13 @@ public interface ProductDao extends SuperDao {
 
     void delete(ProductEntity productEntity);
 
-    int count();
+    int count(boolean filter);
 
-    List<ProductEntity> getPerPage(int limit, int offset);
+    List<ProductEntity> getPerPage(boolean filter, int limit, int offset);
+
+    List<ProductEntity> getPerPage(String ids, int limit, int offset);
+
+    int countByFilter(String ids);
+
+    void updateAvaQty(ProductEntity productEntity);
 }

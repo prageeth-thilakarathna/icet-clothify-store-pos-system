@@ -74,7 +74,7 @@ public class LayoutController implements Layout {
         //loadLogin();
         UserBo userBo = BoFactory.getBo(BoType.USER);
         assert userBo != null;
-        AuthCenterController.getInstance().setUserLogin(userBo.getUserByEmail("user@email.com"));
+        AuthCenterController.getInstance().setUserLogin(userBo.getUserByEmail("cashier@email.com"));
         loadDashboard();
     }
 }

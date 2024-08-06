@@ -83,7 +83,7 @@ public class FormController implements SubCategoryForm {
                 }
                 subCategoryView.updateTbl("registration");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(txtName.getText() + " Sub Category registration was successful.");
+                alert.setContentText("Category " + optCategory.getValue() + " --> " + txtName.getText() + " Sub Category registration was successful.");
                 alert.show();
                 clearForm();
 

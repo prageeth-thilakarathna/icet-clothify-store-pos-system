@@ -276,7 +276,7 @@ public class NavPanelController implements DashboardNavPanel {
 
     @Override
     public void loadInitializer() {
-        btnProductAction();
+        btnOrderAction();
     }
 
     @Override

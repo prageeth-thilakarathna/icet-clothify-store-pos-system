@@ -1,7 +1,7 @@
 package edu.icet.pos.controller.order.custom;
 
-import javafx.fxml.Initializable;
+import edu.icet.pos.controller.custom.SuperController;
 
-public interface OrderView extends Initializable {
+public interface OrderView extends SuperController {
     void loadPlaceOrder();
 }

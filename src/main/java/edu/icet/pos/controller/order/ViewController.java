@@ -2,6 +2,7 @@ package edu.icet.pos.controller.order;
 
 import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.controller.CenterController;
+import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.dashboard.DashboardCenterController;
 import edu.icet.pos.controller.dashboard.custom.DashboardNavPanel;
 import edu.icet.pos.controller.order.custom.OrderView;
@@ -9,11 +10,9 @@ import edu.icet.pos.controller.place_order.PlaceOrderCenterController;
 import edu.icet.pos.controller.place_order.custom.PlaceOrderView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,6 +47,7 @@ public class ViewController implements OrderView {
 
         pageBorderPane.setCenter(PlaceOrderCenterController.getInstance().getParentView());
         PlaceOrderView placeOrderView = PlaceOrderCenterController.getInstance().getFxmlLoaderView().getController();
+        placeOrderView.cancelView();
         placeOrderView.loadView();
 
         pageBorderPane.setRight(PlaceOrderCenterController.getInstance().getHBox());
@@ -58,6 +58,16 @@ public class ViewController implements OrderView {
     @Override
     public void loadPlaceOrder() {
         btnPlaceOrderAction();
+    }
+
+    @Override
+    public void authNotify() {
+        if (!AuthCenterController.isUserCashier()) {
+            btnPlaceOrder.setVisible(false);
+        }
+        if (AuthCenterController.isUserCashier()) {
+            btnPlaceOrder.setVisible(true);
+        }
     }
 
     @Override

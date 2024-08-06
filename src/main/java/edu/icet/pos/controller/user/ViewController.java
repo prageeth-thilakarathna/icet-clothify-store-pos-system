@@ -128,6 +128,8 @@ public class ViewController implements UserView {
 
     @Override
     public void loadTable() {
+        userCountUpdate();
+        tblPagination.setPageCount(getPageCount());
         tblPagination.setPageFactory(this::createTblPage);
     }
 

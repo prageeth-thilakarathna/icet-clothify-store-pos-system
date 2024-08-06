@@ -131,6 +131,8 @@ public class ViewController implements EmployeeView {
 
     @Override
     public void loadTable() {
+        employeeCountUpdate();
+        tblPagination.setPageCount(getPageCount());
         tblPagination.setPageFactory(this::createTblPage);
     }
 

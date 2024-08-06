@@ -4,10 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +20,6 @@ public class EmployeeEntity {
 
     @OneToOne
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "fk_user_employee"))
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity user;
 
     @ManyToOne
@@ -36,4 +34,7 @@ public class EmployeeEntity {
     private Date registerAt;
     private Date modifyAt;
     private Boolean isActive;
+
+    @OneToMany(mappedBy = "employee")
+    private List<OrderEntity> orders;
 }

@@ -130,6 +130,8 @@ public class ViewController implements CategoryView {
 
     @Override
     public void loadTable() {
+        categoryCountUpdate();
+        tblPagination.setPageCount(getPageCount());
         tblPagination.setPageFactory(this::createTblPage);
     }
 

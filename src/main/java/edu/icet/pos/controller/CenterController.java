@@ -2,6 +2,7 @@ package edu.icet.pos.controller;
 
 import edu.icet.pos.controller.custom.SuperController;
 import edu.icet.pos.controller.dashboard.DashboardCenterController;
+import edu.icet.pos.controller.order.OrderCenterController;
 import edu.icet.pos.controller.product.ProductCenterController;
 import edu.icet.pos.controller.supplier.SupplierCenterController;
 import javafx.fxml.FXMLLoader;
@@ -132,6 +133,7 @@ public class CenterController {
         superControllerList.add(DashboardCenterController.getInstance().getFxmlLoaderReportNav().getController());
         superControllerList.add(SupplierCenterController.getInstance().getFxmlLoaderForm().getController());
         superControllerList.add(ProductCenterController.getInstance().getFxmlLoaderForm().getController());
+        superControllerList.add(OrderCenterController.getInstance().getFxmlLoaderView().getController());
     }
 
     public void defaultPageLayoutLoad(Node center, Node right, Node bottom) {
