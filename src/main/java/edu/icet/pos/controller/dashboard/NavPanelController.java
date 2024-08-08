@@ -262,7 +262,7 @@ public class NavPanelController implements DashboardNavPanel {
 
         pageBorderPane.setCenter(OrderCenterController.getInstance().getPageView());
         OrderView orderView = OrderCenterController.getInstance().getFxmlLoaderView().getController();
-        orderView.loadPlaceOrder();
+        orderView.loadTable();
         //pageBorderPane.setRight(right);
         //pageBorderPane.setBottom(bottom);
 

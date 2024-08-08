@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox prefHeight="259.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.order.ViewController">
    <children>
       <HBox prefHeight="34.0" prefWidth="200.0">
@@ -23,7 +22,7 @@
                   <Insets left="20.0" />
                </HBox.margin>
             </JFXComboBox>
-            <Label text="User Count -" textFill="#2f3548">
+            <Label text="Order Count -" textFill="#2f3548">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -47,7 +46,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <HBox.margin>
-                  <Insets left="478.0" />
+                  <Insets left="469.0" />
                </HBox.margin>
             </Button>
          </children>

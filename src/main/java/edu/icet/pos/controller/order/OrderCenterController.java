@@ -17,6 +17,8 @@ public class OrderCenterController {
     private final Parent parentView;
     private final ScrollPane scrollPane = new ScrollPane();
     private final VBox pageView = new VBox();
+    private final FXMLLoader fxmlLoaderTable = new FXMLLoader(getClass().getResource("/view/order/table.fxml"));
+    private final Parent parentTable;
 
     private OrderCenterController() throws IOException {
         parentView = fxmlLoaderView.load();
@@ -31,12 +33,14 @@ public class OrderCenterController {
 
         scrollPane.setContent(parentView);
         pageView.getChildren().add(scrollPane);
+
+        parentTable = fxmlLoaderTable.load();
     }
 
     static {
-        try{
+        try {
             instance = new OrderCenterController();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Exception occurred in creating OrderCenterController singleton instance");
         }
     }
