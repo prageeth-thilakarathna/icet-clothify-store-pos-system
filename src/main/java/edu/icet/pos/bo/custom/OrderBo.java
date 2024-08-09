@@ -11,4 +11,8 @@ public interface OrderBo extends SuperBo {
     int getOrderCount();
 
     List<Order> getOrderPerPage(int offset);
+
+    Order getOrder(Integer id);
+
+    void orderReturn(Order order);
 }

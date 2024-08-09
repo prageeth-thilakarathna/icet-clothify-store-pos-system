@@ -11,10 +11,10 @@
             <TableColumn fx:id="colId" prefWidth="40.0" styleClass="col" text="ID" />
             <TableColumn fx:id="colCustomerName" prefWidth="183.0" styleClass="col" text="Customer Name" />
             <TableColumn fx:id="colEmployeeName" prefWidth="184.0" styleClass="col" text="Employee Name" />
-            <TableColumn fx:id="colPaymentType" prefWidth="110.0" styleClass="col" text="Payment Type" />
-            <TableColumn fx:id="colNetTotal" prefWidth="110.0" styleClass="col" text="Net Total" />
+            <TableColumn fx:id="colPaymentType" prefWidth="105.0" styleClass="col" text="Payment Type" />
+            <TableColumn fx:id="colNetTotal" prefWidth="105.0" styleClass="col" text="Net Total" />
             <TableColumn fx:id="colRegisterAt" prefWidth="160.0" styleClass="col" text="Register At" />
-            <TableColumn fx:id="colReturn" prefWidth="65.0" styleClass="col" text="Return" />
+            <TableColumn fx:id="colReturn" prefWidth="75.0" styleClass="col" text="Return" />
          </columns>
       </TableView>
    </children>

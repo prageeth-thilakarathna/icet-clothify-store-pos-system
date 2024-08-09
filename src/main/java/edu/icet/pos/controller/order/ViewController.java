@@ -13,21 +13,17 @@ import edu.icet.pos.controller.order.custom.OrderTable;
 import edu.icet.pos.controller.order.custom.OrderView;
 import edu.icet.pos.controller.place_order.PlaceOrderCenterController;
 import edu.icet.pos.controller.place_order.custom.PlaceOrderView;
-import edu.icet.pos.entity.EmployeeEntity;
-import edu.icet.pos.model.employee.Employee;
 import edu.icet.pos.model.order.Order;
 import edu.icet.pos.model.order.OrderDetail;
 import edu.icet.pos.model.order.TblOrderView;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import org.modelmapper.ModelMapper;
 
 import java.net.URL;
 import java.text.DateFormat;
@@ -50,9 +46,10 @@ public class ViewController implements OrderView {
     private final OrderDetailBo orderDetailBo = BoFactory.getBo(BoType.ORDER_DETAIL);
     private OrderTable orderTable;
     private final UserBo userBo = BoFactory.getBo(BoType.USER);
+    private static final String DELETION = "deletion";
 
     @FXML
-    private void optFilterAction(ActionEvent actionEvent) {
+    private void optFilterAction() {
     }
 
     @FXML
@@ -67,7 +64,7 @@ public class ViewController implements OrderView {
         Hyperlink pageMainHeader = CenterController.getInstance().getPageMainHeader();
 
         DashboardNavPanel dashboardNavPanel = DashboardCenterController.getInstance().getFxmlLoaderNav().getController();
-        pageMainHeader.setOnAction(actionEvent1 -> dashboardNavPanel.loadOrder());
+        pageMainHeader.setOnAction(actionEvent -> dashboardNavPanel.loadOrder());
 
         pageBorderPane.setCenter(PlaceOrderCenterController.getInstance().getParentView());
         PlaceOrderView placeOrderView = PlaceOrderCenterController.getInstance().getFxmlLoaderView().getController();
@@ -124,9 +121,18 @@ public class ViewController implements OrderView {
         return tableView;
     }
 
-    @Override
-    public void loadPlaceOrder() {
-        //btnPlaceOrderAction();
+    private int getCurrentPageIndex(int pageIndex, String name) {
+        if ("modification".equals(name)) {
+            return pageIndex;
+        } else if (DELETION.equals(name) && pageIndex == getPageCount()) {
+            return pageIndex - 1;
+        } else if (DELETION.equals(name) && pageIndex < getPageCount()) {
+            return pageIndex;
+        } else if (DELETION.equals(name) && (pageIndex + 1) == getPageCount()) {
+            return pageIndex;
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -134,6 +140,15 @@ public class ViewController implements OrderView {
         orderCountUpdate();
         tblPagination.setPageCount(getPageCount());
         tblPagination.setPageFactory(this::createTblPage);
+    }
+
+    @Override
+    public void updatePanel(String name) {
+        int pageIndex = tblPagination.getCurrentPageIndex();
+        tblPagination.setPageCount(getPageCount());
+        tblPagination.setPageFactory(this::createTblPage);
+        tblPagination.setCurrentPageIndex(getCurrentPageIndex(pageIndex, name));
+        orderCountUpdate();
     }
 
     @Override

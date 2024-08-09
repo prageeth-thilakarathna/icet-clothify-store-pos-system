@@ -16,6 +16,8 @@ import edu.icet.pos.controller.employee.custom.EmployeeForm;
 import edu.icet.pos.controller.employee.custom.EmployeeSearch;
 import edu.icet.pos.controller.employee.custom.EmployeeView;
 import edu.icet.pos.controller.order.OrderCenterController;
+import edu.icet.pos.controller.order.custom.OrderDetail;
+import edu.icet.pos.controller.order.custom.OrderSearch;
 import edu.icet.pos.controller.order.custom.OrderView;
 import edu.icet.pos.controller.place_order.PlaceOrderCenterController;
 import edu.icet.pos.controller.place_order.custom.PlaceOrderView;
@@ -261,12 +263,17 @@ public class NavPanelController implements DashboardNavPanel {
         setPageHeader("Order");
 
         pageBorderPane.setCenter(OrderCenterController.getInstance().getPageView());
+
         OrderView orderView = OrderCenterController.getInstance().getFxmlLoaderView().getController();
         orderView.loadTable();
-        //pageBorderPane.setRight(right);
-        //pageBorderPane.setBottom(bottom);
 
+        pageBorderPane.setBottom(OrderCenterController.getInstance().getPageDetail());
 
+        OrderSearch orderSearch = OrderCenterController.getInstance().getFxmlLoaderSearch().getController();
+        orderSearch.refreshSearch();
+
+        OrderDetail orderDetail = OrderCenterController.getInstance().getFxmlLoaderDetail().getController();
+        orderDetail.clearOrder();
     }
 
     @Override

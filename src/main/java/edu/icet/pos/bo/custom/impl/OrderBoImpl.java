@@ -32,4 +32,16 @@ public class OrderBoImpl implements OrderBo {
         return new ModelMapper().map(orderDao.getPerPage(offset), new TypeToken<List<Order>>() {
         }.getType());
     }
+
+    @Override
+    public Order getOrder(Integer id) {
+        assert orderDao != null;
+        return new ModelMapper().map(orderDao.get(id), Order.class);
+    }
+
+    @Override
+    public void orderReturn(Order order) {
+        assert orderDao != null;
+        orderDao.update(new ModelMapper().map(order, OrderEntity.class));
+    }
 }

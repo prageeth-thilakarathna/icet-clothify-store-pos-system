@@ -11,4 +11,8 @@ public interface OrderDao extends SuperDao {
     int count();
 
     List<OrderEntity> getPerPage(int offset);
+
+    OrderEntity get(Integer id);
+
+    void update(OrderEntity orderEntity);
 }

@@ -5,6 +5,7 @@ import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.entity.OrderEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -64,5 +65,36 @@ public class OrderDaoImpl implements OrderDao {
         });
         session.close();
         return orderEntityList;
+    }
+
+    @Override
+    public OrderEntity get(Integer id) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = null;
+        OrderEntity orderEntity;
+        try {
+            tx = session.beginTransaction();
+            orderEntity = session.get(OrderEntity.class, id);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return orderEntity;
+    }
+
+    @Override
+    public void update(OrderEntity orderEntity) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSession()) {
+            tx = session.beginTransaction();
+            session.merge(orderEntity);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            throw e;
+        }
     }
 }
