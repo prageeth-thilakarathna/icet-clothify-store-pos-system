@@ -1,10 +1,7 @@
 package edu.icet.pos.controller.dashboard;
 
-import edu.icet.pos.bo.BoFactory;
-import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.controller.CenterController;
 import edu.icet.pos.controller.auth.AuthCenterController;
-import edu.icet.pos.controller.auth.custom.LoginPanel;
 import edu.icet.pos.controller.category.CategoryCenterController;
 import edu.icet.pos.controller.category.custom.CategoryForm;
 import edu.icet.pos.controller.category.custom.CategorySearch;
@@ -15,12 +12,11 @@ import edu.icet.pos.controller.employee.EmployeeCenterController;
 import edu.icet.pos.controller.employee.custom.EmployeeForm;
 import edu.icet.pos.controller.employee.custom.EmployeeSearch;
 import edu.icet.pos.controller.employee.custom.EmployeeView;
+import edu.icet.pos.controller.inventory.InventoryCenterController;
 import edu.icet.pos.controller.order.OrderCenterController;
 import edu.icet.pos.controller.order.custom.OrderDetail;
 import edu.icet.pos.controller.order.custom.OrderSearch;
 import edu.icet.pos.controller.order.custom.OrderView;
-import edu.icet.pos.controller.place_order.PlaceOrderCenterController;
-import edu.icet.pos.controller.place_order.custom.PlaceOrderView;
 import edu.icet.pos.controller.product.ProductCenterController;
 import edu.icet.pos.controller.product.custom.ProductForm;
 import edu.icet.pos.controller.product.custom.ProductSearch;
@@ -33,12 +29,9 @@ import edu.icet.pos.controller.user.UserCenterController;
 import edu.icet.pos.controller.user.custom.UserForm;
 import edu.icet.pos.controller.user.custom.UserSearch;
 import edu.icet.pos.controller.user.custom.UserView;
-import edu.icet.pos.util.BoType;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -87,6 +80,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnProduct.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnInventory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         CenterController.getInstance().defaultPageLayoutLoad(
                 UserCenterController.getInstance().getParentForm(),
@@ -114,6 +108,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnProduct.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnInventory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         pageLayoutHeaderLoad();
         setPageHeader("Dashboard");
@@ -145,6 +140,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnProduct.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnInventory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         CenterController.getInstance().defaultPageLayoutLoad(
                 CategoryCenterController.getInstance().getParentForm(),
@@ -172,6 +168,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnProduct.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnInventory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         CenterController.getInstance().defaultPageLayoutLoad(
                 SupplierCenterController.getInstance().getParentForm(),
@@ -199,6 +196,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnInventory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         CenterController.getInstance().defaultPageLayoutLoad(
                 ProductCenterController.getInstance().getParentForm(),
@@ -226,6 +224,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnDashboard.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnInventory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         CenterController.getInstance().defaultPageLayoutLoad(
                 EmployeeCenterController.getInstance().getParentForm(),
@@ -253,6 +252,7 @@ public class NavPanelController implements DashboardNavPanel {
         btnCategory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnDashboard.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnInventory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         BorderPane pageBorderPane = CenterController.getInstance().getPageBorderPane();
         pageBorderPane.getChildren().removeAll(pageBorderPane.getChildren());
@@ -276,6 +276,23 @@ public class NavPanelController implements DashboardNavPanel {
         orderDetail.clearOrder();
     }
 
+    @FXML
+    private void btnInventoryAction() {
+        btnInventory.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
+        btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnProduct.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnSupplier.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnCategory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnDashboard.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnUser.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+
+        CenterController.getInstance().defaultPageLayoutLoad(
+                InventoryCenterController.getInstance().getParentForm()
+        );
+        setPageHeader("Inventory");
+    }
+
     @Override
     public void loadCategory() {
         btnCategoryAction();
@@ -283,7 +300,7 @@ public class NavPanelController implements DashboardNavPanel {
 
     @Override
     public void loadInitializer() {
-        btnOrderAction();
+        btnInventoryAction();
     }
 
     @Override

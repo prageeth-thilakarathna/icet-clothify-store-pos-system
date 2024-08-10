@@ -273,7 +273,7 @@ public class FormController implements ProductForm {
             }
             productView.updatePanel("registration");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Product and Quantity On Hand registration was successful.");
+            alert.setContentText("Product and Quantity On Hand registration is successful.");
             alert.show();
             clearForm();
 
@@ -293,8 +293,6 @@ public class FormController implements ProductForm {
         inventory.setProduct(new ModelMapper().map(product, ProductEntity.class));
         inventory.setStock(product.getQuantityOnHand());
         inventory.setRegisterAt(new Date());
-        inventory.setModifyAt(new Date());
-        inventory.setIsActive(true);
 
         assert inventoryBo != null;
         inventoryBo.qtyOnHandRegister(inventory);

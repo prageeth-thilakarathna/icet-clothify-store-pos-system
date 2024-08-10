@@ -17,6 +17,4 @@ public class Inventory {
     private ProductEntity product;
     private Integer stock;
     private Date registerAt;
-    private Date modifyAt;
-    private Boolean isActive;
 }
