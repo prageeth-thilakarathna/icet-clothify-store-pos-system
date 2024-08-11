@@ -7,6 +7,9 @@ import edu.icet.pos.entity.InventoryEntity;
 import edu.icet.pos.model.inventory.Inventory;
 import edu.icet.pos.util.DaoType;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+
+import java.util.List;
 
 public class InventoryBoImpl implements InventoryBo {
     private final InventoryDao inventoryDao = DaoFactory.getDao(DaoType.INVENTORY);
@@ -27,5 +30,18 @@ public class InventoryBoImpl implements InventoryBo {
     public Inventory getInventory(Integer id) {
         assert inventoryDao != null;
         return new ModelMapper().map(inventoryDao.get(id), Inventory.class);
+    }
+
+    @Override
+    public int getInventoryCount() {
+        assert inventoryDao != null;
+        return inventoryDao.count();
+    }
+
+    @Override
+    public List<Inventory> getInventoryPerPage(int offset) {
+        assert inventoryDao != null;
+        return new ModelMapper().map(inventoryDao.getPerPage(offset), new TypeToken<List<Inventory>>() {
+        }.getType());
     }
 }

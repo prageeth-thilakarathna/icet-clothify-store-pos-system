@@ -4,6 +4,7 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.InventoryBo;
 import edu.icet.pos.bo.custom.ProductBo;
 import edu.icet.pos.controller.inventory.custom.InventoryForm;
+import edu.icet.pos.controller.inventory.custom.InventoryView;
 import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.model.inventory.Inventory;
 import edu.icet.pos.model.product.Product;
@@ -35,6 +36,7 @@ public class FormController implements InventoryForm {
     private final ProductBo productBo = BoFactory.getBo(BoType.PRODUCT);
     private Product searchProduct;
     private final InventoryBo inventoryBo = BoFactory.getBo(BoType.INVENTORY);
+    private InventoryView inventoryView;
 
     @FXML
     private void productIdKeyTyped() {
@@ -86,7 +88,7 @@ public class FormController implements InventoryForm {
 
     @FXML
     private void btnRegisterAction() {
-        try{
+        try {
             Inventory inventory = new Inventory();
             inventory.setProduct(new ModelMapper().map(searchProduct, ProductEntity.class));
             inventory.setStock(Integer.parseInt(txtQtyOnHand.getText()));
@@ -95,7 +97,7 @@ public class FormController implements InventoryForm {
             assert inventoryBo != null;
             inventoryBo.inventoryRegister(inventory);
 
-            Integer qtyOnHand = searchProduct.getQuantityOnHand()+Integer.parseInt(txtQtyOnHand.getText());
+            Integer qtyOnHand = searchProduct.getQuantityOnHand() + Integer.parseInt(txtQtyOnHand.getText());
             searchProduct.setQuantityOnHand(qtyOnHand);
             searchProduct.setModifyAt(new Date());
 
@@ -103,12 +105,16 @@ public class FormController implements InventoryForm {
             productBo.productAvaQtyUpdate(searchProduct);
             HibernateUtil.singletonCommit();
 
+            if (inventoryView == null) {
+                inventoryView = InventoryCenterController.getInstance().getFxmlLoaderView().getController();
+            }
+            inventoryView.updateTbl("registration");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Inventory registration is successful.");
             alert.show();
             btnCancelOnXAction();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             HibernateUtil.singletonRollback();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
@@ -164,6 +170,12 @@ public class FormController implements InventoryForm {
         txtQtyOnHand.setDisable(true);
         btnRegister.setDisable(true);
         btnCancel.setDisable(true);
+    }
+
+    @Override
+    public void refreshForm() {
+        clearInventory();
+        loadForm();
     }
 
     @Override

@@ -13,6 +13,10 @@ import edu.icet.pos.controller.employee.custom.EmployeeForm;
 import edu.icet.pos.controller.employee.custom.EmployeeSearch;
 import edu.icet.pos.controller.employee.custom.EmployeeView;
 import edu.icet.pos.controller.inventory.InventoryCenterController;
+import edu.icet.pos.controller.inventory.custom.InventoryForm;
+import edu.icet.pos.controller.inventory.custom.InventorySearch;
+import edu.icet.pos.controller.inventory.custom.InventoryTable;
+import edu.icet.pos.controller.inventory.custom.InventoryView;
 import edu.icet.pos.controller.order.OrderCenterController;
 import edu.icet.pos.controller.order.custom.OrderDetail;
 import edu.icet.pos.controller.order.custom.OrderSearch;
@@ -289,9 +293,19 @@ public class NavPanelController implements DashboardNavPanel {
 
         CenterController.getInstance().defaultPageLayoutLoad(
                 InventoryCenterController.getInstance().getParentForm(),
-                InventoryCenterController.getInstance().getParentSearch()
+                InventoryCenterController.getInstance().getParentSearch(),
+                InventoryCenterController.getInstance().getParentView()
         );
         setPageHeader("Inventory");
+
+        InventoryForm inventoryForm = InventoryCenterController.getInstance().getFxmlLoaderForm().getController();
+        inventoryForm.refreshForm();
+
+        InventorySearch inventorySearch = InventoryCenterController.getInstance().getFxmlLoaderSearch().getController();
+        inventorySearch.refreshSearch();
+
+        InventoryView inventoryView = InventoryCenterController.getInstance().getFxmlLoaderView().getController();
+        inventoryView.loadTable();
     }
 
     @Override

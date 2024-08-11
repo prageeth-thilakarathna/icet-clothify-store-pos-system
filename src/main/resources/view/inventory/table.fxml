@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="196.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.inventory.TableController">
+   <children>
+      <HBox alignment="BASELINE_CENTER" prefHeight="198.0" prefWidth="909.0">
+         <children>
+            <TableView fx:id="tblInventory" focusTraversable="false" prefHeight="196.0" prefWidth="869.0" styleClass="tblView" stylesheets="@../../style/tblStyle.css">
+               <columns>
+                  <TableColumn fx:id="colId" styleClass="col" text="ID" />
+                  <TableColumn fx:id="colStock" prefWidth="261.0" styleClass="col" text="Stock" />
+                  <TableColumn fx:id="colRegisterAt" prefWidth="261.0" styleClass="col" text="Register At" />
+                  <TableColumn fx:id="colProductId" prefWidth="263.0" styleClass="col" text="Product ID" />
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+   </children>
+</VBox>

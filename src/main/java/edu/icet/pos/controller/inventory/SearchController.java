@@ -80,7 +80,7 @@ public class SearchController implements InventorySearch {
         dspRegisterAt.setText("");
         searchInventory = null;
         if (inventoryForm == null) {
-            inventoryForm = InventoryCenterController.getInstance().getFxmlLoaderSearch().getController();
+            inventoryForm = InventoryCenterController.getInstance().getFxmlLoaderForm().getController();
         }
         inventoryForm.clearInventory();
     }

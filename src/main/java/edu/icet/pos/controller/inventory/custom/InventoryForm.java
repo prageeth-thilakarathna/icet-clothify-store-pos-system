@@ -7,4 +7,6 @@ public interface InventoryForm extends Initializable {
     void clearInventory();
 
     void loadInventoryToForm(Inventory inventory);
+
+    void refreshForm();
 }
