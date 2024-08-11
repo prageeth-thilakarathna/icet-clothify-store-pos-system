@@ -7,4 +7,6 @@ public interface InventoryDao extends SuperDao {
     void save(InventoryEntity inventoryEntity);
 
     void saveQtyOnHand(InventoryEntity inventoryEntity);
+
+    InventoryEntity get(Integer id);
 }

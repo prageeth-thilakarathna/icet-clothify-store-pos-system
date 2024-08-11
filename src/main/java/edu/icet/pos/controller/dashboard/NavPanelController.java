@@ -288,7 +288,8 @@ public class NavPanelController implements DashboardNavPanel {
         btnOrder.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
 
         CenterController.getInstance().defaultPageLayoutLoad(
-                InventoryCenterController.getInstance().getParentForm()
+                InventoryCenterController.getInstance().getParentForm(),
+                InventoryCenterController.getInstance().getParentSearch()
         );
         setPageHeader("Inventory");
     }

@@ -12,15 +12,18 @@ public class InventoryCenterController {
     private static final InventoryCenterController instance;
     private final FXMLLoader fxmlLoaderForm = new FXMLLoader(getClass().getResource("/view/inventory/form.fxml"));
     private final Parent parentForm;
+    private final FXMLLoader fxmlLoaderSearch = new FXMLLoader(getClass().getResource("/view/inventory/search.fxml"));
+    private final Parent parentSearch;
 
     private InventoryCenterController() throws IOException {
         parentForm = fxmlLoaderForm.load();
+        parentSearch = fxmlLoaderSearch.load();
     }
 
     static {
-        try{
+        try {
             instance = new InventoryCenterController();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Exception occurred in creating InventoryCenterController singleton instance");
         }
     }

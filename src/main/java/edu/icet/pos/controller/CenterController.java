@@ -146,12 +146,13 @@ public class CenterController {
         pageBorderPane.setBottom(bottom);
     }
 
-    public void defaultPageLayoutLoad(Node center) {
+    public void defaultPageLayoutLoad(Node center, Node right) {
         pageBorderPane.getChildren().removeAll(pageBorderPane.getChildren());
 
         pageBorderPane.setTop(pageTop);
 
         pageBorderPane.setCenter(center);
+        pageBorderPane.setRight(right);
     }
 
     public void setPageHeader(String mainHeader, String subHeader){

@@ -3,7 +3,6 @@ package edu.icet.pos.controller.inventory;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.InventoryBo;
 import edu.icet.pos.bo.custom.ProductBo;
-import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.inventory.custom.InventoryForm;
 import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.model.inventory.Inventory;
@@ -32,8 +31,6 @@ public class FormController implements InventoryForm {
     private Button btnRegister;
     @FXML
     private Button btnCancel;
-    @FXML
-    private Button btnDelete;
 
     private final ProductBo productBo = BoFactory.getBo(BoType.PRODUCT);
     private Product searchProduct;
@@ -122,10 +119,6 @@ public class FormController implements InventoryForm {
     }
 
     @FXML
-    private void btnDeleteAction() {
-    }
-
-    @FXML
     private void btnCancelOnXAction() {
         clearForm();
         validateInputs();
@@ -134,7 +127,6 @@ public class FormController implements InventoryForm {
     private void validateInputs() {
         btnRegister.setDisable(isInputEmpty() || searchProduct == null);
         btnCancel.setDisable(txtProductId.getLength() == 0 && txtQtyOnHand.getLength() == 0);
-        btnDelete.setDisable(!AuthCenterController.isAdmin());
     }
 
     private boolean isInputEmpty() {
@@ -154,7 +146,24 @@ public class FormController implements InventoryForm {
         btnSearch.setDisable(true);
         btnRegister.setDisable(true);
         btnCancel.setDisable(true);
-        btnDelete.setDisable(true);
+    }
+
+    @Override
+    public void clearInventory() {
+        clearForm();
+        txtProductId.setDisable(false);
+        txtQtyOnHand.setDisable(false);
+    }
+
+    @Override
+    public void loadInventoryToForm(Inventory inventory) {
+        txtProductId.setText(String.valueOf(inventory.getId()));
+        txtQtyOnHand.setText(String.valueOf(inventory.getStock()));
+        txtProductId.setDisable(true);
+        btnSearch.setDisable(true);
+        txtQtyOnHand.setDisable(true);
+        btnRegister.setDisable(true);
+        btnCancel.setDisable(true);
     }
 
     @Override

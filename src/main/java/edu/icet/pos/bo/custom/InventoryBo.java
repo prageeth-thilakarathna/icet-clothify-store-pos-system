@@ -7,4 +7,6 @@ public interface InventoryBo extends SuperBo {
     void inventoryRegister(Inventory inventory);
 
     void qtyOnHandRegister(Inventory inventory);
+
+    Inventory getInventory(Integer id);
 }

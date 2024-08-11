@@ -22,4 +22,10 @@ public class InventoryBoImpl implements InventoryBo {
         assert inventoryDao != null;
         inventoryDao.saveQtyOnHand(new ModelMapper().map(inventory, InventoryEntity.class));
     }
+
+    @Override
+    public Inventory getInventory(Integer id) {
+        assert inventoryDao != null;
+        return new ModelMapper().map(inventoryDao.get(id), Inventory.class);
+    }
 }
