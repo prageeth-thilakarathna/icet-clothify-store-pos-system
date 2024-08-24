@@ -86,4 +86,31 @@ public class InventoryDaoImpl implements InventoryDao {
         session.close();
         return inventoryEntityList;
     }
+
+    @Override
+    public List<InventoryEntity> getStock(Integer productId) {
+        Session session = HibernateUtil.getSession();
+        List<InventoryEntity> inventoryEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet;
+                resultSet = statement.executeQuery("SELECT * FROM inventory WHERE productId=" + productId);
+
+                while (resultSet.next()) {
+                    InventoryEntity inventory = new InventoryEntity();
+                    ProductEntity productEntity = new ProductEntity();
+                    productEntity.setId(resultSet.getInt("productId"));
+
+                    inventory.setId(resultSet.getInt("id"));
+                    inventory.setStock(resultSet.getInt("stock"));
+                    inventory.setProduct(productEntity);
+                    inventory.setRegisterAt(resultSet.getTimestamp("registerAt"));
+
+                    inventoryEntityList.add(inventory);
+                }
+            }
+        });
+        session.close();
+        return inventoryEntityList;
+    }
 }

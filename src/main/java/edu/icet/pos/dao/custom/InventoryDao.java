@@ -15,4 +15,6 @@ public interface InventoryDao extends SuperDao {
     int count();
 
     List<InventoryEntity> getPerPage(int offset);
+
+    List<InventoryEntity> getStock(Integer productId);
 }

@@ -44,4 +44,11 @@ public class InventoryBoImpl implements InventoryBo {
         return new ModelMapper().map(inventoryDao.getPerPage(offset), new TypeToken<List<Inventory>>() {
         }.getType());
     }
+
+    @Override
+    public List<Inventory> getStockByProductId(Integer productId) {
+        assert inventoryDao != null;
+        return new ModelMapper().map(inventoryDao.getStock(productId), new TypeToken<List<Inventory>>() {
+        }.getType());
+    }
 }

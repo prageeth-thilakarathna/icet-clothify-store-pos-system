@@ -1,18 +1,21 @@
 package edu.icet.pos.controller.dashboard.inventory;
 
+import edu.icet.pos.controller.dashboard.inventory.custom.DashboardInventoryChart;
+import edu.icet.pos.model.inventory.Inventory;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ChartController implements Initializable {
+public class ChartController implements DashboardInventoryChart {
     @FXML
     private CategoryAxis chartCategory;
     @FXML
@@ -22,7 +25,8 @@ public class ChartController implements Initializable {
 
     private final XYChart.Series<String, Integer> chartSeries = new XYChart.Series<>();
 
-    private List<String> getMonth(){
+    @Override
+    public List<String> getMonth(){
         List<String> monthList = new ArrayList<>();
         monthList.add("January");
         monthList.add("February");
@@ -39,25 +43,44 @@ public class ChartController implements Initializable {
         return monthList;
     }
 
-    private void setData(){
-        chartSeries.setName("Stock");
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(0), 2500));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(1), 1300));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(2), 3500));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(3), 1500));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(4), 8500));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(5), 4500));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(6), 9500));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(7), 1200));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(8), 800));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(9), 5400));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(10), 2800));
-        chartSeries.getData().add(new XYChart.Data<>(getMonth().get(11), 7500));
+    private void setData(List<Integer> stockList){
+        if(chartSeries.getName()==null){
+            chartSeries.setName("Stock");
+        }
+
+        for(int i=0; i<12; i++){
+            chartSeries.getData().add(new XYChart.Data<>(getMonth().get(i), stockList.get(i)));
+        }
+        chart.getData().add(chartSeries);
+    }
+
+    @Override
+    public void loadChart(List<Inventory> inventoryList) {
+        List<Integer> monthlyStock = new ArrayList<>(12);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        for(int i=0; i<12; i++){
+            monthlyStock.add(0);
+        }
+
+        for(Inventory inventory : inventoryList){
+            String[] month = dateFormat.format(inventory.getRegisterAt()).split("-");
+            Integer value = monthlyStock.get(Integer.parseInt(month[1]));
+            monthlyStock.set(Integer.parseInt(month[1]), (value+inventory.getStock()));
+        }
+        setData(monthlyStock);
+
+    }
+
+    @Override
+    public void clearChart() {
+        chartSeries.getData().removeAll(chartSeries.getData());
+        chart.getData().remove(chartSeries);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setData();
-        chart.getData().add(chartSeries);
+        //setData();
+        //chart.getData().add(chartSeries);
     }
 }

@@ -15,4 +15,6 @@ public interface InventoryBo extends SuperBo {
     int getInventoryCount();
 
     List<Inventory> getInventoryPerPage(int offset);
+
+    List<Inventory> getStockByProductId(Integer productId);
 }

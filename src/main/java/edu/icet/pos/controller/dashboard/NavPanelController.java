@@ -15,7 +15,6 @@ import edu.icet.pos.controller.employee.custom.EmployeeView;
 import edu.icet.pos.controller.inventory.InventoryCenterController;
 import edu.icet.pos.controller.inventory.custom.InventoryForm;
 import edu.icet.pos.controller.inventory.custom.InventorySearch;
-import edu.icet.pos.controller.inventory.custom.InventoryTable;
 import edu.icet.pos.controller.inventory.custom.InventoryView;
 import edu.icet.pos.controller.order.OrderCenterController;
 import edu.icet.pos.controller.order.custom.OrderDetail;
@@ -65,15 +64,6 @@ public class NavPanelController implements DashboardNavPanel {
     private Button btnUser;
     @FXML
     private Button btnDashboard;
-
-    //private final LoginPanel loginPanel = AuthCenterController.getInstance().getFxmlLoaderLoginPanel().getController();
-    //private final UserView userView = UserCenterController.getInstance().getFxmlLoaderView().getController();
-    /*private final CategoryView categoryView = CategoryCenterController.getInstance().getFxmlLoaderView().getController();
-    private final SupplierView supplierView = SupplierCenterController.getInstance().getFxmlLoaderView().getController();
-    private final ProductView productView = ProductCenterController.getInstance().getFxmlLoaderView().getController();
-    private final EmployeeView employeeView = EmployeeCenterController.getInstance().getFxmlLoaderView().getController();
-    private final PlaceOrderView placeOrderView = PlaceOrderCenterController.getInstance().getFxmlLoaderView().getController();
-    private final UserBo userBo = BoFactory.getBo(BoType.USER);*/
 
     @FXML
     private void btnUserAction() {
@@ -315,7 +305,7 @@ public class NavPanelController implements DashboardNavPanel {
 
     @Override
     public void loadInitializer() {
-        btnInventoryAction();
+        btnDashboardAction();
     }
 
     @Override
@@ -348,18 +338,6 @@ public class NavPanelController implements DashboardNavPanel {
         }
     }
 
-    /*private void defaultPageLayoutLoad(Node center, Node right, Node bottom) {
-        BorderPane pageBorderPane = CenterController.getInstance().getPageBorderPane();
-        pageBorderPane.getChildren().removeAll(pageBorderPane.getChildren());
-
-        HBox pageTop = CenterController.getInstance().getPageTop();
-        pageBorderPane.setTop(pageTop);
-
-        pageBorderPane.setCenter(center);
-        pageBorderPane.setRight(right);
-        pageBorderPane.setBottom(bottom);
-    }*/
-
     private void pageLayoutHeaderLoad() {
         BorderPane pageBorderPane = CenterController.getInstance().getPageBorderPane();
         pageBorderPane.getChildren().removeAll(pageBorderPane.getChildren());
@@ -378,23 +356,6 @@ public class NavPanelController implements DashboardNavPanel {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //btnDashboardAction();
-        //btnSupplierAction();
-        //BorderPane borderPanePage = CenterController.getInstance().getPageBorderPane();
-        //borderPanePage.getChildren().removeAll(borderPanePage.getChildren());
 
-        //HBox pageTop = CenterController.getInstance().getPageTop();
-        //borderPanePage.setTop(pageTop);
-
-        //VBox pageCenter = CenterController.getInstance().getPageCenter();
-        //borderPanePage.setCenter(pageCenter);
-
-        //VBox pageRight = CenterController.getInstance().getPageRight();
-        //borderPanePage.setRight(pageRight);
-
-        //VBox pageBottom = CenterController.getInstance().getPageBottom();
-        //borderPanePage.setBottom(pageBottom);
-
-        //btnDashboardAction();
     }
 }
