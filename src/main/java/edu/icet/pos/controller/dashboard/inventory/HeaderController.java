@@ -3,10 +3,13 @@ package edu.icet.pos.controller.dashboard.inventory;
 import com.jfoenix.controls.JFXComboBox;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.InventoryBo;
+import edu.icet.pos.bo.custom.ProductBo;
 import edu.icet.pos.controller.dashboard.DashboardCenterController;
 import edu.icet.pos.controller.dashboard.inventory.custom.DashboardInventoryChart;
 import edu.icet.pos.controller.dashboard.inventory.custom.DashboardInventoryHeader;
 import edu.icet.pos.model.inventory.Inventory;
+import edu.icet.pos.model.product.Product;
+import edu.icet.pos.model.report.InventoryReport;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,14 +17,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class HeaderController implements DashboardInventoryHeader {
     @FXML
@@ -38,6 +45,7 @@ public class HeaderController implements DashboardInventoryHeader {
     private final InventoryBo inventoryBo = BoFactory.getBo(BoType.INVENTORY);
     private DashboardInventoryChart dashboardInventoryChart;
     private List<Inventory> searchList = new ArrayList<>();
+    private final ProductBo productBo = BoFactory.getBo(BoType.PRODUCT);
 
     @FXML
     private void productIdKeyTyped() {
@@ -57,6 +65,7 @@ public class HeaderController implements DashboardInventoryHeader {
                 btnSearch.setDisable(true);
                 btnCancel.setDisable(false);
                 optYear.setDisable(false);
+                btnGenReport.setDisable(false);
             }
             if (inventoryList.isEmpty()) {
                 throw new NullPointerException("Please, Enter the Correct Product ID.");
@@ -71,6 +80,7 @@ public class HeaderController implements DashboardInventoryHeader {
     @FXML
     private void btnCancelAction() {
         clearForm();
+        btnGenReport.setDisable(true);
     }
 
     @FXML
@@ -95,6 +105,42 @@ public class HeaderController implements DashboardInventoryHeader {
 
     @FXML
     private void btnGenReportAction() {
+        try{
+            InputStream stream = getClass().getClassLoader().getResourceAsStream("report/inventory-report.jrxml");
+            JasperReport report = JasperCompileManager.compileReport(stream);
+            assert productBo != null;
+            Product product = productBo.getProduct(Integer.parseInt(txtProductId.getText()));
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(getInventoryReport());
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("DATE_RANGE", optYear.getValue() + "/01/01 - " + optYear.getValue() + "/12/31");
+            parameters.put("DESCRIPTION", product.getDescription());
+            parameters.put("PRODUCT_ID", txtProductId.getText());
+
+            JasperPrint print = JasperFillManager.fillReport(report, parameters, dataSource);
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setVisible(true);
+
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+    }
+
+    private List<InventoryReport> getInventoryReport(){
+        List<InventoryReport> inventoryReportList = new ArrayList<>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        for (Inventory inventory : searchList){
+            InventoryReport inventoryReport = new InventoryReport(
+                    String.valueOf(inventory.getId()),
+                    String.valueOf(inventory.getStock()),
+                    dateFormat.format(inventory.getRegisterAt())
+            );
+            inventoryReportList.add(inventoryReport);
+        }
+        return inventoryReportList;
     }
 
     private void setYears(List<Inventory> inventoryList) {
