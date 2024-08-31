@@ -105,7 +105,7 @@ public class HeaderController implements DashboardInventoryHeader {
 
     @FXML
     private void btnGenReportAction() {
-        try{
+        try {
             InputStream stream = getClass().getClassLoader().getResourceAsStream("report/inventory-report.jrxml");
             JasperReport report = JasperCompileManager.compileReport(stream);
             assert productBo != null;
@@ -121,18 +121,18 @@ public class HeaderController implements DashboardInventoryHeader {
             JasperViewer viewer = new JasperViewer(print, false);
             viewer.setVisible(true);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
             alert.show();
         }
     }
 
-    private List<InventoryReport> getInventoryReport(){
+    private List<InventoryReport> getInventoryReport() {
         List<InventoryReport> inventoryReportList = new ArrayList<>();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-        for (Inventory inventory : searchList){
+        for (Inventory inventory : searchList) {
             InventoryReport inventoryReport = new InventoryReport(
                     String.valueOf(inventory.getId()),
                     String.valueOf(inventory.getStock()),

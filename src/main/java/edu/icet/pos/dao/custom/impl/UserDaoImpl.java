@@ -336,4 +336,78 @@ public class UserDaoImpl implements UserDao {
         session.close();
         return employeeEntity;
     }
+
+    @Override
+    public List<EmployeeEntity> getFirstEmployee() {
+        Session session = HibernateUtil.getSession();
+        List<EmployeeEntity> employeeEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM employee LIMIT 1 OFFSET 0");
+
+                while (resultSet.next()) {
+                    EmployeeEntity employee = new EmployeeEntity();
+                    employee.setId(resultSet.getInt("id"));
+
+                    UserEntity user = new UserEntity();
+                    user.setId(resultSet.getInt("userId"));
+                    employee.setUser(user);
+
+                    JobRoleEntity jobRole = new JobRoleEntity();
+                    jobRole.setId(resultSet.getInt("jobRoleId"));
+                    employee.setJobRole(jobRole);
+
+                    employee.setTitle(resultSet.getString("title"));
+                    employee.setFirstName(resultSet.getString("firstName"));
+                    employee.setLastName(resultSet.getString("lastName"));
+                    employee.setContact(resultSet.getString("contact"));
+                    employee.setAddress(resultSet.getString("address"));
+                    employee.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    employee.setModifyAt(resultSet.getTimestamp("modifyAt"));
+                    employee.setIsActive(resultSet.getBoolean(IS_ACTIVE));
+
+                    employeeEntityList.add(employee);
+                }
+            }
+        });
+        session.close();
+        return employeeEntityList;
+    }
+
+    @Override
+    public List<EmployeeEntity> getEmployeeByYear(String year) {
+        Session session = HibernateUtil.getSession();
+        List<EmployeeEntity> employeeEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM employee WHERE registerAt LIKE '" + year + "%'");
+
+                while (resultSet.next()) {
+                    EmployeeEntity employee = new EmployeeEntity();
+                    employee.setId(resultSet.getInt("id"));
+
+                    UserEntity user = new UserEntity();
+                    user.setId(resultSet.getInt("userId"));
+                    employee.setUser(user);
+
+                    JobRoleEntity jobRole = new JobRoleEntity();
+                    jobRole.setId(resultSet.getInt("jobRoleId"));
+                    employee.setJobRole(jobRole);
+
+                    employee.setTitle(resultSet.getString("title"));
+                    employee.setFirstName(resultSet.getString("firstName"));
+                    employee.setLastName(resultSet.getString("lastName"));
+                    employee.setContact(resultSet.getString("contact"));
+                    employee.setAddress(resultSet.getString("address"));
+                    employee.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    employee.setModifyAt(resultSet.getTimestamp("modifyAt"));
+                    employee.setIsActive(resultSet.getBoolean(IS_ACTIVE));
+
+                    employeeEntityList.add(employee);
+                }
+            }
+        });
+        session.close();
+        return employeeEntityList;
+    }
 }

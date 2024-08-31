@@ -130,4 +130,18 @@ public class UserBoImpl implements UserBo {
 
         return new ModelMapper().map(employeeEntity, Employee.class);
     }
+
+    @Override
+    public List<Employee> getFirstEmployee() {
+        assert userDao != null;
+        return new ModelMapper().map(userDao.getAllEmployee(), new TypeToken<List<Employee>>() {
+        }.getType());
+    }
+
+    @Override
+    public List<Employee> getEmployeeByYear(String year) {
+        assert userDao != null;
+        return new ModelMapper().map(userDao.getEmployeeByYear(year), new TypeToken<List<Employee>>() {
+        }.getType());
+    }
 }

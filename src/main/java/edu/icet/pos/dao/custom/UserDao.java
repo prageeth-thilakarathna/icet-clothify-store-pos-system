@@ -40,4 +40,8 @@ public interface UserDao extends SuperDao {
     List<EmployeeEntity> getAllEmployee();
 
     EmployeeEntity getEmployeeByUserId(Integer id);
+
+    List<EmployeeEntity> getFirstEmployee();
+
+    List<EmployeeEntity> getEmployeeByYear(String year);
 }

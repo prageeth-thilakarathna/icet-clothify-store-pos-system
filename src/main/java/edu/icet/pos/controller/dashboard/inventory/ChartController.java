@@ -8,12 +8,10 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class ChartController implements DashboardInventoryChart {
     @FXML
@@ -69,18 +67,11 @@ public class ChartController implements DashboardInventoryChart {
             monthlyStock.set(Integer.parseInt(month[1]), (value+inventory.getStock()));
         }
         setData(monthlyStock);
-
     }
 
     @Override
     public void clearChart() {
         chartSeries.getData().removeAll(chartSeries.getData());
         chart.getData().remove(chartSeries);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //setData();
-        //chart.getData().add(chartSeries);
     }
 }

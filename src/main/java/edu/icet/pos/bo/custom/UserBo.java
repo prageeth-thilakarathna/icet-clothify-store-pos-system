@@ -40,4 +40,8 @@ public interface UserBo extends SuperBo {
     List<Employee> getAllEmployee();
 
     Employee getEmployeeByUserId(Integer id);
+
+    List<Employee> getFirstEmployee();
+
+    List<Employee> getEmployeeByYear(String year);
 }

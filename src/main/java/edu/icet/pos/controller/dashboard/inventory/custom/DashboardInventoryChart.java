@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 
 import java.util.List;
 
-public interface DashboardInventoryChart extends Initializable {
+public interface DashboardInventoryChart {
     void loadChart(List<Inventory> inventoryList);
 
     void clearChart();
