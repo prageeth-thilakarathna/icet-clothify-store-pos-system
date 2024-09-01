@@ -57,4 +57,18 @@ public class SupplierBoImpl implements SupplierBo {
         return new ModelMapper().map(supplierDao.getAll(), new TypeToken<List<Supplier>>() {
         }.getType());
     }
+
+    @Override
+    public List<Supplier> getFirstSupplier() {
+        assert supplierDao != null;
+        return new ModelMapper().map(supplierDao.getFirstSupplier(), new TypeToken<List<Supplier>>() {
+        }.getType());
+    }
+
+    @Override
+    public List<Supplier> getSupplierByYear(String year) {
+        assert supplierDao != null;
+        return new ModelMapper().map(supplierDao.getSupplierByYear(year), new TypeToken<List<Supplier>>() {
+        }.getType());
+    }
 }

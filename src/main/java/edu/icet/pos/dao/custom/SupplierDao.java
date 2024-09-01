@@ -1,6 +1,7 @@
 package edu.icet.pos.dao.custom;
 
 import edu.icet.pos.dao.SuperDao;
+import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.entity.SupplierEntity;
 
 import java.util.List;
@@ -19,4 +20,8 @@ public interface SupplierDao extends SuperDao {
     List<SupplierEntity> getPerPage(int offset);
 
     List<SupplierEntity> getAll();
+
+    List<SupplierEntity> getFirstSupplier();
+
+    List<SupplierEntity> getSupplierByYear(String year);
 }

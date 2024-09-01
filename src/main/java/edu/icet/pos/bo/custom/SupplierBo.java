@@ -19,4 +19,8 @@ public interface SupplierBo extends SuperBo {
     List<Supplier> getSupplierPerPage(int offset);
 
     List<Supplier> getAllSupplier();
+
+    List<Supplier> getFirstSupplier();
+
+    List<Supplier> getSupplierByYear(String year);
 }

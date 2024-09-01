@@ -130,4 +130,60 @@ public class SupplierDaoImpl implements SupplierDao {
         }
         return supplierEntityList;
     }
+
+    @Override
+    public List<SupplierEntity> getFirstSupplier() {
+        Session session = HibernateUtil.getSession();
+        List<SupplierEntity> supplierEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM supplier LIMIT 1 OFFSET 0");
+
+                while (resultSet.next()) {
+                    SupplierEntity supplier = new SupplierEntity();
+                    supplier.setId(resultSet.getInt("id"));
+                    supplier.setTitle(resultSet.getString("title"));
+                    supplier.setFirstName(resultSet.getString("firstName"));
+                    supplier.setLastName(resultSet.getString("lastName"));
+                    supplier.setContact(resultSet.getString("contact"));
+                    supplier.setAddress(resultSet.getString("address"));
+                    supplier.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    supplier.setModifyAt(resultSet.getTimestamp("modifyAt"));
+                    supplier.setIsActive(resultSet.getBoolean("isActive"));
+
+                    supplierEntityList.add(supplier);
+                }
+            }
+        });
+        session.close();
+        return supplierEntityList;
+    }
+
+    @Override
+    public List<SupplierEntity> getSupplierByYear(String year) {
+        Session session = HibernateUtil.getSession();
+        List<SupplierEntity> supplierEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM supplier WHERE registerAt LIKE '" + year + "%'");
+
+                while (resultSet.next()) {
+                    SupplierEntity supplier = new SupplierEntity();
+                    supplier.setId(resultSet.getInt("id"));
+                    supplier.setTitle(resultSet.getString("title"));
+                    supplier.setFirstName(resultSet.getString("firstName"));
+                    supplier.setLastName(resultSet.getString("lastName"));
+                    supplier.setContact(resultSet.getString("contact"));
+                    supplier.setAddress(resultSet.getString("address"));
+                    supplier.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    supplier.setModifyAt(resultSet.getTimestamp("modifyAt"));
+                    supplier.setIsActive(resultSet.getBoolean("isActive"));
+
+                    supplierEntityList.add(supplier);
+                }
+            }
+        });
+        session.close();
+        return supplierEntityList;
+    }
 }

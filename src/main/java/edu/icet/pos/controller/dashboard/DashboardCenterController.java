@@ -38,6 +38,10 @@ public class DashboardCenterController {
     private final Parent parentEmployeeHeader;
     private final FXMLLoader fxmlLoaderEmployeeChart = new FXMLLoader(getClass().getResource("/view/dashboard/employee/chart.fxml"));
     private final Parent parentEmployeeChart;
+    private final FXMLLoader fxmlLoaderSupplierHeader = new FXMLLoader(getClass().getResource("/view/dashboard/supplier/header.fxml"));
+    private final Parent parentSupplierHeader;
+    private final FXMLLoader fxmlLoaderSupplierChart = new FXMLLoader(getClass().getResource("/view/dashboard/supplier/chart.fxml"));
+    private final Parent parentSupplierChart;
 
     private DashboardCenterController() throws IOException {
         parentHeader = fxmlLoaderHeader.load();
@@ -45,6 +49,8 @@ public class DashboardCenterController {
         parentInventoryChart = fxmlLoaderInventoryChart.load();
         parentEmployeeHeader = fxmlLoaderEmployeeHeader.load();
         parentEmployeeChart = fxmlLoaderEmployeeChart.load();
+        parentSupplierHeader = fxmlLoaderSupplierHeader.load();
+        parentSupplierChart = fxmlLoaderSupplierChart.load();
 
         dashboardNavPanel.setPrefWidth(896);
         dashboardNavPanel.setPrefHeight(58);
