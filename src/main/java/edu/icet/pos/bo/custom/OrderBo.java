@@ -15,4 +15,8 @@ public interface OrderBo extends SuperBo {
     Order getOrder(Integer id);
 
     void orderReturn(Order order);
+
+    List<Order> getFirstOrder();
+
+    List<Order> getOrderByYear(String year);
 }

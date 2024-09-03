@@ -97,4 +97,64 @@ public class OrderDaoImpl implements OrderDao {
             throw e;
         }
     }
+
+    @Override
+    public List<OrderEntity> getFirstOrder() {
+        Session session = HibernateUtil.getSession();
+        List<OrderEntity> orderEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM orders LIMIT 1 OFFSET 0");
+
+                while (resultSet.next()) {
+                    OrderEntity orderEntity = new OrderEntity();
+                    EmployeeEntity employeeEntity = new EmployeeEntity();
+                    employeeEntity.setId(resultSet.getInt("employeeId"));
+
+                    orderEntity.setId(resultSet.getInt("id"));
+                    orderEntity.setEmployee(employeeEntity);
+                    orderEntity.setEmployeeName(resultSet.getString("employeeName"));
+                    orderEntity.setCustomerName(resultSet.getString("customerName"));
+                    orderEntity.setCustomerEMail(resultSet.getString("customerEMail"));
+                    orderEntity.setPaymentType(resultSet.getString("paymentType"));
+                    orderEntity.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    orderEntity.setReturnAt(resultSet.getTimestamp("returnAt"));
+
+                    orderEntityList.add(orderEntity);
+                }
+            }
+        });
+        session.close();
+        return orderEntityList;
+    }
+
+    @Override
+    public List<OrderEntity> getOrderByYear(String year) {
+        Session session = HibernateUtil.getSession();
+        List<OrderEntity> orderEntityList = new ArrayList<>();
+        session.doWork(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM orders WHERE registerAt LIKE '" + year + "%'");
+
+                while (resultSet.next()) {
+                    OrderEntity orderEntity = new OrderEntity();
+                    EmployeeEntity employeeEntity = new EmployeeEntity();
+                    employeeEntity.setId(resultSet.getInt("employeeId"));
+
+                    orderEntity.setId(resultSet.getInt("id"));
+                    orderEntity.setEmployee(employeeEntity);
+                    orderEntity.setEmployeeName(resultSet.getString("employeeName"));
+                    orderEntity.setCustomerName(resultSet.getString("customerName"));
+                    orderEntity.setCustomerEMail(resultSet.getString("customerEMail"));
+                    orderEntity.setPaymentType(resultSet.getString("paymentType"));
+                    orderEntity.setRegisterAt(resultSet.getTimestamp("registerAt"));
+                    orderEntity.setReturnAt(resultSet.getTimestamp("returnAt"));
+
+                    orderEntityList.add(orderEntity);
+                }
+            }
+        });
+        session.close();
+        return orderEntityList;
+    }
 }

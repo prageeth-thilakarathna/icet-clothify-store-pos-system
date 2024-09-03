@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.dashboard.sales.HeaderController">
+   <children>
+      <JFXComboBox fx:id="optReport" focusTraversable="false" layoutX="30.0" layoutY="23.0" onAction="#optReportAction" prefHeight="37.0" prefWidth="180.0" styleClass="txtInput" stylesheets="@../../../style/textFieldStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </JFXComboBox>
+      <JFXComboBox fx:id="optYear" focusTraversable="false" layoutX="390.0" layoutY="23.0" onAction="#optYearAction" prefHeight="37.0" prefWidth="100.0" styleClass="txtInput" stylesheets="@../../../style/textFieldStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </JFXComboBox>
+      <JFXComboBox fx:id="optMonth" focusTraversable="false" layoutX="570.0" layoutY="23.0" onAction="#optMonthAction" prefHeight="37.0" prefWidth="100.0" styleClass="txtInput" stylesheets="@../../../style/textFieldStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </JFXComboBox>
+      <JFXComboBox fx:id="optDay" focusTraversable="false" onAction="#optDayAction" prefHeight="37.0" prefWidth="100.0" styleClass="txtInput" stylesheets="@../../../style/textFieldStyle.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </JFXComboBox>
+      <Button fx:id="btnGenReport" focusTraversable="false" mnemonicParsing="false" onAction="#btnGenReportAction" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #159493; -fx-background-radius: 10px;" text="Generate Report" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </Button>
+   </children>
+</HBox>

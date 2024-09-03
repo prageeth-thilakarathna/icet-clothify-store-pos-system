@@ -3,8 +3,8 @@ package edu.icet.pos.controller.dashboard;
 import edu.icet.pos.controller.auth.AuthCenterController;
 import edu.icet.pos.controller.dashboard.custom.DashboardReportNav;
 import edu.icet.pos.controller.dashboard.employee.custom.DashboardEmployeeHeader;
+import edu.icet.pos.controller.dashboard.sales.custom.DashboardSalesHeader;
 import edu.icet.pos.controller.dashboard.supplier.custom.DashboardSupplierHeader;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -30,6 +30,7 @@ public class ReportNavController implements DashboardReportNav {
         btnInventory.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnSupplier.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnSales.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         BorderPane reportBorderPane = DashboardCenterController.getInstance().getReportBorderPane();
         reportBorderPane.getChildren().removeAll(reportBorderPane.getChildren());
 
@@ -42,6 +43,7 @@ public class ReportNavController implements DashboardReportNav {
         btnEmployee.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
         btnInventory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnSupplier.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnSales.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         BorderPane reportBorderPane = DashboardCenterController.getInstance().getReportBorderPane();
         reportBorderPane.getChildren().removeAll(reportBorderPane.getChildren());
 
@@ -57,6 +59,7 @@ public class ReportNavController implements DashboardReportNav {
         btnSupplier.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
         btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         btnInventory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnSales.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
         BorderPane reportBorderPane = DashboardCenterController.getInstance().getReportBorderPane();
         reportBorderPane.getChildren().removeAll(reportBorderPane.getChildren());
 
@@ -68,7 +71,19 @@ public class ReportNavController implements DashboardReportNav {
     }
 
     @FXML
-    private void btnSalesAction(ActionEvent actionEvent) {
+    private void btnSalesAction() {
+        btnSales.setStyle("-fx-background-color: #0c7675; -fx-background-radius: 10px;");
+        btnEmployee.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnInventory.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        btnSupplier.setStyle("-fx-background-color: #159493; -fx-background-radius: 10px;");
+        BorderPane reportBorderPane = DashboardCenterController.getInstance().getReportBorderPane();
+        reportBorderPane.getChildren().removeAll(reportBorderPane.getChildren());
+
+        reportBorderPane.setTop(DashboardCenterController.getInstance().getParentSalesHeader());
+        reportBorderPane.setCenter(DashboardCenterController.getInstance().getParentSalesChart());
+
+        DashboardSalesHeader dashboardSalesHeader = DashboardCenterController.getInstance().getFxmlLoaderSalesHeader().getController();
+        dashboardSalesHeader.loadHeader();
     }
 
     @Override

@@ -44,4 +44,18 @@ public class OrderBoImpl implements OrderBo {
         assert orderDao != null;
         orderDao.update(new ModelMapper().map(order, OrderEntity.class));
     }
+
+    @Override
+    public List<Order> getFirstOrder() {
+        assert orderDao != null;
+        return new ModelMapper().map(orderDao.getFirstOrder(), new TypeToken<List<Order>>() {
+        }.getType());
+    }
+
+    @Override
+    public List<Order> getOrderByYear(String year) {
+        assert orderDao != null;
+        return new ModelMapper().map(orderDao.getOrderByYear(year), new TypeToken<List<Order>>() {
+        }.getType());
+    }
 }

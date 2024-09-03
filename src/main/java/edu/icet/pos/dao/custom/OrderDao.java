@@ -15,4 +15,8 @@ public interface OrderDao extends SuperDao {
     OrderEntity get(Integer id);
 
     void update(OrderEntity orderEntity);
+
+    List<OrderEntity> getFirstOrder();
+
+    List<OrderEntity> getOrderByYear(String year);
 }
